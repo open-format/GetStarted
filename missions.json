@@ -1,0 +1,15 @@
+[
+  {
+    "id": "mission1",
+    "description": "Complete action1 three times",
+    "amount": 20,
+    "token": "0x21234",
+    "badge": "0x123342",
+    "requirements": [
+      {
+        "actionId": "connect",
+        "count": 3
+      }
+    ]
+  }
+]
