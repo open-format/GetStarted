@@ -1,23 +1,36 @@
-// import RewardService from "../services/RewardService";
+import actions from "../actions.json";
 
-// export default class Action {
-//   action: ActionType;
+type ActionType = {
+  id: string;
+  token: string;
+  description: string;
+  xp: number;
+};
 
-//   constructor(id: string) {
-//     const action = actions[id];
-//     if (action) {
-//       this.action = action;
-//    } else {
-//   throw new Error("Action not found");
-//  }
-//  }
+class Action {
+  action: ActionType;
 
-//   async trigger(address: string): Promise<any> {
-//     const { receiver, token, xp } = this.action;
-//     return RewardService.triggerReward(address, token, xp);
-//   }
+  constructor(id: string) {
+    const action = actions.find((action: ActionType) => action.id === id);
+    if (action) {
+      this.action = action;
+    } else {
+      throw new Error("Action not found");
+    }
+  }
 
-//   get(): ActionType {
-//     return this.action;
-//   }
-// }
+  async trigger(address?: string): Promise<any> {
+    const { token, xp } = this.action;
+    console.log(
+      `Triggering action for address: ${address}, token: ${token}, xp: ${xp}`
+    );
+    // replace console.log with actual logic to trigger action
+    return Promise.resolve();
+  }
+
+  get(): ActionType {
+    return this.action;
+  }
+}
+
+export default Action;
