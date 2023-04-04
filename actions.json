@@ -1,19 +1,19 @@
 [
   {
     "id": "connect",
-    "xp": 10,
+    "amount": 10,
     "description": "Connect your wallet",
     "token": "0xb973d2876c4f161439ad05f1dae184dbd594e04e"
   },
   {
     "id": "share",
-    "xp": 20,
+    "amount": 20,
     "description": "Share something",
     "token": "0xb973d2876c4f161439ad05f1dae184dbd594e04e"
   },
   {
     "id": "contract_deployment",
-    "xp": 50,
+    "amount": 50,
     "description": "Share something",
     "token": "0xb973d2876c4f161439ad05f1dae184dbd594e04e"
   }

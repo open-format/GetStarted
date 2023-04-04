@@ -1,14 +1,7 @@
 import axios from "axios";
 
 class RewardService {
-  static async triggerReward(
-    address: string,
-    token: string,
-    amount: number,
-    id: string
-  ) {
-    const data = { receiver: address, token, amount, id };
-
+  static async triggerReward(data: RewardParams) {
     try {
       const res = await axios.post("api/reward", data);
       return res.data;

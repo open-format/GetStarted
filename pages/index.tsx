@@ -6,11 +6,13 @@ import Action from "../classes/Action";
 
 const inter = Inter({ subsets: ["latin"] });
 
+const address = "0xe";
+
 export default function Home() {
   const handleConnect = useCallback(async () => {
     const connectAction = new Action("connect");
     try {
-      await connectAction.trigger();
+      await connectAction.trigger(address);
       alert(`Action completed: ${connectAction.get().description}`);
     } catch (error) {
       console.error("Error in connect action:", error);
