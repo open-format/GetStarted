@@ -6,7 +6,7 @@ type Data = {
 };
 
 async function simulateSDKCall(data: RewardParams) {
-  console.log("Data passed to the SDK:", data); // Fix this line
+  console.log("Data passed to the SDK:", data);
   // Simulate a delay if needed, for example: await new Promise(resolve => setTimeout(resolve, 1000));
 
   return Promise.resolve({
@@ -22,7 +22,7 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   if (req.method === "POST") {
-    const { receiver, tokens } = req.body; // Fix this line
+    const { receiver, tokens } = req.body;
 
     try {
       const sdkResponse = await simulateSDKCall(req.body);

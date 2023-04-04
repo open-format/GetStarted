@@ -15,6 +15,7 @@ type Token = {
   amount: number;
   token: string;
   type: RewardType;
+  actionType?: string;
 };
 
 interface RewardParams {
