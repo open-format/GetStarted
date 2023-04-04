@@ -1,5 +1,12 @@
 import actions from "../actions.json";
 
+type ActionType = {
+  id: string;
+  token: string;
+  description: string;
+  xp: number;
+};
+
 class Action {
   action: ActionType;
 
