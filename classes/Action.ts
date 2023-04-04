@@ -1,4 +1,5 @@
 import actions from "../actions.json";
+import RewardService from "../utils/services/RewardService";
 
 type ActionType = {
   id: string;
@@ -20,12 +21,19 @@ class Action {
   }
 
   async trigger(address?: string): Promise<any> {
-    const { token, xp } = this.action;
+    const { token, xp, id } = this.action;
     console.log(
-      `Triggering action for address: ${address}, token: ${token}, xp: ${xp}`
+      `Triggering action for address: ${address}, token: ${token}, xp: ${xp}, id: ${id}`
     );
-    // replace console.log with actual logic to trigger action
-    return Promise.resolve();
+
+    // Provide a default value for the address parameter
+    const defaultAddress = "0x0000000000000000000000000000000000000000";
+    return RewardService.triggerReward(
+      address || defaultAddress,
+      token,
+      xp,
+      id
+    );
   }
 
   get(): ActionType {
