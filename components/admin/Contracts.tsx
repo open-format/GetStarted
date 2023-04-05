@@ -1,28 +1,20 @@
 import { useRawRequest } from "@openformat/react";
 import { gql } from "graphql-request";
 
-interface ContractData {
-  id: string;
-  createdAt: string;
-}
-
-interface QueryResult {
-  contracts: ContractData[];
-}
-
 function Contracts() {
   const { data } = useRawRequest<QueryResult>({
     query: gql`
-      query MyQuery {
-        contracts(where: { app: "${process.env.NEXT_PUBLIC_APP_ID}" }) {
+      query MyQuery($appId: String!) {
+        contracts(where: { app: $appId }) {
           id
           createdAt
           metadata {
-      name
-    }
-  }
-}
+            name
+          }
+        }
+      }
     `,
+    variables: { appId: process.env.NEXT_PUBLIC_APP_ID },
   });
 
   return (
