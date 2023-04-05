@@ -25,8 +25,6 @@ const CreateContract: React.FC = () => {
     // You can perform further operations, e.g., transfer, etc.
   };
 
-
-
   const createERC20 = async (formData: {
     name: string;
     symbol: string;
@@ -35,7 +33,7 @@ const CreateContract: React.FC = () => {
     const params = {
       name: formData.name,
       symbol: formData.symbol,
-      decimals: 18,
+      decimal: 18,
       supply: formData.supply,
     };
 
