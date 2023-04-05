@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { OpenFormatSDK } from "@openformat/sdk";
 import { useContract, useWallet, useOpenFormat } from "@openformat/react";
 
 const CreateContract: React.FC = () => {
@@ -25,6 +24,8 @@ const CreateContract: React.FC = () => {
     const NFT = await sdk.App.createNFT(params);
     // You can perform further operations, e.g., transfer, etc.
   };
+
+
 
   const createERC20 = async (formData: {
     name: string;

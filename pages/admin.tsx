@@ -1,7 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import CreateContract from "../components/admin/CreateContract";
-
+import Contracts from "../components/admin/Contracts";
 const Admin: React.FC = () => {
   return (
     <>
@@ -11,6 +11,7 @@ const Admin: React.FC = () => {
       <div>
         <h1>Admin</h1>
         <CreateContract />
+        <Contracts />
       </div>
     </>
   );
