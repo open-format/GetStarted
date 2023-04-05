@@ -22,3 +22,18 @@ interface RewardParams {
   receiver: string;
   tokens: Token[];
 }
+
+interface ContractData {
+  id: string;
+  createdAt: string;
+}
+
+interface QueryResult {
+  contracts: ContractData[];
+}
+
+enum RewardType {
+  XP,
+  REWARD_CURRENCY,
+  BADGE,
+}
