@@ -8,7 +8,11 @@
     "requirements": [
       {
         "actionId": "connect",
-        "count": 3
+        "count": 2
+      },
+      {
+        "actionId": "share",
+        "count": 1
       }
     ]
   }

@@ -1,30 +1,14 @@
-// import {
-//   createExperienceToken,
-//   createRewardCurrency,
-//   createBadge,
-//   trigger,
-// } from "";
+import axios from "axios";
 
-// class RewardService {
-//   static async createExperienceToken(params) {
-// Use createExperienceToken from SDK
-//   }
+class RewardService {
+  static async triggerReward(data: RewardParams) {
+    try {
+      const res = await axios.post("api/reward", data);
+      return res.data;
+    } catch (err) {
+      throw new Error(`Reward API failed: ${String(err)}`);
+    }
+  }
+}
 
-//   static async createRewardCurrency(params) {
-// Use createRewardCurrency from SDK
-//   }
-
-//   static async createBadge(params) {
-// Use createBadge from SDK
-//   }
-
-//   static async triggerAction(params) {
-// Use trigger from SDK
-//   }
-
-//   static async triggerMission(params) {
-// Use trigger from SDK
-//   }
-// }
-
-// export default RewardService;
+export default RewardService;
