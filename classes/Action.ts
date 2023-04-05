@@ -3,12 +3,6 @@ import RewardService from "../utils/services/RewardService";
 import missions from "../missions.json";
 import subgraph from "../subgraph.json";
 
-enum RewardType {
-  XP,
-  REWARD_CURRENCY,
-  BADGE,
-}
-
 function getActionCount(
   actionId: string,
   receiver: string
