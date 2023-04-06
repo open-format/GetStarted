@@ -1,3 +1,4 @@
+import { OpenFormatSDK } from "@openformat/sdk";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {
@@ -5,37 +6,36 @@ type Data = {
   message: string;
 };
 
-async function simulateSDKCall(data: RewardParams) {
-  console.log("Data passed to the SDK:", data);
-  // Simulate a delay if needed, for example: await new Promise(resolve => setTimeout(resolve, 1000));
-
-  return Promise.resolve({
-    success: true,
-    message: `Reward triggered for address: ${
-      data.receiver
-    }, tokens: ${JSON.stringify(data.tokens)}`,
-  });
-}
+const sdk = new OpenFormatSDK({
+  network: "localhost",
+  appId: process.env.NEXT_PUBLIC_APP_ID,
+  signer: process.env.NEXT_PRIVATE_KEY,
+});
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
   if (req.method === "POST") {
-    const { receiver, tokens } = req.body;
-
     try {
-      const sdkResponse = await simulateSDKCall(req.body);
-      res.status(200).json(sdkResponse);
+      await sdk.Reward.trigger(req.body);
+
+      return res.json({ params: req.body });
     } catch (error) {
       if (error instanceof Error) {
-        res.status(500).json({ success: false, message: error.message });
+        res
+          .status(500)
+          .json({ success: false, message: error.message });
       } else {
-        res.status(500).json({ success: false, message: String(error) });
+        res
+          .status(500)
+          .json({ success: false, message: String(error) });
       }
     }
   } else {
     res.setHeader("Allow", "POST");
-    res.status(405).json({ success: false, message: "Method Not Allowed" });
+    res
+      .status(405)
+      .json({ success: false, message: "Method Not Allowed" });
   }
 }

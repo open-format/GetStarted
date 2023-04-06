@@ -3,18 +3,6 @@
     "id": "connect",
     "amount": 10,
     "description": "Connect your wallet",
-    "token": "0xb973d2876c4f161439ad05f1dae184dbd594e04e"
-  },
-  {
-    "id": "share",
-    "amount": 20,
-    "description": "Share something",
-    "token": "0xb973d2876c4f161439ad05f1dae184dbd594e04e"
-  },
-  {
-    "id": "contract_deployment",
-    "amount": 50,
-    "description": "Share something",
-    "token": "0xb973d2876c4f161439ad05f1dae184dbd594e04e"
+    "address": "0x27498c5aa1ea3f09963a9abf9882a4690d99c4fd"
   }
 ]

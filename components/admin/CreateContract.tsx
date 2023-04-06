@@ -1,6 +1,6 @@
+import { useOpenFormat, useWallet } from "@openformat/react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useContract, useWallet, useOpenFormat } from "@openformat/react";
 
 const CreateContract: React.FC = () => {
   const { address } = useWallet();
@@ -13,15 +13,18 @@ const CreateContract: React.FC = () => {
 
   const { sdk } = useOpenFormat();
 
-  const createERC721 = async (formData: { name: string; symbol: string }) => {
+  const createERC721 = async (formData: {
+    name: string;
+    symbol: string;
+    tokenURI: string;
+  }) => {
     const params = {
       name: formData.name,
       symbol: formData.symbol,
-      royaltyRecipient: address,
-      royaltyBps: 1000,
+      tokenURI: formData.tokenURI,
     };
 
-    const NFT = await sdk.App.createNFT(params);
+    const NFT = await sdk.Reward.createBadge(params);
     // You can perform further operations, e.g., transfer, etc.
   };
 
@@ -37,7 +40,7 @@ const CreateContract: React.FC = () => {
       supply: formData.supply,
     };
 
-    const token = await sdk.App.createToken(params);
+    const token = await sdk.Reward.createRewardToken(params);
     // You can perform further operations, e.g., transfer, etc.
   };
 
@@ -77,13 +80,31 @@ const CreateContract: React.FC = () => {
       />
       {errors.symbol && <p>{errors.symbol.message}</p>}
 
+      {tokenType === "ERC721" && (
+        <>
+          <label htmlFor="tokenURI">TokenURI:</label>
+          <input
+            id="tokenURI"
+            type="text"
+            {...register("tokenURI", {
+              required: "tokenURI is required",
+              min: 1,
+            })}
+          />
+          {errors.supply && <p>{errors.supply.message}</p>}
+        </>
+      )}
+
       {tokenType === "ERC20" && (
         <>
           <label htmlFor="supply">Supply:</label>
           <input
             id="supply"
             type="number"
-            {...register("supply", { required: "Supply is required", min: 1 })}
+            {...register("supply", {
+              required: "Supply is required",
+              min: 1,
+            })}
           />
           {errors.supply && <p>{errors.supply.message}</p>}
         </>

@@ -1,14 +1,21 @@
 [
   {
-    "id": "mission1",
-    "description": "Complete action1 three times",
-    "amount": 20,
-    "token": "0x21234",
-    "badge": "0x123342",
+    "id": "connect_mission",
+    "description": "Connect twice times and share once",
+    "tokens": [
+      {
+        "address": "0xc8a0c0aCc1ABbD8cE65Df85533e8CCe0cE37B478",
+        "amount": 20
+      },
+      {
+        "address": "0x1a7ea9e50b714667fd8422b07933b0945540413c",
+        "uri": "ipfs://"
+      }
+    ],
     "requirements": [
       {
         "actionId": "connect",
-        "count": 2
+        "count": 3
       },
       {
         "actionId": "share",
