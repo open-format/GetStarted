@@ -7,7 +7,7 @@ type Data = {
 };
 
 const sdk = new OpenFormatSDK({
-  network: "localhost",
+  network: process.env.NEXT_PUBLIC_NETWORK,
   appId: process.env.NEXT_PUBLIC_APP_ID,
   signer: process.env.NEXT_PRIVATE_KEY,
 });
@@ -23,19 +23,13 @@ export default async function handler(
       return res.json({ params: req.body });
     } catch (error) {
       if (error instanceof Error) {
-        res
-          .status(500)
-          .json({ success: false, message: error.message });
+        res.status(500).json({ success: false, message: error.message });
       } else {
-        res
-          .status(500)
-          .json({ success: false, message: String(error) });
+        res.status(500).json({ success: false, message: String(error) });
       }
     }
   } else {
     res.setHeader("Allow", "POST");
-    res
-      .status(405)
-      .json({ success: false, message: "Method Not Allowed" });
+    res.status(405).json({ success: false, message: "Method Not Allowed" });
   }
 }
