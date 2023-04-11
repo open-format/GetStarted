@@ -2,7 +2,8 @@ import { useRawRequest } from "@openformat/react";
 import { gql } from "graphql-request";
 
 function Contracts() {
-  const { data } = useRawRequest<QueryResult>({
+  //@todo add types
+  const { data } = useRawRequest({
     query: gql`
       query MyQuery($appId: String!) {
         contracts(where: { app: $appId }) {
