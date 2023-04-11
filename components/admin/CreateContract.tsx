@@ -2,6 +2,7 @@ import { useOpenFormat, useWallet } from "@openformat/react";
 import { ERC20Base } from "@openformat/sdk";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { ethers } from "ethers";
 
 const CreateContract: React.FC = () => {
   const { address } = useWallet();
@@ -42,8 +43,8 @@ const CreateContract: React.FC = () => {
     };
 
     const token = await sdk.Reward.createRewardToken(params);
-
-    token.approve({ spender: token.appId, amount: 999999 });
+    const maxUint256 = ethers.constants.MaxUint256;
+    token.approve({ spender: token.appId, amount: maxUint256 });
     // You can perform further operations, e.g., transfer, etc.
   };
 
