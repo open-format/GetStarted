@@ -60,7 +60,7 @@ export const SignUpWithMagicLink: React.FC = () => {
       <div className="relative py-3 sm:max-w-xl sm:mx-auto">
         <div className="relative px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-3xl sm:p-10">
           <h3 className="text-2xl font-medium leading-6 text-gray-900 mb-6">
-            Sign up with Magic Link
+            Magic Link
           </h3>
 
           {message && (
