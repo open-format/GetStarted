@@ -18,18 +18,18 @@ export default async function handler(
     // Get the user associated with the email
     const { data: users, error: userError } = await supabase
       .from("users")
-      .select("wallet_address")
+      .select("id")
       .eq("email", email);
 
     if (userError || !users || users.length === 0) {
       return res.status(500).json({ error: "Error fetching user." });
     }
 
-    const walletAddress = users[0].wallet_address;
+    const userId = users[0].id;
 
-    // Set the wallet address in an HTTP-only cookie
+    // Set the user id in an HTTP-only cookie
     const cookies = new Cookies(req, res);
-    cookies.set("walletAddress", walletAddress, {
+    cookies.set("userId", userId, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
