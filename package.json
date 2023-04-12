@@ -11,6 +11,8 @@
   "dependencies": {
     "@openformat/react": "^0.3.0-dev-1e51dda",
     "@openformat/sdk": "^0.3.0-dev-1e51dda",
+    "@supabase/auth-helpers-nextjs": "^0.6.0",
+    "@supabase/auth-helpers-react": "^0.3.1",
     "@supabase/supabase-js": "^2.18.0",
     "@types/cookie": "^0.5.1",
     "@types/node": "18.15.11",
