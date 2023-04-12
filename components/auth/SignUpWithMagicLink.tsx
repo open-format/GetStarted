@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { supabase } from "../../utils/supabaseClient";
 import { useForm } from "react-hook-form";
 
 type FormData = {
@@ -14,15 +13,12 @@ type User = {
   wallet_address: string;
 };
 
-type Props = {
-  initialSession: any;
-  initialUser: User;
-};
-
-export const SignUpWithMagicLink: React.FC<Props> = ({ initialSession }) => {
-  const [loading, setLoading] = useState(false);
+export const SignUpWithMagicLink: React.FC = () => {
   const [message, setMessage] = useState("");
-  const [user, setUser] = useState<User | null>(null); // Add state to store the signed-in user
+  const [messageType, setMessageType] = useState<"success" | "error">(
+    "success"
+  );
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -30,36 +26,6 @@ export const SignUpWithMagicLink: React.FC<Props> = ({ initialSession }) => {
     reset,
     formState: { errors },
   } = useForm<FormData>();
-
-  useEffect(() => {
-    const handleAuthStateChange = async (event: string, session: any) => {
-      if (event === "SIGNED_IN") {
-        const user = session.user;
-        setUser(user); // Update the signed-in user state
-        // Call the registerUser API route
-        const response = await fetch("/api/registerUser", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ user }),
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          if (!data.existingUser) {
-          }
-        } else {
-          setMessage("Error registering user.");
-        }
-      }
-    };
-
-    const authListener = supabase.auth.onAuthStateChange(handleAuthStateChange);
-    return () => {
-      authListener.data?.subscription.unsubscribe();
-    };
-  }, [initialSession, user]);
 
   async function signInWithEmail(data: FormData) {
     setLoading(true);
@@ -79,10 +45,12 @@ export const SignUpWithMagicLink: React.FC<Props> = ({ initialSession }) => {
     if (response.ok) {
       const data = await response.json();
       setMessage(data.message);
+      setMessageType("success");
       reset();
     } else {
       const errorData = await response.json();
       setMessage(errorData.error);
+      setMessageType("error");
     }
     setLoading(false);
   }
@@ -94,6 +62,16 @@ export const SignUpWithMagicLink: React.FC<Props> = ({ initialSession }) => {
           <h3 className="text-2xl font-medium leading-6 text-gray-900 mb-6">
             Sign up with Magic Link
           </h3>
+
+          {message && (
+            <p
+              className={`mt-4 text-center ${
+                messageType === "success" ? "text-green-500" : "text-red-500"
+              }`}
+            >
+              {message}
+            </p>
+          )}
 
           <form onSubmit={handleSubmit(signInWithEmail)}>
             <div className="space-y-4">
@@ -118,16 +96,6 @@ export const SignUpWithMagicLink: React.FC<Props> = ({ initialSession }) => {
               {loading ? "Sending..." : "Send Magic Link"}
             </button>
           </form>
-
-          {message && (
-            <p
-              className={`mt-4 text-center ${
-                message.startsWith("Check") ? "text-green-500" : "text-red-500"
-              }`}
-            >
-              {message}
-            </p>
-          )}
         </div>
       </div>
     </div>
