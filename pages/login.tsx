@@ -64,10 +64,7 @@ const Login: React.FC = ({ user, userProfile }) => {
     }
   }, [address, userProfile, user, setLoggedInAddress]);
 
-  console.log("logged in address:", loggedInAddress);
-
   const handleSignOut = async () => {
-    console.log("Signing out...");
     const { error } = await supabase.auth.signOut();
 
     if (error) {
