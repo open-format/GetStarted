@@ -18,10 +18,18 @@ export default function Home() {
 
   async function handleConnect() {
     if (address) {
-      await rewardSystem.handleCompletedAction(address, "connect");
-      toast.success(
-        `You have just completed the connect action and received 10 XP`
-      );
+      const user = await rewardSystem.handleCompletedAction(address, "connect");
+
+      for (const token of user.rewarded) {
+        let message = `Thank you for completing the `;
+        if (token.activityType === "ACTION") {
+          message += `action ${token.id}`;
+        } else if (token.activityType === "MISSION") {
+          message += `mission ${token.id}`;
+        }
+        message += `, you have received ${token.amount} ${token.type}`;
+        toast.success(message);
+      }
     }
   }
 

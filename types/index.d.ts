@@ -23,6 +23,7 @@ interface Mission {
 }
 
 interface User {
+  rewarded: Token[];
   address: string;
   xp: number;
   completedActions: string[];
