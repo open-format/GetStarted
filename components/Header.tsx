@@ -1,13 +1,30 @@
 import React from "react";
-import Auth from "./auth/Login";
+import Link from "next/link";
 
 interface HeaderProps {}
 
 const Header: React.FC<HeaderProps> = () => {
   return (
     <header>
-      <h1>Header</h1>
-      <Auth />
+      <nav>
+        <ul>
+          <li>
+            <Link href="/">Home</Link>
+          </li>
+          <li>
+            <Link href="/leaderboard">Leaderboard</Link>
+          </li>
+          <li>
+            <Link href="/profile">Profile</Link>
+          </li>
+          <li>
+            <Link href="/admin">Admin</Link>
+          </li>
+          <li>
+            <Link href="/login">Login</Link>
+          </li>
+        </ul>
+      </nav>
     </header>
   );
 };
