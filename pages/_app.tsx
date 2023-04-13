@@ -6,6 +6,7 @@ import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider, Session } from "@supabase/auth-helpers-react";
 import { useState } from "react";
 import { LoggedInAddressProvider } from "../contexts/LoggedInAddressContext";
+import { Toaster } from "react-hot-toast";
 
 export default function App({
   Component,
@@ -30,6 +31,7 @@ export default function App({
           <LoggedInAddressProvider>
             <Header />
             <Component {...pageProps} />
+            <Toaster />
           </LoggedInAddressProvider>
         </SessionContextProvider>
       </OpenFormatProvider>

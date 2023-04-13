@@ -6,6 +6,7 @@ import Head from "next/head";
 import React from "react";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { Wallet } from "ethers";
+import toast from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,9 +18,9 @@ export default function Home() {
 
   async function handleConnect() {
     if (address) {
-      const updatedUser = await rewardSystem.handleCompletedAction(
-        address,
-        "connect"
+      await rewardSystem.handleCompletedAction(address, "connect");
+      toast.success(
+        `You have just completed the connect action and received 10 XP`
       );
     }
   }
