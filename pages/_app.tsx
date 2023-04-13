@@ -5,6 +5,7 @@ import { OpenFormatProvider } from "@openformat/react";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider, Session } from "@supabase/auth-helpers-react";
 import { useState } from "react";
+import { LoggedInAddressProvider } from "../contexts/LoggedInAddressContext";
 
 export default function App({
   Component,
@@ -26,8 +27,10 @@ export default function App({
           supabaseClient={supabaseClient}
           initialSession={pageProps.initialSession}
         >
-          <Header />
-          <Component {...pageProps} />
+          <LoggedInAddressProvider>
+            <Header />
+            <Component {...pageProps} />
+          </LoggedInAddressProvider>
         </SessionContextProvider>
       </OpenFormatProvider>
     </>

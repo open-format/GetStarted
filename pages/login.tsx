@@ -1,9 +1,10 @@
-import React from "react";
+import { useEffect } from "react";
 import Head from "next/head";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { ConnectButton, useWallet } from "@openformat/react";
 import SignUpWithMagicLink from "@/components/auth/SignUpWithMagicLink";
 import { supabase } from "../utils/supabaseClient";
+import { useLoggedInAddress } from "../contexts/LoggedInAddressContext";
 
 const columnStyle = {
   flex: 1,
@@ -47,7 +48,24 @@ const DisableableSignUpWithMagicLink = ({ disabled }) => (
 );
 
 const Login: React.FC = ({ user, userProfile }) => {
+  const { loggedInAddress, setLoggedInAddress } = useLoggedInAddress();
   const { address } = useWallet();
+
+  // set logged in address depending on whether logged in via web2 or web3
+  useEffect(() => {
+    if (address) {
+      setLoggedInAddress(address.toLowerCase());
+    } else if (userProfile?.wallet_address) {
+      setLoggedInAddress(userProfile.wallet_address.toLowerCase());
+    } else if (user.wallet_address) {
+      setLoggedInAddress(user.wallet_address.toLowerCase());
+    } else {
+      setLoggedInAddress(null);
+    }
+  }, [address, userProfile, user, setLoggedInAddress]);
+
+  console.log("logged in address:", loggedInAddress);
+
   const handleSignOut = async () => {
     console.log("Signing out...");
     const { error } = await supabase.auth.signOut();
@@ -61,6 +79,7 @@ const Login: React.FC = ({ user, userProfile }) => {
       window.location.reload();
     }
   };
+
   return (
     <>
       <Head>
