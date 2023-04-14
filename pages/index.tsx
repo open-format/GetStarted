@@ -4,6 +4,7 @@ import { useOpenFormat, useWallet } from "@openformat/react";
 import { Inter } from "next/font/google";
 import Head from "next/head";
 import React from "react";
+import toast from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,13 +16,20 @@ export default function Home() {
 
   async function handleConnect() {
     if (address) {
-      const updatedUser = await rewardSystem.handleCompletedAction(
-        address,
-        "connect"
-      );
+      const user = await rewardSystem.handleCompletedAction(address, "connect");
 
-      // Display the updated user information or process rewards as needed
-      console.log(updatedUser);
+      for (const token of user.rewarded) {
+        let message = `Thank you for completing the `;
+        if (token.activityType === "ACTION") {
+          message += `action ${token.id}`;
+        } else if (token.activityType === "MISSION") {
+          message += `mission ${token.id}`;
+        }
+        message += `, you have received ${token.amount} ${token.type}`;
+        toast.success(message, {
+          duration: 5000,
+        });
+      }
     }
   }
 
@@ -29,14 +37,8 @@ export default function Home() {
     <>
       <Head>
         <title>Dapp Template</title>
-        <meta
-          name="description"
-          content="OPENFORMAT - Dapp Template"
-        />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1"
-        />
+        <meta name="description" content="OPENFORMAT - Dapp Template" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
