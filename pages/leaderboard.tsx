@@ -1,7 +1,10 @@
 import Head from "next/head";
 import React from "react";
 import { useRawRequest } from "@openformat/react";
-import { gql } from "graphql-request";
+import {
+  getActionsForLeaderboard,
+  getMissionsForLeaderboard,
+} from "../queries";
 
 interface QueryResult {
   actions: { user: { id: string }; amount: string; type_id: string }[];
@@ -54,26 +57,13 @@ function processMissionsLeaderboard(data: QueryResult) {
 }
 
 export default function Leaderboard() {
-  const { data } = useRawRequest<QueryResult, any>({
-    query: gql`
-      query MyQuery($appId: String!) {
-        actions(where: { app: $appId }) {
-          id
-          amount
-          type_id
-          user {
-            id
-          }
-        }
-        missions {
-          id
-          type_id
-          user {
-            id
-          }
-        }
-      }
-    `,
+  const { data: actionsData } = useRawRequest<QueryResult, any>({
+    query: getActionsForLeaderboard,
+    variables: { appId: process.env.NEXT_PUBLIC_APP_ID },
+  });
+
+  const { data: missionsData } = useRawRequest<QueryResult, any>({
+    query: getMissionsForLeaderboard,
     variables: { appId: process.env.NEXT_PUBLIC_APP_ID },
   });
 
@@ -92,10 +82,16 @@ export default function Leaderboard() {
     flexDirection: "column" as const,
   };
 
-  const actionsLeaderboardData = data ? processActionsLeaderboard(data) : null;
-  const missionsLeaderboardData = data
-    ? processMissionsLeaderboard(data)
+  const actionsLeaderboardData = actionsData
+    ? processActionsLeaderboard(actionsData)
     : null;
+  const missionsLeaderboardData = missionsData
+    ? processMissionsLeaderboard(missionsData)
+    : null;
+
+  function formatUserId(id: string) {
+    return `${id.substring(0, 6)}...${id.substring(id.length - 4)}`;
+  }
 
   return (
     <>
@@ -122,12 +118,7 @@ export default function Leaderboard() {
                 <tbody>
                   {actionsLeaderboardData.map((entry) => (
                     <tr key={`${entry.type_id}_${entry.user_id}`}>
-                      <td>{`${entry.user_id.substring(
-                        0,
-                        6
-                      )}...${entry.user_id.substring(
-                        entry.user_id.length - 4
-                      )}`}</td>
+                      <td>{formatUserId(entry.user_id)}</td>
                       <td>{entry.totalAmount}</td>
                     </tr>
                   ))}
@@ -150,12 +141,7 @@ export default function Leaderboard() {
                 <tbody>
                   {missionsLeaderboardData.map((entry) => (
                     <tr key={`${entry.type_id}_${entry.user_id}`}>
-                      <td>{`${entry.user_id.substring(
-                        0,
-                        6
-                      )}...${entry.user_id.substring(
-                        entry.user_id.length - 4
-                      )}`}</td>
+                      <td>{formatUserId(entry.user_id)}</td>
                       <td>{entry.completedMissions}</td>
                     </tr>
                   ))}
