@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Login from "./auth/Login";
 
 interface HeaderProps {}
 
@@ -7,21 +8,27 @@ const Header: React.FC<HeaderProps> = () => {
   return (
     <header>
       <nav>
-        <ul>
-          <li>
+        <ul
+          style={{
+            display: "flex",
+            listStyle: "none",
+            justifyContent: "center",
+          }}
+        >
+          <li style={{ marginRight: "1rem" }}>
             <Link href="/">Home</Link>
           </li>
-          <li>
+          <li style={{ marginRight: "1rem" }}>
             <Link href="/leaderboard">Leaderboard</Link>
           </li>
-          <li>
+          <li style={{ marginRight: "1rem" }}>
             <Link href="/profile">Profile</Link>
           </li>
           <li>
             <Link href="/admin">Admin</Link>
           </li>
           <li>
-            <Link href="/login">Login</Link>
+            <Login />
           </li>
         </ul>
       </nav>
