@@ -7,18 +7,22 @@ import React from "react";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { Wallet } from "ethers";
 import toast from "react-hot-toast";
+import { useLoggedInAddress } from "@/contexts/LoggedInAddressContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const { address } = useWallet();
+  const { loggedInAddress } = useLoggedInAddress();
   const { sdk } = useOpenFormat();
 
   const rewardSystem = new RewardSystem(sdk);
 
   async function handleConnect() {
-    if (address) {
-      const user = await rewardSystem.handleCompletedAction(address, "connect");
+    if (loggedInAddress) {
+      const user = await rewardSystem.handleCompletedAction(
+        loggedInAddress,
+        "connect"
+      );
 
       for (const token of user.rewarded) {
         let message = `Thank you for completing the `;
@@ -28,7 +32,9 @@ export default function Home() {
           message += `mission ${token.id}`;
         }
         message += `, you have received ${token.amount} ${token.type}`;
-        toast.success(message);
+        toast.success(message, {
+          duration: 5000,
+        });
       }
     }
   }
@@ -56,7 +62,7 @@ export const getServerSideProps = async (ctx) => {
     data: { session },
   } = await supabase.auth.getSession();
 
-  if (!session) return;
+  if (!session) return { props: {} };
 
   // Check if the user already exists in the "profiles" table
   const { data: existingUsers, error: userError } = await supabase
