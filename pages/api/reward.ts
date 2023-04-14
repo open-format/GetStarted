@@ -1,4 +1,4 @@
-import { OpenFormatSDK } from "@openformat/sdk";
+import { Chains, OpenFormatSDK } from "@openformat/sdk";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {
@@ -7,7 +7,7 @@ type Data = {
 };
 
 const sdk = new OpenFormatSDK({
-  network: process.env.NEXT_PUBLIC_NETWORK,
+  network: Chains.polygonMumbai,
   appId: process.env.NEXT_PUBLIC_APP_ID,
   signer: process.env.NEXT_PRIVATE_KEY,
 });

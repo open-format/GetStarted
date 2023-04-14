@@ -10,7 +10,8 @@ import {
   ActivityType,
   OpenFormatSDK,
   RewardType,
-} from "@openformat/sdk";
+} from "@openformat/react";
+
 import actions from "../actions.json";
 import missions from "../missions.json";
 

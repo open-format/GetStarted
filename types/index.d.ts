@@ -1,4 +1,4 @@
-import { RewardType } from "@openformat/sdk";
+import { RewardType } from "@openformat/react";
 
 interface Action {
   id: string;
