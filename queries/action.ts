@@ -10,14 +10,33 @@ export const getActionsByUserAndRequirements = gql`
 `;
 
 export const getActionsForLeaderboard = gql`
-  query getActionsForLeaderboard($appId: String!) {
-    actions(where: { app: $appId }) {
+  query getActionsForLeaderboard(
+    $appId: String!
+    $createdAt_gte: String!
+    $createdAt_lte: String!
+  ) {
+    actions(
+      where: {
+        createdAt_lte: $createdAt_lte
+        createdAt_gte: $createdAt_gte
+        app: $appId
+      }
+    ) {
       id
       amount
       type_id
       user {
         id
       }
+    }
+  }
+`;
+
+export const getActionsForProfile = gql`
+  query MyQuery($userId: String!, $appId: String!) {
+    actions(where: { user: $userId, app: $appId }) {
+      type_id
+      amount
     }
   }
 `;

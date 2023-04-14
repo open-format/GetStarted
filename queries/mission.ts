@@ -10,8 +10,18 @@ export const getMissionsByUserAndRequirements = gql`
 `;
 
 export const getMissionsForLeaderboard = gql`
-  query getMissionsForLeaderboard($appId: String!) {
-    missions(where: { app: $appId }) {
+  query getMissionsForLeaderboard(
+    $appId: String!
+    $createdAt_gte: String!
+    $createdAt_lte: String!
+  ) {
+    missions(
+      where: {
+        createdAt_lte: $createdAt_lte
+        createdAt_gte: $createdAt_gte
+        app: $appId
+      }
+    ) {
       id
       type_id
       user {
