@@ -18,32 +18,35 @@ export default function Home() {
         "Processing... this can take a while depending on chain network conditions."
       );
 
-      try {
-        const user = await rewardSystem.handleCompletedAction(
-          address,
-          "connect"
-        );
-        // Dismiss loading toast
-        toast.dismiss(loadingToastId);
+      // Wait for 10 seconds before executing the rest of the code
+      setTimeout(async () => {
+        try {
+          const user = await rewardSystem.handleCompletedAction(
+            address,
+            "connect"
+          );
+          // Dismiss loading toast
+          toast.dismiss(loadingToastId);
 
-        for (const token of user.rewarded) {
-          let message = `Thank you for completing the `;
-          if (token.activityType === "ACTION") {
-            message += `action ${token.id}`;
-          } else if (token.activityType === "MISSION") {
-            message += `mission ${token.id}`;
+          for (const token of user.rewarded) {
+            let message = `Thank you for completing the `;
+            if (token.activityType === "ACTION") {
+              message += `action ${token.id}`;
+            } else if (token.activityType === "MISSION") {
+              message += `mission ${token.id}`;
+            }
+            message += `, you have received ${token.amount} ${token.type}`;
+            toast.success(message, {
+              duration: 5000,
+            });
           }
-          message += `, you have received ${token.amount} ${token.type}`;
-          toast.success(message, {
-            duration: 5000,
-          });
+        } catch (error) {
+          console.error(error);
+          // Dismiss loading toast
+          toast.dismiss(loadingToastId);
+          toast.error("An error occurred. Please try again later.");
         }
-      } catch (error) {
-        console.error(error);
-        // Dismiss loading toast
-        toast.dismiss(loadingToastId);
-        toast.error("An error occurred. Please try again later.");
-      }
+      }, 10000); // 10000 milliseconds for 10 seconds
     }
   }
 
