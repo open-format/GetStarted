@@ -5,28 +5,13 @@ import {
   getActionsForLeaderboard,
   getMissionsForLeaderboard,
 } from "../queries";
+import styles from "../styles/Leaderboard.module.css";
 
 // Define the structure of the query result from the server
 interface QueryResult {
   actions: { user: { id: string }; amount: string; type_id: string }[];
   missions: { user: { id: string }; type_id: string }[];
 }
-
-// Define styles for the components
-const containerStyle: React.CSSProperties = {
-  display: "flex",
-  textAlign: "center",
-  flexDirection: "row" as const,
-};
-
-const columnStyle: React.CSSProperties = {
-  flex: 1,
-  marginRight: "20px",
-  minWidth: "400px",
-  textAlign: "left",
-  display: "flex",
-  flexDirection: "column" as const,
-};
 
 // Process the actions query result to create a leaderboard of total amounts for each user
 function processActionsLeaderboard(data: QueryResult) {
@@ -188,7 +173,7 @@ export default function Leaderboard() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1>Leaderboard</h1>
-      <main>
+      <main className={styles.leaderboard}>
         <label htmlFor="timeRange">Select time range: </label>
         <select
           id="timeRange"
@@ -201,11 +186,11 @@ export default function Leaderboard() {
           <option value="month">Last 30 days</option>
         </select>
         <br />
-        <div style={containerStyle}>
-          <div style={columnStyle}>
+        <div className={styles.leaderboard__container}>
+          <div className={styles.leaderboard__column}>
             <h3>Actions Leaderboard</h3>
             {actionsLeaderboardData ? (
-              <table>
+              <table className={styles.leaderboard__table}>
                 <thead>
                   <tr>
                     <th>User ID</th>
@@ -225,10 +210,10 @@ export default function Leaderboard() {
               <p>Loading actions leaderboard...</p>
             )}
           </div>
-          <div style={columnStyle}>
+          <div className={styles.leaderboard__column}>
             <h3>Missions Leaderboard</h3>
             {missionsLeaderboardData ? (
-              <table>
+              <table className={styles.leaderboard__table}>
                 <thead>
                   <tr>
                     <th>User ID</th>

@@ -1,0 +1,18 @@
+/* Element: header__list */
+.header__list {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  margin: 10px;
+}
+
+/* Element: header__item */
+.header__item {
+  margin: 1rem;
+}
+
+/* Element: header__link */
+.header__link {
+  text-decoration: none;
+  color: inherit;
+}
