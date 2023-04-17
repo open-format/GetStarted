@@ -46,7 +46,7 @@ export default function Home() {
           toast.dismiss(loadingToastId);
           toast.error("An error occurred. Please try again later.");
         }
-      }, 10000); // 10000 milliseconds for 10 seconds
+      }, 15000); // 15000 milliseconds for 15 seconds
     }
   }
 
