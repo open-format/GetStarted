@@ -18,35 +18,23 @@ export default function Home() {
         "Processing... this can take a while depending on chain network conditions."
       );
 
-      // Wait for 10 seconds before executing the rest of the code
-      setTimeout(async () => {
-        try {
-          const user = await rewardSystem.handleCompletedAction(
-            address,
-            "connect"
-          );
-          // Dismiss loading toast
-          toast.dismiss(loadingToastId);
+      const user = await rewardSystem.handleCompletedAction(address, "connect");
 
-          for (const token of user.rewarded) {
-            let message = `Thank you for completing the `;
-            if (token.activityType === "ACTION") {
-              message += `action ${token.id}`;
-            } else if (token.activityType === "MISSION") {
-              message += `mission ${token.id}`;
-            }
-            message += `, you have received ${token.amount} ${token.type}`;
-            toast.success(message, {
-              duration: 5000,
-            });
-          }
-        } catch (error) {
-          console.error(error);
-          // Dismiss loading toast
-          toast.dismiss(loadingToastId);
-          toast.error("An error occurred. Please try again later.");
+      // Dismiss loading toast
+      toast.dismiss(loadingToastId);
+
+      for (const token of user.rewarded) {
+        let message = `Thank you for completing the `;
+        if (token.activityType === "ACTION") {
+          message += `action ${token.id}`;
+        } else if (token.activityType === "MISSION") {
+          message += `mission ${token.id}`;
         }
-      }, 15000); // 15000 milliseconds for 15 seconds
+        message += `, you have received ${token.amount} ${token.type}`;
+        toast.success(message, {
+          duration: 5000,
+        });
+      }
     }
   }
 
@@ -62,7 +50,7 @@ export default function Home() {
       <main>
         {address ? (
           <div>
-            <p>Click on the button below to trigger an action.</p>
+            <h2>Click on the button below to trigger an action.</h2>
             <button onClick={handleConnect}>Trigger Action</button>
           </div>
         ) : (
