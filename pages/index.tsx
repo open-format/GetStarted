@@ -13,7 +13,15 @@ export default function Home() {
 
   async function handleConnect() {
     if (address) {
+      // Add loading toast
+      const loadingToastId = toast.loading(
+        "Processing... this can take a while depending on chain network conditions."
+      );
+
       const user = await rewardSystem.handleCompletedAction(address, "connect");
+
+      // Dismiss loading toast
+      toast.dismiss(loadingToastId);
 
       for (const token of user.rewarded) {
         let message = `Thank you for completing the `;
@@ -41,7 +49,10 @@ export default function Home() {
       <h1>Home</h1>
       <main>
         {address ? (
-          <button onClick={handleConnect}>Trigger Action</button>
+          <div>
+            <p>Click on the button below to trigger an action.</p>
+            <button onClick={handleConnect}>Trigger Action</button>
+          </div>
         ) : (
           <p>Please connect your wallet</p>
         )}
