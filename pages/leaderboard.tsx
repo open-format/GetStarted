@@ -104,15 +104,20 @@ function getTimeRange(value: string): { gte: string; lte: string } {
 
 // Define the Leaderboard component
 export default function Leaderboard() {
+  // update timerange dropdown
+  const [selectedTimeRange, setSelectedTimeRange] = useState("week");
+  // set default timerange
+  const defaultTimeRange = getTimeRange("week");
   // Add state for createdAt_gte and createdAt_lte
-  const [createdAtGte, setCreatedAtGte] = useState("");
-  const [createdAtLte, setCreatedAtLte] = useState("");
+  const [createdAtGte, setCreatedAtGte] = useState(defaultTimeRange.gte);
+  const [createdAtLte, setCreatedAtLte] = useState(defaultTimeRange.lte);
 
   // Define the handleDropdownChange function, which sets the createdAtGte and createdAtLte states based on the selected dropdown value
   function handleDropdownChange(e: React.ChangeEvent<HTMLSelectElement>) {
     const timeRange = getTimeRange(e.target.value);
     setCreatedAtGte(timeRange.gte);
     setCreatedAtLte(timeRange.lte);
+    setSelectedTimeRange(e.target.value);
   }
 
   // Use graphql-hooks to fetch data for actions and missions based on the createdAtGte and createdAtLte states
@@ -185,7 +190,11 @@ export default function Leaderboard() {
       <h1>Leaderboard</h1>
       <main>
         <label htmlFor="timeRange">Select time range: </label>
-        <select id="timeRange" onChange={handleDropdownChange}>
+        <select
+          id="timeRange"
+          onChange={handleDropdownChange}
+          value={selectedTimeRange}
+        >
           <option value="">--Choose a range--</option>
           <option value="day">Last 24 hours</option>
           <option value="week">Last 7 days</option>

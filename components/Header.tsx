@@ -13,21 +13,22 @@ const Header: React.FC<HeaderProps> = () => {
             display: "flex",
             listStyle: "none",
             justifyContent: "center",
+            margin: "10px",
           }}
         >
-          <li style={{ marginRight: "1rem" }}>
+          <li style={{ margin: "1rem" }}>
             <Link href="/">Home</Link>
           </li>
-          <li style={{ marginRight: "1rem" }}>
-            <Link href="/leaderboard">Leaderboard</Link>
-          </li>
-          <li style={{ marginRight: "1rem" }}>
+          <li style={{ margin: "1rem" }}>
             <Link href="/profile">Profile</Link>
           </li>
-          <li>
+          <li style={{ margin: "1rem" }}>
             <Link href="/admin">Admin</Link>
           </li>
-          <li>
+          <li style={{ margin: "1rem" }}>
+            <Link href="/leaderboard">Leaderboard</Link>
+          </li>
+          <li style={{ margin: "0.5rem" }}>
             <Login />
           </li>
         </ul>

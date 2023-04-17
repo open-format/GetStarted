@@ -1,12 +1,9 @@
 import styles from "@/styles/Home.module.css";
 import RewardSystem from "@/utils/RewardSystem";
 import { useOpenFormat, useWallet } from "@openformat/react";
-import { Inter } from "next/font/google";
 import Head from "next/head";
 import React from "react";
 import toast from "react-hot-toast";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const { address } = useWallet();
@@ -41,8 +38,13 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <button onClick={handleConnect}>Connect</button>
+      <h1>Home</h1>
+      <main>
+        {address ? (
+          <button onClick={handleConnect}>Trigger Action</button>
+        ) : (
+          <p>Please connect your wallet</p>
+        )}
       </main>
     </>
   );

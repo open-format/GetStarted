@@ -2,7 +2,11 @@ import React from "react";
 import Head from "next/head";
 import CreateContract from "../components/admin/CreateContract";
 import Contracts from "../components/admin/Contracts";
+import { useWallet } from "@openformat/react";
+
 const Admin: React.FC = () => {
+  const { address } = useWallet();
+
   return (
     <>
       <Head>
@@ -10,8 +14,14 @@ const Admin: React.FC = () => {
       </Head>
       <div>
         <h1>Admin</h1>
-        <CreateContract />
-        <Contracts />
+        {address ? (
+          <>
+            <CreateContract />
+            <Contracts />
+          </>
+        ) : (
+          <p>Please connect your wallet</p>
+        )}
       </div>
     </>
   );

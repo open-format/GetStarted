@@ -43,9 +43,9 @@ const Profile: React.FC = () => {
       <Head>
         <title>Profile</title>
       </Head>
+      <h1>Profile</h1>
       {address ? (
         <div>
-          <h1>Profile</h1>
           <h2>Wallet Address: {`${address?.toLocaleLowerCase()}`}</h2>
           <h3>Actions Completed:</h3>
           <ul>
@@ -66,7 +66,7 @@ const Profile: React.FC = () => {
         </div>
       ) : (
         <div>
-          <h1>You need to login first</h1>
+          <p>Please connect your wallet</p>
         </div>
       )}
     </>
