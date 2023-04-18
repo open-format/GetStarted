@@ -1,3 +1,4 @@
+// queries/action.ts
 import { gql } from "graphql-request";
 
 export const getActionsByUserAndRequirements = gql`

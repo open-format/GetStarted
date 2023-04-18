@@ -1,4 +1,4 @@
-// index.ts
+// queries/index.ts
 import {
   getActionsByUserAndRequirements,
   getActionsForLeaderboard,

@@ -1,3 +1,4 @@
+// queries/mission.ts
 import { gql } from "graphql-request";
 
 export const getMissionsByUserAndRequirements = gql`
