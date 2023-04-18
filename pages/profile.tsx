@@ -55,31 +55,31 @@ const Profile: React.FC = () => {
         </div>
 
         {address ? (
-          <div>
-            <h3>Actions Completed:</h3>
-            <ul className={styles.actionList}>
-              {Object.entries(actionTypes).map(
-                ([type_id, count]: [string, number]) => (
-                  <li key={type_id} className={styles.actionItem}>
-                    {type_id}, Completed: {count}
-                  </li>
-                )
-              )}
-            </ul>
-            <h3>Missions Completed:</h3>
-            <ul className={styles.missionList}>
-              {missions.map((mission: Mission, index: number) => (
-                <li key={index} className={styles.missionItem}>
-                  {mission.type_id}
-                </li>
-              ))}
-            </ul>
-            <h3 className={styles.tokensEarned}>
-              Tokens Earned: {totalTokens} xp tokens
-            </h3>
-            <h3 className={styles.badgesEarned}>
-              Badges Earned: {missionsCompleted}
-            </h3>
+          <div className={styles.main}>
+            <div className={styles.container}>
+              <h3 className={styles.h3}>Actions Completed:</h3>
+              <ul className={styles.actionList}>
+                {Object.entries(actionTypes).map(
+                  ([type_id, count]: [string, number]) => (
+                    <div key={type_id} className={styles.actionItem}>
+                      {type_id}, Completed: {count}
+                    </div>
+                  )
+                )}
+              </ul>
+              <h3 className={styles.h3}>Missions Completed:</h3>
+              <ul className={styles.missionList}>
+                {missions.map((mission: Mission, index: number) => (
+                  <div key={index} className={styles.missionItem}>
+                    {mission.type_id}
+                  </div>
+                ))}
+              </ul>
+              <h3 className={styles.h3}>
+                Tokens Earned: {totalTokens} xp tokens
+              </h3>
+              <h3 className={styles.h3}>Badges Earned: {missionsCompleted}</h3>
+            </div>
           </div>
         ) : (
           <div>

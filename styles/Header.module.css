@@ -4,6 +4,7 @@
   list-style: none;
   justify-content: center;
   margin: 10px;
+  font-weight: 600;
 }
 
 /* Element: header__item */
@@ -11,8 +12,16 @@
   margin: 1rem;
 }
 
+.login__item {
+  margin-left: auto;
+}
+
 /* Element: header__link */
 .header__link {
   text-decoration: none;
   color: inherit;
+}
+
+.header__link:hover {
+  opacity: 0.7;
 }

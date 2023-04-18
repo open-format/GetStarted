@@ -28,32 +28,34 @@ export default function Leaderboard() {
           <code className={styles.code}>LEADERBOARD</code>
         </p>
       </div>
-      <main className={styles.timerange}>
-        <TimeRangeDropdown
-          onChange={(value) => {
-            const timeRange = getTimeRange(value);
-            setCreatedAtGte(timeRange.gte);
-            setCreatedAtLte(timeRange.lte);
-            setSelectedTimeRange(value);
-          }}
-        />
-        <br />
-        <div className={styles.leaderboard__container}>
-          <div className={styles.leaderboard__column}>
-            <ActionsLeaderboard
-              appId={process.env.NEXT_PUBLIC_APP_ID || ""}
-              createdAtGte={createdAtGte}
-              createdAtLte={createdAtLte}
-              formatUserId={formatUserId}
-            />
-          </div>
-          <div className={styles.leaderboard__column}>
-            <MissionsLeaderboard
-              appId={process.env.NEXT_PUBLIC_APP_ID || ""}
-              createdAtGte={createdAtGte}
-              createdAtLte={createdAtLte}
-              formatUserId={formatUserId}
-            />
+      <main className={styles.main}>
+        <div className={styles.container}>
+          <TimeRangeDropdown
+            onChange={(value) => {
+              const timeRange = getTimeRange(value);
+              setCreatedAtGte(timeRange.gte);
+              setCreatedAtLte(timeRange.lte);
+              setSelectedTimeRange(value);
+            }}
+          />
+          <br />
+          <div className={styles.leaderboard__container}>
+            <div className={styles.leaderboard__column}>
+              <ActionsLeaderboard
+                appId={process.env.NEXT_PUBLIC_APP_ID || ""}
+                createdAtGte={createdAtGte}
+                createdAtLte={createdAtLte}
+                formatUserId={formatUserId}
+              />
+            </div>
+            <div className={styles.leaderboard__column}>
+              <MissionsLeaderboard
+                appId={process.env.NEXT_PUBLIC_APP_ID || ""}
+                createdAtGte={createdAtGte}
+                createdAtLte={createdAtLte}
+                formatUserId={formatUserId}
+              />
+            </div>
           </div>
         </div>
       </main>

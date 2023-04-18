@@ -1,5 +1,5 @@
-/* Block: leaderboard */
-.leaderboard {
+/* styles/Profile.module.css */
+.profile {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,24 +15,11 @@
 .container {
   position: relative;
   background-color: rgba(var(--callout-border-rgb), 0.3);
-  padding: 1rem;
+  padding: 2rem;
   border: 1px solid rgba(var(--callout-border-rgb), 0.3);
   border-radius: var(--border-radius);
   backdrop-filter: blur(10px);
   width: 100%;
-}
-
-.timerange {
-  flex-direction: column;
-  align-items: left;
-  margin: 2rem;
-}
-
-/* Element: leaderboard__container */
-.leaderboard__container {
-  display: flex;
-  text-align: "center";
-  flex-direction: row;
 }
 
 .description {
@@ -67,20 +54,28 @@
   padding: 1rem;
 }
 
-/* Element: leaderboard__column */
-.leaderboard__column {
-  flex: 1;
-  padding: 1rem;
-  margin-right: 20px;
-  min-width: 400px;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
+.wallet-address {
+  margin-bottom: 2rem;
 }
 
-.input {
-  border-radius: var(--border-radius);
-  margin-top: 0.5rem;
-  padding: 0.4rem;
-  border: 1px solid rgba(var(--callout-border-rgb), 0.3);
+.action-list,
+.mission-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.action-item,
+.mission-item {
+  margin-bottom: 0.5rem;
+}
+
+.tokens-earned,
+.badges-earned {
+  margin-top: 2rem;
+}
+
+.h3 {
+  padding-bottom: 0.5rem;
+  padding-top: 1rem;
 }
