@@ -1,15 +1,9 @@
-// MissionsLeaderboard.tsx
+// components/leaderboard/MissionsLeaderboard.tsx
+import { MissionsLeaderboardProps, QueryResult } from "@/types";
 import { useEffect } from "react";
 import { useRawRequest } from "@openformat/react";
 import LeaderboardTable from "./LeaderboardTable";
 import { getMissionsForLeaderboard } from "../../queries/mission";
-
-interface MissionsLeaderboardProps {
-  appId: string;
-  createdAtGte: string;
-  createdAtLte: string;
-  formatUserId: (id: string) => string;
-}
 
 function processMissionsLeaderboard(data: QueryResult) {
   const leaderboard: Record<string, any> = {};
@@ -72,7 +66,7 @@ export default function MissionsLeaderboard({
     header: "Completed Missions",
     formatUserId,
     valueKey: "completedMissions",
-    formatValue: (value) => value,
+    formatValue: (value: number) => value,
   };
 
   return (

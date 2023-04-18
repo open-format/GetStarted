@@ -1,5 +1,4 @@
-// Leaderboard.tsx
-
+// pages/leaderboard.tsx
 import { useState } from "react";
 import TimeRangeDropdown from "../components/leaderboard/TimeRangeDropdown";
 import ActionsLeaderboard from "../components/leaderboard/ActionsLeaderboard";
@@ -23,9 +22,13 @@ export default function Leaderboard() {
   }
 
   return (
-    <>
-      <h1>Leaderboard</h1>
-      <main className={styles.leaderboard}>
+    <div className={styles.leaderboard}>
+      <div className={styles.description}>
+        <p>
+          <code className={styles.code}>LEADERBOARD</code>
+        </p>
+      </div>
+      <main className={styles.timerange}>
         <TimeRangeDropdown
           onChange={(value) => {
             const timeRange = getTimeRange(value);
@@ -38,7 +41,7 @@ export default function Leaderboard() {
         <div className={styles.leaderboard__container}>
           <div className={styles.leaderboard__column}>
             <ActionsLeaderboard
-              appId={process.env.NEXT_PUBLIC_APP_ID}
+              appId={process.env.NEXT_PUBLIC_APP_ID || ""}
               createdAtGte={createdAtGte}
               createdAtLte={createdAtLte}
               formatUserId={formatUserId}
@@ -46,7 +49,7 @@ export default function Leaderboard() {
           </div>
           <div className={styles.leaderboard__column}>
             <MissionsLeaderboard
-              appId={process.env.NEXT_PUBLIC_APP_ID}
+              appId={process.env.NEXT_PUBLIC_APP_ID || ""}
               createdAtGte={createdAtGte}
               createdAtLte={createdAtLte}
               formatUserId={formatUserId}
@@ -54,6 +57,6 @@ export default function Leaderboard() {
           </div>
         </div>
       </main>
-    </>
+    </div>
   );
 }

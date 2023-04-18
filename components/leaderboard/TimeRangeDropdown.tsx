@@ -1,10 +1,6 @@
-// TimeRangeDropdown.tsx
-
+// components/leaderboard/TimeRangeDropdown.tsx
 import { useState } from "react";
-
-interface TimeRangeDropdownProps {
-  onChange: (value: string) => void;
-}
+import { TimeRangeDropdownProps } from "@/types";
 
 export default function TimeRangeDropdown({
   onChange,

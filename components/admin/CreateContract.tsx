@@ -1,3 +1,4 @@
+// components/admin/CreateContract.tsx
 import { useOpenFormat } from "@openformat/react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -72,7 +73,7 @@ const CreateContract: React.FC = () => {
         type="text"
         {...register("name", { required: "Name is required" })}
       />
-      {errors.name && <p>{errors.name.message}</p>}
+      {errors.name && <p>{(errors.name.message as string) || ""}</p>}
 
       <label htmlFor="symbol">Symbol:</label>
       <input
@@ -80,7 +81,7 @@ const CreateContract: React.FC = () => {
         type="text"
         {...register("symbol", { required: "Symbol is required" })}
       />
-      {errors.symbol && <p>{errors.symbol.message}</p>}
+      {errors.symbol && <p>{(errors.symbol.message as string) || ""}</p>}
 
       {tokenType === "ERC721" && (
         <>
@@ -93,7 +94,7 @@ const CreateContract: React.FC = () => {
               min: 1,
             })}
           />
-          {errors.supply && <p>{errors.supply.message}</p>}
+          {errors.supply && <p>{(errors.supply.message as string) || ""}</p>}
         </>
       )}
 
@@ -108,7 +109,7 @@ const CreateContract: React.FC = () => {
               min: 1,
             })}
           />
-          {errors.supply && <p>{errors.supply.message}</p>}
+          {errors.supply && <p>{(errors.supply.message as string) || ""}</p>}
         </>
       )}
 

@@ -1,3 +1,4 @@
+// utils/RewardSystem.ts
 import {
   Action,
   Mission,
@@ -7,8 +8,8 @@ import {
 } from "@/types";
 import RewardService from "@/utils/services/RewardService";
 import { ActivityType, OpenFormatSDK, RewardType } from "@openformat/sdk";
-import actions from "../actions.json";
-import missions from "../missions.json";
+import actionsData from "../actions.json";
+import missionsData from "../missions.json";
 
 export default class RewardSystem {
   private rewardService: RewardService;
@@ -17,8 +18,8 @@ export default class RewardSystem {
 
   constructor(sdk: OpenFormatSDK) {
     this.rewardService = new RewardService(sdk);
-    this.actions = actions;
-    this.missions = missions;
+    this.actions = actionsData as Action[];
+    this.missions = missionsData as Mission[];
   }
 
   /**
@@ -41,10 +42,13 @@ export default class RewardSystem {
     const completedMissions = this.calculateCompletedMissions(completedActions);
 
     return {
+      id: "", // Add a unique identifier for the user
+      name: "", // Add the user's name
       address,
       xp,
       completedActions,
       completedMissions,
+      rewarded: [], // Add an empty array for the rewarded property
     };
   }
 
@@ -120,6 +124,8 @@ export default class RewardSystem {
     await this.rewardService.trigger(data);
 
     return {
+      id: "", // Add a unique identifier for the user
+      name: "", // Add the user's name
       rewarded: data.tokens,
       address,
       xp,

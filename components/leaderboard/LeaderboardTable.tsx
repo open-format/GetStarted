@@ -1,6 +1,11 @@
-import React from "react";
+// components/leaderboard/LeaderboardTable.tsx
+import { LeaderboardTableProps } from "@/types";
 
-const LeaderboardTable = ({ title, data, formatData }) => {
+const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
+  title,
+  data,
+  formatData,
+}) => {
   return (
     <>
       <h3>{title}</h3>

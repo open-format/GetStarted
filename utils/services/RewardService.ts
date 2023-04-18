@@ -1,8 +1,9 @@
+// utils/services/RewardService.ts
 import {
   getActionsByUserAndRequirements,
   getMissionsByUserAndRequirements,
 } from "@/queries";
-import { RewardParams } from "@/types";
+import { RewardParams, Mission, Action } from "@/types";
 import { OpenFormatSDK } from "@openformat/sdk";
 import axios from "axios";
 
@@ -21,9 +22,7 @@ class RewardService {
       }
     );
 
-    const actionIds = response.actions.map(
-      (action) => action.type_id
-    );
+    const actionIds = response.actions.map((action: Action) => action.type_id);
     return actionIds;
   }
 
@@ -37,7 +36,7 @@ class RewardService {
     );
 
     const missionIds = response.missions.map(
-      (mission) => mission.type_id
+      (mission: Mission) => mission.type_id
     );
     return missionIds;
   }

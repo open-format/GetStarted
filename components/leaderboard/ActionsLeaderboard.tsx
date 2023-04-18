@@ -1,15 +1,9 @@
-// ActionsLeaderboard.tsx
+// components/leaderboard/ActionsLeaderboard.tsx
+import { ActionsLeaderboardProps, QueryResult } from "@/types";
 import { useEffect } from "react";
 import { useRawRequest } from "@openformat/react";
 import LeaderboardTable from "./LeaderboardTable";
 import { getActionsForLeaderboard } from "../../queries/action";
-
-interface ActionsLeaderboardProps {
-  appId: string;
-  createdAtGte: string;
-  createdAtLte: string;
-  formatUserId: (id: string) => string;
-}
 
 function processActionsLeaderboard(data: QueryResult) {
   const leaderboard: Record<string, any> = {};
@@ -24,7 +18,7 @@ function processActionsLeaderboard(data: QueryResult) {
       };
     }
 
-    leaderboard[key].totalAmount += parseInt(action.amount, 10); // Convert the action.amount to an integer
+    leaderboard[key].totalAmount += Math.floor(action.amount ?? 0); // Convert the action.amount to an integer
   });
 
   return Object.values(leaderboard);
@@ -64,7 +58,7 @@ export default function ActionsLeaderboard({
     header: "Total Amount",
     formatUserId,
     valueKey: "totalAmount",
-    formatValue: (value) => value,
+    formatValue: (value: number) => value,
   };
 
   return (

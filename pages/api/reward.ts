@@ -1,14 +1,11 @@
+// pages/api/reward.ts
 import { OpenFormatSDK, Chains } from "@openformat/sdk";
 import type { NextApiRequest, NextApiResponse } from "next";
-
-type Data = {
-  success: boolean;
-  message: string;
-};
+import { Data } from "@/types";
 
 const sdk = new OpenFormatSDK({
   network: Chains.polygonMumbai,
-  appId: process.env.NEXT_PUBLIC_APP_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID || "",
   signer: process.env.NEXT_PRIVATE_KEY,
 });
 
@@ -20,7 +17,11 @@ export default async function handler(
     try {
       await sdk.Reward.trigger(req.body);
 
-      return res.json({ params: req.body });
+      return res.json({
+        success: true,
+        message: "Reward triggered successfully",
+        params: req.body,
+      });
     } catch (error) {
       if (error instanceof Error) {
         res.status(500).json({ success: false, message: error.message });
