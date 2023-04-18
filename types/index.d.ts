@@ -185,3 +185,20 @@ type Data = {
   message: string;
   params?: any;
 };
+
+interface Contract {
+  id: string;
+  createdAt: number;
+  type: string;
+  metadata: {
+    name: string;
+  };
+}
+
+interface ResponseData {
+  contracts: Contract[];
+}
+
+interface Variables {
+  appId: string;
+}

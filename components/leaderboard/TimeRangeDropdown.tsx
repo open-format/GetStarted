@@ -1,6 +1,7 @@
 // components/leaderboard/TimeRangeDropdown.tsx
 import { useState } from "react";
 import { TimeRangeDropdownProps } from "@/types";
+import styles from "../../styles/Dropdown.module.css";
 
 export default function TimeRangeDropdown({
   onChange,
@@ -16,6 +17,7 @@ export default function TimeRangeDropdown({
     <>
       <label htmlFor="timeRange">Select time range: </label>
       <select
+        className={styles.input}
         id="timeRange"
         onChange={handleDropdownChange}
         value={selectedTimeRange}
