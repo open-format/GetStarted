@@ -168,7 +168,7 @@ interface Mission {
 }
 
 // ResponseData interface
-interface ResponseData {
+interface ProfileResponseData {
   actions?: Action[];
   missions?: Mission[];
 }

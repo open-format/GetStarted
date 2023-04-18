@@ -3,13 +3,13 @@ import React from "react";
 import Head from "next/head";
 import { useRawRequest, useWallet } from "@openformat/react";
 import { gql } from "graphql-request";
-import { ResponseData, Mission, Action } from "@/types";
+import { ProfileResponseData, Mission, Action } from "@/types";
 import styles from "../styles/Profile.module.css";
 
 const Profile: React.FC = () => {
   const { address = null } = useWallet();
 
-  const { actions = [], missions = [] }: ResponseData =
+  const { actions = [], missions = [] }: ProfileResponseData =
     useRawRequest({
       query: gql`
         query MyQuery($userId: String!, $appId: String!) {
