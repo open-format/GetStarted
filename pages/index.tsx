@@ -1,11 +1,9 @@
 import styles from "@/styles/Home.module.css";
 import RewardSystem from "@/utils/RewardSystem";
 import { useOpenFormat, useWallet } from "@openformat/react";
-import { Inter } from "next/font/google";
 import Head from "next/head";
 import React from "react";
-
-const inter = Inter({ subsets: ["latin"] });
+import toast from "react-hot-toast";
 
 export default function Home() {
   const { address } = useWallet();
@@ -15,13 +13,28 @@ export default function Home() {
 
   async function handleConnect() {
     if (address) {
-      const updatedUser = await rewardSystem.handleCompletedAction(
-        address,
-        "connect"
+      // Add loading toast
+      const loadingToastId = toast.loading(
+        "Processing... this can take a while depending on chain network conditions."
       );
 
-      // Display the updated user information or process rewards as needed
-      console.log(updatedUser);
+      const user = await rewardSystem.handleCompletedAction(address, "connect");
+
+      // Dismiss loading toast
+      toast.dismiss(loadingToastId);
+
+      for (const token of user.rewarded) {
+        let message = `Thank you for completing the `;
+        if (token.activityType === "ACTION") {
+          message += `action ${token.id}`;
+        } else if (token.activityType === "MISSION") {
+          message += `mission ${token.id}`;
+        }
+        message += `, you have received ${token.amount} ${token.type}`;
+        toast.success(message, {
+          duration: 5000,
+        });
+      }
     }
   }
 
@@ -29,18 +42,20 @@ export default function Home() {
     <>
       <Head>
         <title>Dapp Template</title>
-        <meta
-          name="description"
-          content="OPENFORMAT - Dapp Template"
-        />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1"
-        />
+        <meta name="description" content="OPENFORMAT - Dapp Template" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <button onClick={handleConnect}>Connect</button>
+      <h1>Home</h1>
+      <main>
+        {address ? (
+          <div>
+            <h2>Click on the button below to trigger an action.</h2>
+            <button onClick={handleConnect}>Trigger Action</button>
+          </div>
+        ) : (
+          <p>Please connect your wallet</p>
+        )}
       </main>
     </>
   );

@@ -9,8 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@openformat/react": "^0.2.1-dev-37ea060",
-    "@openformat/sdk": "^0.2.1-dev-37ea060",
+    "@openformat/react": "^0.3.0-dev-39bb3fa",
     "@types/node": "18.15.11",
     "@types/react": "18.0.32",
     "@types/react-dom": "18.0.11",
@@ -22,6 +21,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.9",
+    "react-hot-toast": "^2.4.0",
     "typescript": "4.9.5"
   },
   "devDependencies": {

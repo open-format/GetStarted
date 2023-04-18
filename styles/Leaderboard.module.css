@@ -1,0 +1,24 @@
+/* Block: leaderboard */
+.leaderboard {
+}
+
+/* Element: leaderboard__container */
+.leaderboard__container {
+  display: flex;
+  text-align: "center";
+  flex-direction: row;
+}
+
+/* Element: leaderboard__column */
+.leaderboard__column {
+  flex: 1;
+  margin-right: 20px;
+  min-width: 400px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Element: leaderboard__table */
+.leaderboard__table {
+}

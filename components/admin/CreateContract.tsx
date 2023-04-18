@@ -1,11 +1,9 @@
-import { useOpenFormat, useWallet } from "@openformat/react";
-import { ERC20Base } from "@openformat/sdk";
+import { useOpenFormat } from "@openformat/react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { ethers } from "ethers";
 
 const CreateContract: React.FC = () => {
-  const { address } = useWallet();
   const {
     register,
     handleSubmit,

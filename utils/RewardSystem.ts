@@ -6,11 +6,7 @@ import {
   User,
 } from "@/types";
 import RewardService from "@/utils/services/RewardService";
-import {
-  ActivityType,
-  OpenFormatSDK,
-  RewardType,
-} from "@openformat/sdk";
+import { ActivityType, OpenFormatSDK, RewardType } from "@openformat/sdk";
 import actions from "../actions.json";
 import missions from "../missions.json";
 
@@ -37,12 +33,12 @@ export default class RewardSystem {
    * const user = await getUser('0x1234abcd...');
    */
   async getUser(address: string): Promise<User> {
-    const completedActions =
-      await this.rewardService.getUserCompletedActions(address);
+    const completedActions = await this.rewardService.getUserCompletedActions(
+      address
+    );
 
     const xp = this.calculateUserXP(completedActions);
-    const completedMissions =
-      this.calculateCompletedMissions(completedActions);
+    const completedMissions = this.calculateCompletedMissions(completedActions);
 
     return {
       address,
@@ -57,18 +53,19 @@ export default class RewardSystem {
     actionId: string
   ): Promise<User> {
     // Get completed actions from the subgraph
-    const completedActions =
-      await this.rewardService.getUserCompletedActions(address);
+    const completedActions = await this.rewardService.getUserCompletedActions(
+      address
+    );
 
-    const previousMissions =
-      await this.rewardService.getUserCompletedMissions(address);
+    const previousMissions = await this.rewardService.getUserCompletedMissions(
+      address
+    );
 
     completedActions.push(actionId);
 
     const xp = this.calculateUserXP(completedActions);
 
-    const completedMissions =
-      this.calculateCompletedMissions(completedActions);
+    const completedMissions = this.calculateCompletedMissions(completedActions);
 
     const action = this.getActionById(actionId);
 
@@ -123,6 +120,7 @@ export default class RewardSystem {
     await this.rewardService.trigger(data);
 
     return {
+      rewarded: data.tokens,
       address,
       xp,
       completedActions,
@@ -143,17 +141,13 @@ export default class RewardSystem {
     return xp;
   }
 
-  private calculateCompletedMissions(
-    completedActions: string[]
-  ): string[] {
+  private calculateCompletedMissions(completedActions: string[]): string[] {
     const completedMissions: string[] = [];
 
     for (const mission of this.missions) {
       const actionCounts = this.getActionCounts(completedActions);
 
-      if (
-        this.isMissionCompleted(actionCounts, mission.requirements)
-      ) {
+      if (this.isMissionCompleted(actionCounts, mission.requirements)) {
         completedMissions.push(mission.id);
       }
     }
@@ -161,16 +155,11 @@ export default class RewardSystem {
     return completedMissions;
   }
 
-  private getActionCounts(
-    completedActions: string[]
-  ): Map<string, number> {
+  private getActionCounts(completedActions: string[]): Map<string, number> {
     const actionCounts = new Map<string, number>();
 
     for (const actionId of completedActions) {
-      actionCounts.set(
-        actionId,
-        (actionCounts.get(actionId) || 0) + 1
-      );
+      actionCounts.set(actionId, (actionCounts.get(actionId) || 0) + 1);
     }
 
     return actionCounts;
@@ -181,10 +170,7 @@ export default class RewardSystem {
     requirements: MissionRequirement[]
   ): boolean {
     for (const requirement of requirements) {
-      if (
-        (actionCounts.get(requirement.actionId) || 0) <
-        requirement.count
-      ) {
+      if ((actionCounts.get(requirement.actionId) || 0) < requirement.count) {
         return false;
       }
     }
