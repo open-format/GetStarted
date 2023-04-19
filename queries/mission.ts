@@ -1,5 +1,6 @@
 import { gql } from "graphql-request";
 
+// GraphQL query to get missions by a specific user and app
 export const getMissionsByUserAndRequirements = gql`
   query getMissionsByUserAndRequirements($user: String!, $app: String!) {
     missions(where: { user: $user, app: $app }) {
@@ -9,6 +10,7 @@ export const getMissionsByUserAndRequirements = gql`
   }
 `;
 
+// GraphQL query to get missions for the leaderboard based on app ID and a specific date range
 export const getMissionsForLeaderboard = gql`
   query getMissionsForLeaderboard(
     $appId: String!

@@ -843,26 +843,29 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@openformat/react@^0.3.0-dev-39bb3fa":
-  version "0.3.0-dev-39bb3fa"
-  resolved "https://registry.yarnpkg.com/@openformat/react/-/react-0.3.0-dev-39bb3fa.tgz#eb1434d4ad59618d4090e8919e4cd934f2e7a33c"
-  integrity sha512-5+4H+9YhRt0n5ky+YnTcIcM/kjMeiiAxJmdd+DLOuj1RsniFXz3fiy6cOR3HwbV+5DIAm0nxket6clmJfjGulg==
+"@openformat/react@^0.3.0-dev-bbe4859":
+  version "0.3.0-dev-bbe4859"
+  resolved "https://registry.yarnpkg.com/@openformat/react/-/react-0.3.0-dev-bbe4859.tgz#fa4bb9c5e986755db3bed4f6e279f2f80100fd75"
+  integrity sha512-LDLxvbNhxYq63JJCLrHeu3qURLBgxyn/um0+BWdgaHT0ZvzJZFBnsbmPqzytq2CCgOkv3qF3IHXtYt8OZTz8CA==
   dependencies:
-    "@openformat/sdk" "0.3.0-dev-39bb3fa"
+    "@openformat/sdk" "0.6.0-dev-bbe4859"
     "@tanstack/react-query" "^4.0.10"
     "@wagmi/chains" "^0.2.18"
     connectkit "1.0.1"
     wagmi "0.7.15"
 
-"@openformat/sdk@0.3.0-dev-39bb3fa":
-  version "0.3.0-dev-39bb3fa"
-  resolved "https://registry.yarnpkg.com/@openformat/sdk/-/sdk-0.3.0-dev-39bb3fa.tgz#29994eae0a2d39ea0e877ac72b89ef4012e477e7"
-  integrity sha512-v+N/N+uH9SO9qB21oRfWtl1LCAZujVUyGBViKl+CDInXlmNvEmPJspPp0D198/54RcyQDTXdo7nLk+mWQS/G+A==
+"@openformat/sdk@0.6.0-dev-bbe4859":
+  version "0.6.0-dev-bbe4859"
+  resolved "https://registry.yarnpkg.com/@openformat/sdk/-/sdk-0.6.0-dev-bbe4859.tgz#72e89c75990b83d58f31623ea36d4d727cc49f87"
+  integrity sha512-riGgmXIjbv9qvG4v0NvYuSc/OAC/l9XyetOdDe0wm5/1z708WxrDoHvtW8bHbXcjWxMEV271luZ7UqB1CZFMFA==
   dependencies:
     "@wagmi/chains" "^0.2.17"
     graphql "^16.6.0"
     graphql-request "^5.1.0"
+    lodash.forown "^4.4.0"
+    lodash.isobject "^3.0.2"
     lodash.merge "^4.6.2"
+    lodash.unionby "^4.8.0"
 
 "@pedrouid/environment@^1.0.1":
   version "1.0.1"
@@ -1998,9 +2001,9 @@ eip1193-provider@1.0.1:
     "@json-rpc-tools/provider" "^1.5.5"
 
 electron-to-chromium@^1.4.284:
-  version "1.4.365"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.365.tgz#ccd9e352d4493aa288d87e6ea36f3edf350c045e"
-  integrity sha512-FRHZO+1tUNO4TOPXmlxetkoaIY8uwHzd1kKopK/Gx2SKn1L47wJXWD44wxP5CGRyyP98z/c8e1eBzJrgPeiBOg==
+  version "1.4.368"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.368.tgz#75901f97d3e23da2e66feb1e61fbb8e70ac96430"
+  integrity sha512-e2aeCAixCj9M7nJxdB/wDjO6mbYX+lJJxSJCXDzlr5YPGYVofuJwGN9nKg2o6wWInjX6XmxRinn3AeJMK81ltw==
 
 elliptic@6.5.4:
   version "6.5.4"
@@ -3271,10 +3274,25 @@ lodash.debounce@^4.0.8:
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
   integrity sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==
 
+lodash.forown@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/lodash.forown/-/lodash.forown-4.4.0.tgz#85115cf04f73ef966eced52511d3893cc46683af"
+  integrity sha512-xcpca6BCshoe5SFSrQOoV8FBEbNzcBa6QQYmtv48eEFNzdwQLkHkcWSaBlecHhyHb1BUk1xqFdXoiSLJkt/w5w==
+
+lodash.isobject@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/lodash.isobject/-/lodash.isobject-3.0.2.tgz#3c8fb8d5b5bf4bf90ae06e14f2a530a4ed935e1d"
+  integrity sha512-3/Qptq2vr7WeJbB4KHUSKlq8Pl7ASXi3UG6CMbBm8WRtXi8+GHm7mKaU3urfpSEzWe2wCIChs6/sdocUsTKJiA==
+
 lodash.merge@^4.6.2:
   version "4.6.2"
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
   integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
+
+lodash.unionby@^4.8.0:
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/lodash.unionby/-/lodash.unionby-4.8.0.tgz#883f098ff78f564a727b7508e09cdd539734bb83"
+  integrity sha512-e60kn4GJIunNkw6v9MxRnUuLYI/Tyuanch7ozoCtk/1irJTYBj+qNTxr5B3qVflmJhwStJBv387Cb+9VOfABMg==
 
 lodash@^4.17.20, lodash@^4.17.21:
   version "4.17.21"
@@ -3819,7 +3837,16 @@ resolve-from@^4.0.0:
   resolved "https://registry.yarnpkg.com/resolve-from/-/resolve-from-4.0.0.tgz#4abcd852ad32dd7baabfe9b40e00a36db5f392e6"
   integrity sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==
 
-resolve@^1.14.2, resolve@^1.22.1:
+resolve@^1.14.2:
+  version "1.22.2"
+  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.22.2.tgz#0ed0943d4e301867955766c9f3e1ae6d01c6845f"
+  integrity sha512-Sb+mjNHOULsBv818T40qSPeRiuWLyaGMa5ewydRLFimneixmVy2zdivRl+AF6jaYPC8ERxGDmFSiqui6SfPd+g==
+  dependencies:
+    is-core-module "^2.11.0"
+    path-parse "^1.0.7"
+    supports-preserve-symlinks-flag "^1.0.0"
+
+resolve@^1.22.1:
   version "1.22.3"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.22.3.tgz#4b4055349ffb962600972da1fdc33c46a4eb3283"
   integrity sha512-P8ur/gp/AmbEzjr729bZnLjXK5Z+4P0zhIJgBgzqRih7hL7BOukHGtSTA3ACMY467GRFz3duQsi0bDZdR7DKdw==

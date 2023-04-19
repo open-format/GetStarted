@@ -2,9 +2,9 @@ import React from "react";
 import Link from "next/link";
 import Login from "./auth/Login";
 import styles from "../styles/Header.module.css";
+import { HeaderProps } from "@/types";
 
-interface HeaderProps {}
-
+// Header component to display the site navigation bar
 const Header: React.FC<HeaderProps> = () => {
   return (
     <header>
@@ -30,7 +30,7 @@ const Header: React.FC<HeaderProps> = () => {
               Leaderboard
             </Link>
           </li>
-          <li className={styles.header__item}>
+          <li className={styles.login__item}>
             <Login />
           </li>
         </ul>

@@ -1,6 +1,12 @@
-import React from "react";
+import { LeaderboardTableProps } from "@/types";
 
-const LeaderboardTable = ({ title, data, formatData }) => {
+// LeaderboardTable component definition
+const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
+  title,
+  data,
+  formatData,
+}) => {
+  // Render the component
   return (
     <>
       <h3>{title}</h3>

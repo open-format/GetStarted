@@ -2,11 +2,16 @@ import React from "react";
 import Head from "next/head";
 import { useRawRequest, useWallet } from "@openformat/react";
 import { gql } from "graphql-request";
+import { ProfileResponseData, Mission, Action } from "@/types";
+import styles from "../styles/Profile.module.css";
 
+// Profile component
 const Profile: React.FC = () => {
+  // Use the useWallet hook to get the wallet address
   const { address = null } = useWallet();
 
-  const { actions = [], missions = [] } =
+  // Use the useRawRequest hook to fetch actions and missions data for the user
+  const { actions = [], missions = [] }: ProfileResponseData =
     useRawRequest({
       query: gql`
         query MyQuery($userId: String!, $appId: String!) {
@@ -25,8 +30,9 @@ const Profile: React.FC = () => {
       },
     }).data || {};
 
-  const calculateActionCountsAndTokens = (actions) => {
-    const actionTypes = {};
+  // Calculate the action counts and tokens earned by the user
+  const calculateActionCountsAndTokens = (actions: Action[]) => {
+    const actionTypes: Record<string, number> = {};
     let totalTokens = 0;
     actions.forEach((action) => {
       actionTypes[action.type_id] = (actionTypes[action.type_id] || 0) + 1;
@@ -35,40 +41,58 @@ const Profile: React.FC = () => {
     return { actionTypes, totalTokens };
   };
 
+  // Calculate the number of completed missions
   const { actionTypes, totalTokens } = calculateActionCountsAndTokens(actions);
   const missionsCompleted = missions.length;
 
   return (
     <>
+      {/* Set the page title */}
       <Head>
         <title>Profile</title>
       </Head>
-      <h1>Profile</h1>
-      {address ? (
-        <div>
-          <h2>Wallet Address: {`${address?.toLocaleLowerCase()}`}</h2>
-          <h3>Actions Completed:</h3>
-          <ul>
-            {Object.entries(actionTypes).map(([type_id, count]) => (
-              <li key={type_id}>
-                {type_id}, Completed: {count}
-              </li>
-            ))}
-          </ul>
-          <h3>Missions Completed:</h3>
-          <ul>
-            {missions.map((mission, index) => (
-              <li key={index}>{mission.type_id}</li>
-            ))}
-          </ul>
-          <h3>Tokens Earned: {totalTokens} xp tokens</h3>
-          <h3>Badges Earned: {missionsCompleted}</h3>
+      {/* Main content */}
+      <div className={styles.profile}>
+        <div className={styles.description}>
+          <p>
+            <code className={styles.code}>PROFILE</code>
+          </p>
+          <a className={styles.code}>{address?.toLocaleLowerCase()}</a>
         </div>
-      ) : (
-        <div>
-          <p>Please connect your wallet</p>
-        </div>
-      )}
+
+        {address ? (
+          <div className={styles.main}>
+            <div className={styles.container}>
+              <h3 className={styles.h3}>Actions Completed:</h3>
+              <ul className={styles.actionList}>
+                {Object.entries(actionTypes).map(
+                  ([type_id, count]: [string, number]) => (
+                    <div key={type_id} className={styles.actionItem}>
+                      {type_id}, Completed: {count}
+                    </div>
+                  )
+                )}
+              </ul>
+              <h3 className={styles.h3}>Missions Completed:</h3>
+              <ul className={styles.missionList}>
+                {missions.map((mission: Mission, index: number) => (
+                  <div key={index} className={styles.missionItem}>
+                    {mission.type_id}
+                  </div>
+                ))}
+              </ul>
+              <h3 className={styles.h3}>
+                Tokens Earned: {totalTokens} xp tokens
+              </h3>
+              <h3 className={styles.h3}>Badges Earned: {missionsCompleted}</h3>
+            </div>
+          </div>
+        ) : (
+          <div>
+            <p>Please connect your wallet</p>
+          </div>
+        )}
+      </div>
     </>
   );
 };
