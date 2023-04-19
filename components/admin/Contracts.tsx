@@ -1,4 +1,4 @@
-import { useRawRequest } from "@openformat/react";
+import { useRawRequest, fromWei } from "@openformat/react";
 import { gql } from "graphql-request";
 import styles from "../../styles/Contracts.module.css";
 import { ResponseData, Variables } from "@/types";
@@ -15,6 +15,7 @@ function Contracts() {
           type
           metadata {
             name
+            totalSupply
           }
         }
       }
@@ -36,6 +37,7 @@ function Contracts() {
   // Render contracts in a table
   return (
     <div className={styles.container}>
+      <h2>Available tokens and</h2>
       <table>
         <thead>
           <tr>
@@ -43,6 +45,7 @@ function Contracts() {
             <th>Created At</th>
             <th>Type</th>
             <th>Name</th>
+            <th>Supply</th>
           </tr>
         </thead>
         <tbody>
@@ -54,6 +57,11 @@ function Contracts() {
               </td>
               <td className={styles.item}>{contract.type}</td>
               <td className={styles.item}>{contract.metadata.name}</td>
+              <td className={styles.item}>
+                {contract.type === "Badge"
+                  ? contract.metadata.totalSupply
+                  : fromWei(contract.metadata.totalSupply)}
+              </td>
             </tr>
           ))}
         </tbody>

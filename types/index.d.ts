@@ -191,6 +191,7 @@ interface Contract {
   type: string;
   metadata: {
     name: string;
+    totalSupply: string;
   };
 }
 
