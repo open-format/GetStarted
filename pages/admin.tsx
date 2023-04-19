@@ -26,9 +26,11 @@ const Admin: React.FC = () => {
       {address ? (
         // If the wallet is connected, display the CreateContract and Contracts components
         <div className={styles.tablecontainer}>
+          <h2>Create Tokens and Badges</h2>
           <div className={styles.table}>
             <CreateContract />
           </div>
+          <h2>Available Tokens and Badges</h2>
           <div className={styles.table}>
             <Contracts />
           </div>
