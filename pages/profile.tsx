@@ -4,11 +4,12 @@ import { useRawRequest, useWallet } from "@openformat/react";
 import { gql } from "graphql-request";
 import { ProfileResponseData, Mission, Action } from "@/types";
 import styles from "../styles/Profile.module.css";
+import { useLoggedInAddress } from "@/contexts/LoggedInAddressContext";
 
 // Profile component
 const Profile: React.FC = () => {
   // Use the useWallet hook to get the wallet address
-  const { address = null } = useWallet();
+  const { loggedInAddress } = useLoggedInAddress();
 
   // Use the useRawRequest hook to fetch actions and missions data for the user
   const { actions = [], missions = [] }: ProfileResponseData =
@@ -25,7 +26,7 @@ const Profile: React.FC = () => {
         }
       `,
       variables: {
-        userId: address?.toLocaleLowerCase(),
+        userId: loggedInAddress?.toLocaleLowerCase(),
         appId: process.env.NEXT_PUBLIC_APP_ID,
       },
     }).data || {};
@@ -57,10 +58,10 @@ const Profile: React.FC = () => {
           <p>
             <code className={styles.code}>PROFILE</code>
           </p>
-          <a className={styles.code}>{address?.toLocaleLowerCase()}</a>
+          <a className={styles.code}>{loggedInAddress?.toLocaleLowerCase()}</a>
         </div>
 
-        {address ? (
+        {loggedInAddress ? (
           <div className={styles.main}>
             <div className={styles.container}>
               <h3 className={styles.h3}>Actions Completed:</h3>
@@ -89,7 +90,7 @@ const Profile: React.FC = () => {
           </div>
         ) : (
           <div>
-            <p>Please connect your wallet</p>
+            <p>Please login or connect your wallet</p>
           </div>
         )}
       </div>

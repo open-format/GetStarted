@@ -4,8 +4,11 @@ import Head from "next/head";
 import React from "react";
 import toast from "react-hot-toast";
 import { Inter } from "next/font/google";
+import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import styles from "@/styles/Home.module.css";
+import { Wallet } from "ethers";
 import Link from "next/link";
+import { useLoggedInAddress } from "@/contexts/LoggedInAddressContext";
 
 // Load the Inter font with specified subset
 const inter = Inter({ subsets: ["latin"] });
@@ -13,22 +16,24 @@ const inter = Inter({ subsets: ["latin"] });
 // Home page component
 export default function Home() {
   // Use the useWallet and useOpenFormat hooks
-  const { address } = useWallet();
+  const { loggedInAddress } = useLoggedInAddress();
   const { sdk } = useOpenFormat();
 
-  // Initialize the RewardSystem with the OpenFormat SDK
   const rewardSystem = new RewardSystem(sdk);
 
   // Function to handle the connect button click
   async function handleConnect() {
-    if (address) {
+    if (loggedInAddress) {
       // Add loading toast
       const loadingToastId = toast.loading(
         "Processing... this can take a while depending on chain network conditions."
       );
 
       // Handle the completed action and get user rewards
-      const user = await rewardSystem.handleCompletedAction(address, "connect");
+      const user = await rewardSystem.handleCompletedAction(
+        loggedInAddress,
+        "connect"
+      );
 
       // Dismiss loading toast
       toast.dismiss(loadingToastId);
@@ -136,7 +141,7 @@ export const getServerSideProps = async (ctx) => {
     data: { session },
   } = await supabase.auth.getSession();
 
-  if (!session) return;
+  if (!session) return { props: {} };
 
   // Check if the user already exists in the "profiles" table
   const { data: existingUsers, error: userError } = await supabase
