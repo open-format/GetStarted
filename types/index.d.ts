@@ -203,3 +203,12 @@ interface ResponseData {
 interface Variables {
   appId: string;
 }
+
+//AppData interface to represent the shape of data
+interface AppData {
+  app: {
+    owner: {
+      id: string;
+    };
+  };
+}

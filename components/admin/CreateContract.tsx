@@ -5,11 +5,12 @@ import { useForm } from "react-hook-form";
 import { ethers } from "ethers";
 import styles from "../../styles/Contracts.module.css";
 import { gql } from "graphql-request";
+import { AppData } from "@/types";
 
 // CreateContract component
 const CreateContract: React.FC = () => {
   // Use raw request to fetch app data
-  const { data } = useRawRequest({
+  const { data } = useRawRequest<AppData, unknown>({
     query: gql`
       query MyQuery($appId: String!) {
         app(id: $appId) {
@@ -30,8 +31,10 @@ const CreateContract: React.FC = () => {
   // Compare address and owner Id and update isOwner state
   useEffect(() => {
     if (address && data) {
-      const ownerId = data.app.owner.id;
-      setIsOwner(address.toLowerCase() === ownerId.toLowerCase());
+      const ownerId = data?.app?.owner?.id;
+      if (ownerId) {
+        setIsOwner(address.toLowerCase() === ownerId.toLowerCase());
+      }
     }
   }, [address, data]);
 
