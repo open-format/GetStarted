@@ -10,9 +10,6 @@ import { Toaster } from "react-hot-toast";
 import { Roboto } from "next/font/google";
 import { checkEnvVariables } from "../env-config";
 
-
-
-
 // Load the Roboto font with specified weight and subset
 const roboto = Roboto({
   weight: "400",
@@ -47,9 +44,6 @@ export default function App({
             <Toaster />
           </LoggedInAddressProvider>
         </SessionContextProvider>
-        <Header />
-        <Component {...pageProps} />
-        <Toaster />
       </OpenFormatProvider>
     </main>
   );
