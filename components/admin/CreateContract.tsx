@@ -1,4 +1,5 @@
 import { useOpenFormat, useRawRequest, useWallet } from "@openformat/react";
+import { toWei } from "@openformat/sdk";
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { ethers } from "ethers";
@@ -70,8 +71,7 @@ const CreateContract: React.FC = () => {
     const params = {
       name: formData.name,
       symbol: formData.symbol,
-      decimal: 18,
-      supply: formData.supply,
+      supply: toWei(formData.supply.toString()), // Convert supply to Wei
     };
 
     const token = await sdk.Reward.createRewardToken(params);
