@@ -30,6 +30,11 @@ const Header: React.FC<HeaderProps> = () => {
               Leaderboard
             </Link>
           </li>
+          <li className={styles.header__item}>
+            <Link className={styles.header__link} href="/login">
+              Login
+            </Link>
+          </li>
           <li className={styles.login__item}>
             <Login />
           </li>
