@@ -843,37 +843,21 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-<<<<<<< HEAD
-"@openformat/react@^0.3.0-dev-1e51dda":
-  version "0.3.0-dev-1e51dda"
-  resolved "https://registry.yarnpkg.com/@openformat/react/-/react-0.3.0-dev-1e51dda.tgz#0c20cb15ac2a54c26830744745a8983aa9cc5f02"
-  integrity sha512-v/JFCcr8/MOc2Oee6oXeD1ks6c2vP0lXzDNNBBEZVekBTV/niSNxxYLVH5qVdbyLXWSZdN2g+ZOfauOBd1ZaUA==
+"@openformat/react@^0.3.0-dev-49b851b":
+  version "0.3.0-dev-49b851b"
+  resolved "https://registry.yarnpkg.com/@openformat/react/-/react-0.3.0-dev-49b851b.tgz#3c7ad106f3508ada7e78875a8823566409c01b64"
+  integrity sha512-IxgljDWpiLipYghD2EKA3UN9sC/k23bHEhgQ1zokK51tqJoEFMQS5dJJC8iIKCdtbUNS3XYjSzaYZ+rSzbAg4A==
   dependencies:
-    "@openformat/sdk" "0.3.0-dev-1e51dda"
-=======
-"@openformat/react@^0.3.0-dev-bbe4859":
-  version "0.3.0-dev-bbe4859"
-  resolved "https://registry.yarnpkg.com/@openformat/react/-/react-0.3.0-dev-bbe4859.tgz#fa4bb9c5e986755db3bed4f6e279f2f80100fd75"
-  integrity sha512-LDLxvbNhxYq63JJCLrHeu3qURLBgxyn/um0+BWdgaHT0ZvzJZFBnsbmPqzytq2CCgOkv3qF3IHXtYt8OZTz8CA==
-  dependencies:
-    "@openformat/sdk" "0.6.0-dev-bbe4859"
->>>>>>> main
+    "@openformat/sdk" "0.6.0-dev-49b851b"
     "@tanstack/react-query" "^4.0.10"
     "@wagmi/chains" "^0.2.18"
     connectkit "1.0.1"
     wagmi "0.7.15"
 
-<<<<<<< HEAD
-"@openformat/sdk@0.3.0-dev-1e51dda", "@openformat/sdk@^0.3.0-dev-1e51dda":
-  version "0.3.0-dev-1e51dda"
-  resolved "https://registry.yarnpkg.com/@openformat/sdk/-/sdk-0.3.0-dev-1e51dda.tgz#9589686222ab9e33ad38e6eb23c35552c11874cc"
-  integrity sha512-y7UUiIuMrRHE1RmCz/tPL683iKuBeP0+ODsojfHqIDtNZ3iHwbuyL/P2gj+jy6/ghjiJaJ/F8zumDrORfZVkPA==
-=======
-"@openformat/sdk@0.6.0-dev-bbe4859":
-  version "0.6.0-dev-bbe4859"
-  resolved "https://registry.yarnpkg.com/@openformat/sdk/-/sdk-0.6.0-dev-bbe4859.tgz#72e89c75990b83d58f31623ea36d4d727cc49f87"
-  integrity sha512-riGgmXIjbv9qvG4v0NvYuSc/OAC/l9XyetOdDe0wm5/1z708WxrDoHvtW8bHbXcjWxMEV271luZ7UqB1CZFMFA==
->>>>>>> main
+"@openformat/sdk@0.6.0-dev-49b851b":
+  version "0.6.0-dev-49b851b"
+  resolved "https://registry.yarnpkg.com/@openformat/sdk/-/sdk-0.6.0-dev-49b851b.tgz#00bbeb0a99846502dbdcce59ac7501f02c5f52d4"
+  integrity sha512-VzdxeorPduhCMoBJDS5fU8Pgxj9rFcQo8HixrqBPUiQ2R3PAaOuOcIeyR5jlvV1XWgvBpZwHuvRaDb0YLimx3Q==
   dependencies:
     "@wagmi/chains" "^0.2.17"
     graphql "^16.6.0"
