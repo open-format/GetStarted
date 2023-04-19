@@ -1,4 +1,6 @@
 // pages/leaderboard.tsx
+
+// Import necessary dependencies
 import { useState } from "react";
 import TimeRangeDropdown from "../components/leaderboard/TimeRangeDropdown";
 import ActionsLeaderboard from "../components/leaderboard/ActionsLeaderboard";

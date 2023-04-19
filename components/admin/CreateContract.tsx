@@ -1,11 +1,15 @@
 // components/admin/CreateContract.tsx
+
+// Import necessary dependencies
 import { useOpenFormat } from "@openformat/react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { ethers } from "ethers";
 import styles from "../../styles/Contracts.module.css";
 
+// CreateContract component
 const CreateContract: React.FC = () => {
+  // Initialize form and state
   const {
     register,
     handleSubmit,
@@ -13,8 +17,10 @@ const CreateContract: React.FC = () => {
   } = useForm();
   const [tokenType, setTokenType] = useState("ERC721");
 
+  // Access OpenFormat SDK
   const { sdk } = useOpenFormat();
 
+  // Function to create an ERC721 token
   const createERC721 = async (formData: {
     name: string;
     symbol: string;
@@ -30,6 +36,7 @@ const CreateContract: React.FC = () => {
     // You can perform further operations, e.g., transfer, etc.
   };
 
+  // Function to create an ERC20 token
   const createERC20 = async (formData: {
     name: string;
     symbol: string;
@@ -48,6 +55,7 @@ const CreateContract: React.FC = () => {
     // You can perform further operations, e.g., transfer, etc.
   };
 
+  // Handle form submission
   const onSubmit = (formData: any) => {
     if (tokenType === "ERC721") {
       createERC721(formData);
@@ -56,6 +64,7 @@ const CreateContract: React.FC = () => {
     }
   };
 
+  // Render form
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.field}>

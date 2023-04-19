@@ -1,4 +1,6 @@
 // utils/services/RewardService.ts
+
+// Import necessary dependencies
 import {
   getActionsByUserAndRequirements,
   getMissionsByUserAndRequirements,
@@ -7,12 +9,15 @@ import { RewardParams, Mission, Action } from "@/types";
 import { OpenFormatSDK } from "@openformat/sdk";
 import axios from "axios";
 
+// RewardService class to handle user actions, missions, and rewards
 class RewardService {
   sdk: OpenFormatSDK;
+  // Constructor takes an OpenFormatSDK instance as an argument
   constructor(sdk: OpenFormatSDK) {
     this.sdk = sdk;
   }
 
+  // Method to get a list of completed action IDs by a specific user
   async getUserCompletedActions(address: string): Promise<string[]> {
     const response = await this.sdk.subgraph.rawRequest(
       getActionsByUserAndRequirements,
@@ -26,6 +31,7 @@ class RewardService {
     return actionIds;
   }
 
+  // Method to get a list of completed mission IDs by a specific user
   async getUserCompletedMissions(address: string): Promise<string[]> {
     const response = await this.sdk.subgraph.rawRequest(
       getMissionsByUserAndRequirements,
@@ -41,6 +47,7 @@ class RewardService {
     return missionIds;
   }
 
+  // Method to trigger rewards based on the provided RewardParams
   async trigger(data: RewardParams): Promise<void> {
     try {
       const res = await axios.post("api/reward", data);

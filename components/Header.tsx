@@ -1,11 +1,13 @@
+// components/Header.tsx
+
+// Import necessary dependencies
 import React from "react";
 import Link from "next/link";
 import Login from "./auth/Login";
 import styles from "../styles/Header.module.css";
 import { HeaderProps } from "@/types";
-import { Inter } from "next/font/google";
-const inter = Inter({ subsets: ["latin"] });
 
+// Header component to display the site navigation bar
 const Header: React.FC<HeaderProps> = () => {
   return (
     <header>

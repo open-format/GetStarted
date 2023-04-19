@@ -1,4 +1,6 @@
 // pages/index.tsx
+
+// Import necessary dependencies
 import RewardSystem from "@/utils/RewardSystem";
 import { useOpenFormat, useWallet } from "@openformat/react";
 import Head from "next/head";
@@ -8,14 +10,19 @@ import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import Link from "next/link";
 
+// Load the Inter font with specified subset
 const inter = Inter({ subsets: ["latin"] });
 
+// Home page component
 export default function Home() {
+  // Use the useWallet and useOpenFormat hooks
   const { address } = useWallet();
   const { sdk } = useOpenFormat();
 
+  // Initialize the RewardSystem with the OpenFormat SDK
   const rewardSystem = new RewardSystem(sdk);
 
+  // Function to handle the connect button click
   async function handleConnect() {
     if (address) {
       // Add loading toast
@@ -23,11 +30,13 @@ export default function Home() {
         "Processing... this can take a while depending on chain network conditions."
       );
 
+      // Handle the completed action and get user rewards
       const user = await rewardSystem.handleCompletedAction(address, "connect");
 
       // Dismiss loading toast
       toast.dismiss(loadingToastId);
 
+      // Display the rewarded tokens in a success toast
       for (const token of user.rewarded) {
         let message = `Thank you for completing the `;
         if (token.activityType === "ACTION") {

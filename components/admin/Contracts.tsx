@@ -1,10 +1,14 @@
 // components/admin/Contracts.tsx
+
+// Import necessary dependencies
 import { useRawRequest } from "@openformat/react";
 import { gql } from "graphql-request";
 import styles from "../../styles/Contracts.module.css";
 import { ResponseData, Variables } from "@/types";
 
+// Contracts component
 function Contracts() {
+  // Fetch contract data using useRawRequest hook
   const { data } = useRawRequest<ResponseData, Variables>({
     query: gql`
       query MyQuery($appId: String!) {
@@ -21,15 +25,18 @@ function Contracts() {
     variables: { appId: process.env.NEXT_PUBLIC_APP_ID },
   });
 
+  // Show loading message while data is being fetched
   if (!data) {
     return <p>Loading data...</p>;
   }
 
+  // Map and transform contracts data
   const contracts = data.contracts.map((contract) => ({
     ...contract,
     type: contract.type === "NFT" ? "Badge" : contract.type,
   }));
 
+  // Render contracts in a table
   return (
     <div className={styles.container}>
       <table>

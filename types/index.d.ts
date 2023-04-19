@@ -1,7 +1,9 @@
 // types/index.d.ts
+
+// Import RewardType from Openformat SDK
 import { RewardType } from "@openformat/sdk";
 
-// Action interface
+// Action interface represents an action performed by a user
 interface Action {
   id: string;
   amount: number;
@@ -10,13 +12,13 @@ interface Action {
   xp: number;
 }
 
-// MissionRequirement interface
+// MissionRequirement interface represents requirements for a mission
 interface MissionRequirement {
   actionId: string;
   count: number;
 }
 
-// Mission interface
+// Mission interface represents a mission with requirements, rewards, and badges
 interface Mission {
   id: string;
   description: string;
@@ -27,7 +29,7 @@ interface Mission {
   requirements: MissionRequirement[];
 }
 
-// User interface
+// User interface represents a user with rewards, address, XP, and completed actions/missions
 interface User {
   rewarded: Token[];
   address: string;
@@ -36,14 +38,14 @@ interface User {
   completedMissions: string[];
 }
 
-// Reward type
+// Reward type represents reward details
 type Reward = {
   amount: number;
   token: string;
   type: string;
 };
 
-// ActionType type
+// ActionType type represents an action with its ID, token, amount, and description
 type ActionType = {
   id: string;
   token: string;
@@ -51,7 +53,7 @@ type ActionType = {
   description: string;
 };
 
-// Token type
+// Token type represents token details
 type Token = {
   id: string;
   amount: number;
@@ -61,31 +63,31 @@ type Token = {
   tokenURI?: string;
 };
 
-// TriggerToken type
+// TriggerToken type represents trigger token details
 type TriggerToken = {
   address: string;
   amount: number;
   uri?: string;
 };
 
-// RewardParams interface
+// RewardParams interface represents reward parameters
 interface RewardParams {
   receiver: string;
   tokens: Token[];
 }
 
-// ContractData interface
+// ContractData interface represents contract data with ID and creation date
 interface ContractData {
   id: string;
   createdAt: string;
 }
 
-// QueryResult interface
+// QueryResult interface represents a query result with a list of contracts
 interface QueryResult {
   contracts: ContractData[];
 }
 
-// ActionsLeaderboardProps interface
+// ActionsLeaderboardProps interface represents properties for the Actions Leaderboard component
 interface ActionsLeaderboardProps {
   appId: string;
   createdAtGte: string;
@@ -93,13 +95,13 @@ interface ActionsLeaderboardProps {
   formatUserId: (id: string) => string;
 }
 
-// User interface
+// User interface represents user details with ID and name
 interface User {
   id: string;
   name: string;
 }
 
-// Action interface
+// Action interface represents an action performed by a user
 interface Action {
   id: string;
   user: User;
@@ -107,13 +109,13 @@ interface Action {
   amount?: number;
 }
 
-// QueryResult interface
+// QueryResult interface represents a query result with a list of actions and missions
 interface QueryResult {
   actions: Action[];
   missions: Mission[];
 }
 
-// MissionsLeaderboardProps interface
+// MissionsLeaderboardProps interface represents properties for the Missions Leaderboard component
 interface MissionsLeaderboardProps {
   appId: string;
   createdAtGte: string;
@@ -121,21 +123,21 @@ interface MissionsLeaderboardProps {
   formatUserId: (id: string) => string;
 }
 
-// Mission interface
+// Mission interface represents a mission with its user and type ID
 interface Mission {
   id: string;
   user: User;
   type_id: string;
 }
 
-// LeaderboardEntry interface
+// LeaderboardEntry interface represents a leaderboard entry
 interface LeaderboardEntry {
   user_id: string;
   type_id: string;
   [key: string]: any;
 }
 
-// FormatData interface
+// FormatData interface represents formatting details for the Leaderboard Table component
 interface FormatData {
   header: string;
   formatUserId: (id: string) => string;
@@ -143,49 +145,49 @@ interface FormatData {
   formatValue: (value: any) => any;
 }
 
-// LeaderboardTableProps interface
+// LeaderboardTableProps interface represents properties for the Leaderboard Table component
 interface LeaderboardTableProps {
   title: string;
   data: LeaderboardEntry[] | null;
   formatData: FormatData;
 }
 
-// HeaderProps interface
+// HeaderProps interface represents properties for the Header component
 interface HeaderProps {}
 
-// AuthProps interface
+// AuthProps interface represents properties for the Auth component
 interface AuthProps {}
 
-// Action interface
+// Action interface represents an action with its type ID and amount
 interface Action {
   type_id: string;
   amount: number;
 }
 
-// Mission interface
+// Mission interface represents a mission with its type ID
 interface Mission {
   type_id: string;
 }
 
-// ResponseData interface
+// ResponseData interface represents response data for user profile actions and missions
 interface ProfileResponseData {
   actions?: Action[];
   missions?: Mission[];
 }
 
-// TimeRangeDropdownProps interface
+// TimeRangeDropdownProps interface represents properties for the Time Range Dropdown component
 interface TimeRangeDropdownProps {
   onChange: (value: string) => void;
 }
 
-// reward Data
-
+// Data type represents the structure of the response for a reward
 type Data = {
   success: boolean;
   message: string;
   params?: any;
 };
 
+// Contract interface represents a contract with its ID, creation timestamp, type, and metadata
 interface Contract {
   id: string;
   createdAt: number;
@@ -195,10 +197,12 @@ interface Contract {
   };
 }
 
+// ResponseData interface represents response data for a list of contracts
 interface ResponseData {
   contracts: Contract[];
 }
 
+// Variables interface represents variables for a GraphQL query
 interface Variables {
   appId: string;
 }

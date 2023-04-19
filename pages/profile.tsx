@@ -1,4 +1,6 @@
 // pages/profile.tsx
+
+// Import necessary dependencies
 import React from "react";
 import Head from "next/head";
 import { useRawRequest, useWallet } from "@openformat/react";
@@ -6,9 +8,12 @@ import { gql } from "graphql-request";
 import { ProfileResponseData, Mission, Action } from "@/types";
 import styles from "../styles/Profile.module.css";
 
+// Profile component
 const Profile: React.FC = () => {
+  // Use the useWallet hook to get the wallet address
   const { address = null } = useWallet();
 
+  // Use the useRawRequest hook to fetch actions and missions data for the user
   const { actions = [], missions = [] }: ProfileResponseData =
     useRawRequest({
       query: gql`
@@ -28,6 +33,7 @@ const Profile: React.FC = () => {
       },
     }).data || {};
 
+  // Calculate the action counts and tokens earned by the user
   const calculateActionCountsAndTokens = (actions: Action[]) => {
     const actionTypes: Record<string, number> = {};
     let totalTokens = 0;
@@ -38,14 +44,17 @@ const Profile: React.FC = () => {
     return { actionTypes, totalTokens };
   };
 
+  // Calculate the number of completed missions
   const { actionTypes, totalTokens } = calculateActionCountsAndTokens(actions);
   const missionsCompleted = missions.length;
 
   return (
     <>
+      {/* Set the page title */}
       <Head>
         <title>Profile</title>
       </Head>
+      {/* Main content */}
       <div className={styles.profile}>
         <div className={styles.description}>
           <p>

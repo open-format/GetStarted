@@ -1,11 +1,15 @@
 // components/leaderboard/LeaderboardTable.tsx
+
+// Import necessary dependencies
 import { LeaderboardTableProps } from "@/types";
 
+// LeaderboardTable component definition
 const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
   title,
   data,
   formatData,
 }) => {
+  // Render the component
   return (
     <>
       <h3>{title}</h3>

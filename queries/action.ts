@@ -1,6 +1,9 @@
 // queries/action.ts
+
+// Import the gql dependency from graphql-request
 import { gql } from "graphql-request";
 
+// Define the getActionsByUserAndRequirements query
 export const getActionsByUserAndRequirements = gql`
   query getActionByUserAndRequirements($user: String!, $app: String!) {
     actions(where: { user: $user, app: $app }) {
@@ -10,6 +13,7 @@ export const getActionsByUserAndRequirements = gql`
   }
 `;
 
+// Define the getActionsForLeaderboard query
 export const getActionsForLeaderboard = gql`
   query getActionsForLeaderboard(
     $appId: String!
@@ -33,6 +37,7 @@ export const getActionsForLeaderboard = gql`
   }
 `;
 
+// Define the getActionsForProfile query
 export const getActionsForProfile = gql`
   query MyQuery($userId: String!, $appId: String!) {
     actions(where: { user: $userId, app: $appId }) {

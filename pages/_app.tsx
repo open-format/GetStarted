@@ -5,13 +5,17 @@ import Header from "../components/Header";
 import { Chains, OpenFormatProvider } from "@openformat/react";
 import { Toaster } from "react-hot-toast";
 import { Roboto } from "next/font/google";
+
+// Load the Roboto font with specified weight and subset
 const roboto = Roboto({
   weight: "400",
   subsets: ["latin"],
 });
 
+// Main App component for the Next.js application
 export default function App({ Component, pageProps }: AppProps) {
   return (
+    // Apply the Roboto font to the main container
     <main className={roboto.className}>
       <OpenFormatProvider
         config={{
