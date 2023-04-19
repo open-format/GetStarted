@@ -1,6 +1,3 @@
-// components/leaderboard/MissionsLeaderboard.tsx
-
-// Import necessary dependencies
 import { MissionsLeaderboardProps, QueryResult } from "@/types";
 import { useEffect } from "react";
 import { useRawRequest } from "@openformat/react";

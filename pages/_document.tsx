@@ -1,6 +1,3 @@
-// pages/_document.tsx
-
-// Import necessary dependencies
 import { Html, Head, Main, NextScript } from "next/document";
 
 // Custom Document component for the Next.js application

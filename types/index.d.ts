@@ -1,6 +1,3 @@
-// types/index.d.ts
-
-// Import RewardType from Openformat SDK
 import { RewardType } from "@openformat/sdk";
 
 // Action interface represents an action performed by a user

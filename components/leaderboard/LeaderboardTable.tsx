@@ -1,6 +1,3 @@
-// components/leaderboard/LeaderboardTable.tsx
-
-// Import necessary dependencies
 import { LeaderboardTableProps } from "@/types";
 
 // LeaderboardTable component definition

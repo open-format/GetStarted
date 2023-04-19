@@ -1,6 +1,3 @@
-// utils/services/RewardService.ts
-
-// Import necessary dependencies
 import {
   getActionsByUserAndRequirements,
   getMissionsByUserAndRequirements,

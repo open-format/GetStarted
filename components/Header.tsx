@@ -1,6 +1,3 @@
-// components/Header.tsx
-
-// Import necessary dependencies
 import React from "react";
 import Link from "next/link";
 import Login from "./auth/Login";

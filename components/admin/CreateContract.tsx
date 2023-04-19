@@ -1,6 +1,3 @@
-// components/admin/CreateContract.tsx
-
-// Import necessary dependencies
 import { useOpenFormat } from "@openformat/react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";

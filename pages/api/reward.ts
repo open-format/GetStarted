@@ -1,6 +1,3 @@
-// pages/api/reward.ts
-
-// Import necessary dependencies
 import { OpenFormatSDK, Chains } from "@openformat/sdk";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Data } from "@/types";

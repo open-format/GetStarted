@@ -1,6 +1,3 @@
-// pages/admin.tsx
-
-// Import necessary dependencies
 import React from "react";
 import Head from "next/head";
 import CreateContract from "../components/admin/CreateContract";

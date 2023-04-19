@@ -1,6 +1,3 @@
-// pages/profile.tsx
-
-// Import necessary dependencies
 import React from "react";
 import Head from "next/head";
 import { useRawRequest, useWallet } from "@openformat/react";

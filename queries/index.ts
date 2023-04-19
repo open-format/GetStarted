@@ -1,6 +1,3 @@
-// queries/index.ts
-
-// Import the action-related GraphQL queries
 import {
   getActionsByUserAndRequirements,
   getActionsForLeaderboard,

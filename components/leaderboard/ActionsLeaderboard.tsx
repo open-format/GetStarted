@@ -1,6 +1,3 @@
-// components/leaderboard/ActionsLeaderboard.tsx
-
-// Import necessary dependencies
 import { ActionsLeaderboardProps, QueryResult } from "@/types";
 import { useEffect } from "react";
 import { useRawRequest } from "@openformat/react";

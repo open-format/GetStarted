@@ -1,6 +1,3 @@
-// components/admin/Contracts.tsx
-
-// Import necessary dependencies
 import { useRawRequest } from "@openformat/react";
 import { gql } from "graphql-request";
 import styles from "../../styles/Contracts.module.css";

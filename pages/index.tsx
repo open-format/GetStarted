@@ -1,6 +1,3 @@
-// pages/index.tsx
-
-// Import necessary dependencies
 import RewardSystem from "@/utils/RewardSystem";
 import { useOpenFormat, useWallet } from "@openformat/react";
 import Head from "next/head";

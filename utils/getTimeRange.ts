@@ -1,5 +1,3 @@
-// utils/getTimeRange.ts
-
 // Function to get the time range (gte and lte values) based on a given range value (day, week, or month)
 export function getTimeRange(value: string): { gte: string; lte: string } {
   const now = new Date();

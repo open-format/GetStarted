@@ -1,6 +1,3 @@
-// utils/RewardSystem.ts
-
-// Import necessary dependencies
 import {
   Action,
   Mission,

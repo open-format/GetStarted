@@ -1,6 +1,3 @@
-// components/leaderboard/TimeRangeDropdown.tsx
-
-// Import necessary dependencies
 import { useState } from "react";
 import { TimeRangeDropdownProps } from "@/types";
 import styles from "../../styles/Dropdown.module.css";

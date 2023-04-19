@@ -1,6 +1,3 @@
-// queries/action.ts
-
-// Import the gql dependency from graphql-request
 import { gql } from "graphql-request";
 
 // Define the getActionsByUserAndRequirements query

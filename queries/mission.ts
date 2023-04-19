@@ -1,6 +1,3 @@
-// queries/mission.ts
-
-// Import the gql dependency from graphql-request
 import { gql } from "graphql-request";
 
 // GraphQL query to get missions by a specific user and app
