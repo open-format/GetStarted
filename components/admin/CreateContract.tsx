@@ -1,11 +1,39 @@
-import { useOpenFormat } from "@openformat/react";
-import React, { useState } from "react";
+import { useOpenFormat, useRawRequest, useWallet } from "@openformat/react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { ethers } from "ethers";
 import styles from "../../styles/Contracts.module.css";
+import { gql } from "graphql-request";
 
 // CreateContract component
 const CreateContract: React.FC = () => {
+  // Use raw request to fetch app data
+  const { data } = useRawRequest({
+    query: gql`
+      query MyQuery($appId: String!) {
+        app(id: $appId) {
+          owner {
+            id
+          }
+        }
+      }
+    `,
+    variables: { appId: process.env.NEXT_PUBLIC_APP_ID },
+  });
+
+  const { address } = useWallet();
+
+  // New state variable to store whether the user is the owner
+  const [isOwner, setIsOwner] = useState(false);
+
+  // Compare address and owner Id and update isOwner state
+  useEffect(() => {
+    if (address && data) {
+      const ownerId = data.app.owner.id;
+      setIsOwner(address.toLowerCase() === ownerId.toLowerCase());
+    }
+  }, [address, data]);
+
   // Initialize form and state
   const {
     register,
@@ -157,9 +185,22 @@ const CreateContract: React.FC = () => {
         </div>
       )}
 
-      <button className={styles.button} type="submit">
-        Create Contract
-      </button>
+      <div className={`${styles.tooltip} `}>
+        <button
+          className={`${styles.button} ${
+            !isOwner ? styles.buttonDisabled : ""
+          }`}
+          type="submit"
+          disabled={!isOwner} // Disable button if the user is not the owner
+        >
+          Create Contract
+        </button>
+        {!isOwner && (
+          <span className={styles.tooltiptext}>
+            Only the app owner can create contracts
+          </span>
+        )}
+      </div>
     </form>
   );
 };
