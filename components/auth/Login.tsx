@@ -1,14 +1,12 @@
 import React from "react";
 import { ConnectButton } from "@openformat/react";
-import SignUpWithMagicLink from "./SignUpWithMagicLink";
+import { AuthProps } from "@/types";
 
-const Login = () => {
+// Login component
+const Login: React.FC<AuthProps> = () => {
   return (
     <div>
-      <h2>Authentication</h2>
       <ConnectButton />
-
-      <SignUpWithMagicLink />
     </div>
   );
 };
