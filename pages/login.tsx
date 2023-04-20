@@ -50,8 +50,10 @@ const Login: NextPage<LoginProps> = (props) => {
   useEffect(() => {
     if (props.loggedInAddress) {
       setLoggedInAddress(props.loggedInAddress);
+    } else if (address) {
+      setLoggedInAddress(address);
     }
-  }, [props.loggedInAddress, setLoggedInAddress]);
+  }, [props.loggedInAddress, address, setLoggedInAddress]);
 
   return (
     <div className="max-w-3xl mx-auto p-4 w-screen">
