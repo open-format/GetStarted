@@ -1,11 +1,12 @@
-import React from "react";
+import { useWallet } from "@openformat/react";
 import Link from "next/link";
-import Login from "./auth/Login";
+import React from "react";
 import styles from "../styles/Header.module.css";
-import { HeaderProps } from "@/types";
+import Login from "./auth/Login";
 
 // Header component to display the site navigation bar
-const Header: React.FC<HeaderProps> = () => {
+export default function Header() {
+  const { isConnected } = useWallet();
   return (
     <header>
       <nav>
@@ -31,12 +32,10 @@ const Header: React.FC<HeaderProps> = () => {
             </Link>
           </li>
           <li className={styles.login__item}>
-            <Login />
+            {isConnected && <Login />}
           </li>
         </ul>
       </nav>
     </header>
   );
-};
-
-export default Header;
+}
