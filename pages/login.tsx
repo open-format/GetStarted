@@ -48,7 +48,7 @@ const Login: NextPage<LoginProps> = (props) => {
   const user = useUser();
 
   useEffect(() => {
-    if (props.loggedInAddress) {
+    if (user) {
       setLoggedInAddress(props.loggedInAddress);
     } else if (address) {
       setLoggedInAddress(address);
