@@ -62,7 +62,7 @@ pnpm run dev
 
 If everything is setup correctly, the application will be available at [http://localhost:3000](http://localhost:3000) 🎉
 
-<img width="1624" alt="Screenshot 2023-04-19 at 20 11 39" src="https://user-images.githubusercontent.com/7047410/233405360-7b661cd1-9d1f-41b7-a068-dac54d884459.png">
+<img width="1624" alt="Screenshot 2023-04-20 at 16 56 18" src="https://user-images.githubusercontent.com/7047410/233421521-5a5bfab7-d631-4b79-a00c-79ffb63cb4b9.png">
 
 Follow the getting started guide on the index page to connect your wallet, create your first token and trigger for your first action! 💪
 
