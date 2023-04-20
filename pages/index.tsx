@@ -1,37 +1,24 @@
-import styles from "@/styles/Home.module.css";
+import { GettingStarted } from "@/components";
 import RewardSystem from "@/utils/RewardSystem";
-import { useOpenFormat, useWallet } from "@openformat/react";
-import { Inter } from "next/font/google";
+import { useOpenFormat } from "@openformat/react";
 import Head from "next/head";
 import React from "react";
 
-const inter = Inter({ subsets: ["latin"] });
-
+// Home page component
 export default function Home() {
-  const { address } = useWallet();
+  // Use the useWallet and useOpenFormat hooks
   const { sdk } = useOpenFormat();
 
+  // Initialize the RewardSystem with the OpenFormat SDK
   const rewardSystem = new RewardSystem(sdk);
-
-  async function handleConnect() {
-    if (address) {
-      const updatedUser = await rewardSystem.handleCompletedAction(
-        address,
-        "connect"
-      );
-
-      // Display the updated user information or process rewards as needed
-      console.log(updatedUser);
-    }
-  }
 
   return (
     <>
       <Head>
-        <title>Dapp Template</title>
+        <title>Hello World Starter</title>
         <meta
           name="description"
-          content="OPENFORMAT - Dapp Template"
+          content="This starter is an introduction into a new decentralised world and what we believe to be the starting point for 90% of all future applications. It's a front-end application that's built using NextJS and the Open Format SDK."
         />
         <meta
           name="viewport"
@@ -39,8 +26,8 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <button onClick={handleConnect}>Connect</button>
+      <main className="container flex justify-center items-center mx-auto">
+        <GettingStarted rewardSystem={rewardSystem} />
       </main>
     </>
   );

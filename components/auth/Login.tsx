@@ -1,14 +1,12 @@
 import React from "react";
 import { ConnectButton } from "@openformat/react";
+import { AuthProps } from "@/types";
 
-interface AuthProps {}
-
+// Login component
 const Login: React.FC<AuthProps> = () => {
   return (
     <div>
-      <h2>Authentication</h2>
       <ConnectButton />
-      {/* Add authentication logic and UI here */}
     </div>
   );
 };
