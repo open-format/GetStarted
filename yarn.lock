@@ -848,37 +848,21 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-<<<<<<< HEAD
-"@openformat/react@^0.3.0-dev-854232e":
-  version "0.3.0-dev-854232e"
-  resolved "https://registry.yarnpkg.com/@openformat/react/-/react-0.3.0-dev-854232e.tgz#2061d3ddbec010c99a425a88b963726a1edc9bf8"
-  integrity sha512-Av9EsGEHrTAh0gUyCpJ7ZTGsz7mcEm5ICIEFPw++bflQennyPALvpqe9OBzULGYv5LvglB3J0BNs/WFhwGbS5A==
-  dependencies:
-    "@openformat/sdk" "0.3.0-dev-12bf41b"
-=======
 "@openformat/react@^0.3.0-dev-49b851b":
   version "0.3.0-dev-49b851b"
   resolved "https://registry.yarnpkg.com/@openformat/react/-/react-0.3.0-dev-49b851b.tgz#3c7ad106f3508ada7e78875a8823566409c01b64"
   integrity sha512-IxgljDWpiLipYghD2EKA3UN9sC/k23bHEhgQ1zokK51tqJoEFMQS5dJJC8iIKCdtbUNS3XYjSzaYZ+rSzbAg4A==
   dependencies:
     "@openformat/sdk" "0.6.0-dev-49b851b"
->>>>>>> main
     "@tanstack/react-query" "^4.0.10"
     "@wagmi/chains" "^0.2.18"
     connectkit "1.0.1"
     wagmi "0.7.15"
 
-<<<<<<< HEAD
-"@openformat/sdk@0.3.0-dev-12bf41b":
-  version "0.3.0-dev-12bf41b"
-  resolved "https://registry.yarnpkg.com/@openformat/sdk/-/sdk-0.3.0-dev-12bf41b.tgz#3edd8a97b42ec7d8a68c1d475ae05f6fef772c88"
-  integrity sha512-qFgLLkP4eTtQDQqrcwsdpPBroGBnK2qkjwtJX+OQXPOCO1wDS+hHKvEHOst12pRexlqJWWRQwOAEqfZUkjLk3g==
-=======
 "@openformat/sdk@0.6.0-dev-49b851b":
   version "0.6.0-dev-49b851b"
   resolved "https://registry.yarnpkg.com/@openformat/sdk/-/sdk-0.6.0-dev-49b851b.tgz#00bbeb0a99846502dbdcce59ac7501f02c5f52d4"
   integrity sha512-VzdxeorPduhCMoBJDS5fU8Pgxj9rFcQo8HixrqBPUiQ2R3PAaOuOcIeyR5jlvV1XWgvBpZwHuvRaDb0YLimx3Q==
->>>>>>> main
   dependencies:
     "@wagmi/chains" "^0.2.17"
     graphql "^16.6.0"
@@ -966,28 +950,16 @@
     "@tanstack/query-persist-client-core" "4.29.1"
 
 "@tanstack/react-query-persist-client@^4.14.5":
-<<<<<<< HEAD
-  version "4.29.1"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-query-persist-client/-/react-query-persist-client-4.29.1.tgz#2ddd0e330f1713b361e654cbcd3087e6d1edd5ad"
-  integrity sha512-9B/ELLxO6gQnVNA5V8CVGfQ6f/IH3sY6ccsLvY8QtvGRMqhZrS5zeZs/Kt1bu7shJBhOeUbkHIkPZ+P20XtP4g==
-=======
   version "4.29.3"
   resolved "https://registry.yarnpkg.com/@tanstack/react-query-persist-client/-/react-query-persist-client-4.29.3.tgz#79c8e4ce92d83508d86d2d1c9657697f4467d223"
   integrity sha512-yyQYr1cLxmakVdWOUV9U/7D4fLiIdtlFa18KIwUI1MSSRwvAjjdx6D4GSmsuLXL9eSudNMyvpy5iTAICv2+CoQ==
->>>>>>> main
   dependencies:
     "@tanstack/query-persist-client-core" "4.29.1"
 
 "@tanstack/react-query@^4.0.10", "@tanstack/react-query@^4.14.5":
-<<<<<<< HEAD
-  version "4.29.1"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-4.29.1.tgz#5f166aca63915c52f6eda930a54d6933bfd11d1b"
-  integrity sha512-/crv1v+OeuGG6EOvaQmyeo9GCKtH4jbmuhZkvk9ulufRiHcTr/A9+YP9GevEAZzUTdzXMwenpTbyxBGvG2xXvw==
-=======
   version "4.29.3"
   resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-4.29.3.tgz#037205560784ed4a5e3fd605a2143e325b6189fa"
   integrity sha512-FPQrMu7PbCgBcVzoRJm7WmQnAFv+LUgZM9KBZ7Vk/+yERH2BDLvQRuAgczQd5Tb1s3HbOktECRDaOkUxdyBAjw==
->>>>>>> main
   dependencies:
     "@tanstack/query-core" "4.29.1"
     use-sync-external-store "^1.2.0"
@@ -1786,17 +1758,10 @@ camelize@^1.0.0:
   resolved "https://registry.yarnpkg.com/camelize/-/camelize-1.0.1.tgz#89b7e16884056331a35d6b5ad064332c91daa6c3"
   integrity sha512-dU+Tx2fsypxTgtLoE36npi3UqcjSSMNYfkqgmoEhtZrraP5VWq0K7FkWVTYa8eMPtnU/G2txVsfdCJTn9uzpuQ==
 
-<<<<<<< HEAD
-caniuse-lite@^1.0.30001406, caniuse-lite@^1.0.30001449:
-  version "1.0.30001478"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001478.tgz#0ef8a1cf8b16be47a0f9fc4ecfc952232724b32a"
-  integrity sha512-gMhDyXGItTHipJj2ApIvR+iVB5hd0KP3svMWWXDvZOmjzJJassGLMfxRkQCSYgGd2gtdL/ReeiyvMSFD1Ss6Mw==
-=======
 caniuse-lite@^1.0.30001406, caniuse-lite@^1.0.30001449, caniuse-lite@^1.0.30001464:
   version "1.0.30001480"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001480.tgz#9bbd35ee44c2480a1e3a3b9f4496f5066817164a"
   integrity sha512-q7cpoPPvZYgtyC4VaBSN0Bt+PJ4c4EYRf0DrduInOz2SkFpHD5p3LnvEpqBp7UnJn+8x1Ogl1s38saUxe+ihQQ==
->>>>>>> main
 
 chalk@^2.0.0:
   version "2.4.2"
@@ -2116,15 +2081,9 @@ eip1193-provider@1.0.1:
     "@json-rpc-tools/provider" "^1.5.5"
 
 electron-to-chromium@^1.4.284:
-<<<<<<< HEAD
-  version "1.4.363"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.363.tgz#a3d51d16169d8f212f00bafb78cf0667e24c3647"
-  integrity sha512-ReX5qgmSU7ybhzMuMdlJAdYnRhT90UB3k9M05O5nF5WH3wR5wgdJjXw0uDeFyKNhmglmQiOxkAbzrP0hMKM59g==
-=======
   version "1.4.368"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.368.tgz#75901f97d3e23da2e66feb1e61fbb8e70ac96430"
   integrity sha512-e2aeCAixCj9M7nJxdB/wDjO6mbYX+lJJxSJCXDzlr5YPGYVofuJwGN9nKg2o6wWInjX6XmxRinn3AeJMK81ltw==
->>>>>>> main
 
 elliptic@6.5.4:
   version "6.5.4"
@@ -3102,11 +3061,7 @@ is-callable@^1.1.3, is-callable@^1.1.4, is-callable@^1.2.7:
   resolved "https://registry.yarnpkg.com/is-callable/-/is-callable-1.2.7.tgz#3bc2a85ea742d9e36205dcacdd72ca1fdc51b055"
   integrity sha512-1BC0BVFhS/p0qtw6enp8e+8OD0UrK0oFLztSjNzhcKA3WDuJxxAPXzPuPtKkjEY9UUoEWlX/8fgKeu2S8i9JTA==
 
-<<<<<<< HEAD
-is-core-module@^2.11.0, is-core-module@^2.9.0:
-=======
 is-core-module@^2.11.0, is-core-module@^2.12.0, is-core-module@^2.9.0:
->>>>>>> main
   version "2.12.0"
   resolved "https://registry.yarnpkg.com/is-core-module/-/is-core-module-2.12.0.tgz#36ad62f6f73c8253fd6472517a12483cf03e7ec4"
   integrity sha512-RECHCBCd/viahWmwj6enj19sKbHfJrddi/6cBDsNTKbNq0f7VeaUkBo60BqzvPqo/W54ChS62Z5qyun7cfOMqQ==
@@ -4107,11 +4062,7 @@ resolve-from@^4.0.0:
   resolved "https://registry.yarnpkg.com/resolve-from/-/resolve-from-4.0.0.tgz#4abcd852ad32dd7baabfe9b40e00a36db5f392e6"
   integrity sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==
 
-<<<<<<< HEAD
-resolve@^1.14.2, resolve@^1.22.1:
-=======
 resolve@^1.1.7, resolve@^1.14.2:
->>>>>>> main
   version "1.22.2"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.22.2.tgz#0ed0943d4e301867955766c9f3e1ae6d01c6845f"
   integrity sha512-Sb+mjNHOULsBv818T40qSPeRiuWLyaGMa5ewydRLFimneixmVy2zdivRl+AF6jaYPC8ERxGDmFSiqui6SfPd+g==
@@ -4120,8 +4071,6 @@ resolve@^1.1.7, resolve@^1.14.2:
     path-parse "^1.0.7"
     supports-preserve-symlinks-flag "^1.0.0"
 
-<<<<<<< HEAD
-=======
 resolve@^1.22.1:
   version "1.22.3"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.22.3.tgz#4b4055349ffb962600972da1fdc33c46a4eb3283"
@@ -4131,7 +4080,6 @@ resolve@^1.22.1:
     path-parse "^1.0.7"
     supports-preserve-symlinks-flag "^1.0.0"
 
->>>>>>> main
 resolve@^2.0.0-next.4:
   version "2.0.0-next.4"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-2.0.0-next.4.tgz#3d37a113d6429f496ec4752d2a2e58efb1fd4660"

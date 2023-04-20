@@ -3,7 +3,7 @@
 // forward with building your awesome application.
 
 import { getActionsByUserAndRequirements } from "@/queries";
-import RewardSystem from "@/utils/RewardSystem";
+import TokenSystem from "@/utils/TokenSystem";
 import {
   CheckCircleIcon,
   ChevronRightIcon,
@@ -20,9 +20,9 @@ import toast from "react-hot-toast";
 import { Button } from "../components";
 
 export default function GettingStarted({
-  rewardSystem,
+  tokenSystem,
 }: {
-  rewardSystem: RewardSystem;
+  tokenSystem: TokenSystem;
 }) {
   const { isConnected, address } = useWallet();
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -44,9 +44,9 @@ export default function GettingStarted({
 
     if (address) {
       await toast.promise(
-        rewardSystem.handleCompletedAction(address, "connect"),
+        tokenSystem.handleCompletedAction(address, "connect"),
         {
-          loading: "Rewarding tokens...",
+          loading: "sending tokens...",
           success: (data) => {
             for (const token of data.rewarded) {
               let message = `You completed the `;

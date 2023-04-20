@@ -1,91 +1,105 @@
-## What is hello world
+# What is Hello world?
 
-Coming soon.
+This starter is an introduction into a new decentralised world and what we believe to be the starting point for 90% of all future applications. It's a front-end application that's built using NextJS and the Open Format SDK.
 
-## Prerequisites
+## Getting started
 
-1. Web3 wallet - We recommend [Metamask](https://metamask.io/), although a list of wallets supported by Ethereum can be found [here](https://ethereum.org/en/wallets/find-wallet/#main-content). We've created a [video](https://www.youtube.com/watch?v=ZS7VuGZ5VgI&list=PLtnXR6ERygvJ6qT6UYSH8Ve3RAdgYJN26&index=6&t=801s) that explains what web3 wallets are, why you need one, and how to use them.
-2. Generate an App ID at [https://apps.openformat.tech/](https://apps.openformat.tech/). As Open Format supports multiple networks, make sure you create an App ID on the same network that you use in your template.
-3. You'll need to have **Node 14.6.0** or a later version installed on your local development machine. We recommend using the latest LTS version available.
+### Prerequisites
 
-## Quickstart
+Before we get started there a few steps we need to take first:
 
-### Install dependencies
+1. Web3 wallet - We recommend [Metamask](https://metamask.io/), although a list of wallets supported by Ethereum can be found [here](https://ethereum.org/en/wallets/find-wallet/#main-content). We’ve created a [video](https://www.youtube.com/watch?v=ZS7VuGZ5VgI&list=PLtnXR6ERygvJ6qT6UYSH8Ve3RAdgYJN26&index=6&t=801s) that explains what web3 wallets are, why you need one, and how to use them.
+2. Generate an App ID at [https://apps.openformat.tech/](https://apps.openformat.tech/). As Open Format supports multiple networks, make sure you create an App ID on the same network that you use in your starter. The default network used is Polygon.
+3. You’ll need to have **Node 14.6.0** or a later version installed on your local development machine. We recommend using the latest LTS version available.
 
-```bash
-npm install or yarn install
-```
-
-### Setup your environment variables
+### Installation
 
 ```bash
-cp .env.local.example .env.local
+# With npx (recommended)
+npx create-open-format-app <projectName>
+
+# Global installation with npm
+
+npm install -g create-open-format-app \
+create-open-format-app <projectName>
+
+# Global installation with yarn
+
+yarn global add create-open-format-app \
+create-open-format-app <projectName>
 ```
 
-| Variable                      | Description                                                                                                                  |
-| ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| NEXT_PUBLIC_APP_ID            | Your generated App ID.                                                                                                       |
-| NEXT_PRIVATE_KEY              | The private key of the wallet used to trigger rewards. This must be the same wallet that created the App ID.                 |
-| NEXT_PUBLIC_SUPABASE_ANON_KEY | Web2 Auth only - The unique Supabase Key which is supplied when you create a new project in your supabase project dashboard. |
-| NEXT_PUBLIC_SUPABASE_URL      | Web2 Auth only - The unique Supabase URL which is supplied when you create a new project in your supabase project dashboard. |
+## Setup
 
-### Run the app
+### App ID
+
+To interact with the Open Format ecosystem, you will need an App ID, which acts as an API Key. You can generate an App ID in your [App Dashboard](https://apps.openformat.tech/). Generating an App ID requires deploying an application to the blockchain, which requires a Web3 wallet with sufficient funds to cover the gas fees. Depending on the network, you can obtain funds from a [faucet](https://faucet.polygon.technology/).
+
+<img width="574" alt="appId" src="https://user-images.githubusercontent.com/7047410/233409811-bc73b1ed-10cb-4510-a7d4-a8b737a5b531.png">
+
+### Private Key
+
+Your Ethereum wallet's private key is set in the environment variables during setup to be used in the `/api` endpoint to pay for triggering tokens. It is extremely important to keep your private key secure and avoid exposing it within the application. We do not store or have access to your private key during setup. You can view the code [here](https://github.com/open-format/create-open-format-app/blob/main/helpers/index.ts#L53-L94). If using Metamask, see this [guide](https://support.metamask.io/hc/en-us/articles/360015289632-How-to-export-an-account-s-private-key) on how to export your private key.
+
+<img width="852" alt="PrivateKey" src="https://user-images.githubusercontent.com/7047410/233409823-91dcca22-11c6-456c-bef7-4babd108d02c.png">
+
+### Next Steps
+
+After creating your project, navigate to the project folder and start the development server:
 
 ```bash
-npm run dev or yarn run dev
+cd <projectName>
+npm run dev
+
+# or
+
+yarn dev
+
+# or
+
+pnpm run dev
 ```
 
-## Rewards Mechanism
+If everything is setup correctly, the application will be available at [http://localhost:3000](http://localhost:3000) 🎉
 
-The rewards mechanism is a system that rewards users with XP tokens, reward tokens, and badges for completing actions and missions. The mechanism is implemented through the Open Format SDK and handles all on-chain rewards. All actions and missions are logged on-chain and can be viewed through the subgraph. If you want to see how the reward mechanism works it’s here.
+<img width="1624" alt="Screenshot 2023-04-19 at 20 11 39" src="https://user-images.githubusercontent.com/7047410/233405360-7b661cd1-9d1f-41b7-a068-dac54d884459.png">
 
-### XP, Reward Tokens and Badges
+Follow the getting started guide on the index page to connect your wallet, create your first token and trigger for your first action! 💪
 
-XP tokens are fungible (ERC20) tokens that are rewarded to users for completing actions. Reward tokens are fungible tokens (ERC20) that are transferred from the app owners wallet upon completion of a mission. Badges are NFTs (ERC721) that are minted once a mission is completed.
+## Folder structure
 
-Only XP tokens can be rewarded for completing actions. Multiple reward tokens and badges can be rewarded for each completed mission.
+| File/Folder  | Purpose                                                                                                                                                                                                                                                                                |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| components   | The components folder typically contains reusable UI components that are used throughout the application. These components are often designed to be modular, allowing them to be used in different parts of the app without having to rewrite the same code multiple times.            |
+| pages        | The pages folder in a contains the various pages that make up the application. Each page is represented by a single file in this folder. The api folder contains any api endpoints.                                                                                                    |
+| queries      | The queries folder contains any graphql queries used to fetch blockchain data from our subgraphs.                                                                                                                                                                                      |
+| public       | The public folder in a Next.js app is where you can add static assets such as images, videos, and fonts. These assets can be used throughout your application. When you reference an asset in the public folder, it will be served as a static file from the root of your application. |
+| .env.local   | The .env.local stores any environment variables or secrets used in your application.                                                                                                                                                                                                   |
+| package.json | package.json is a file that contains metadata about the project, including dependencies, scripts to run, and version information. It is used by package managers like npm to install the necessary dependencies for the project.                                                       |
+| types        | The types folder holds any typescript types used in your application.                                                                                                                                                                                                                  |
+| utils        | The utils folder in a Next.js application often contains utility functions and helper modules that can be used throughout the application. There is where you can find the main logic for the token system.                                                                            |
+| services     | The services folder contains any services. This is where you can find the token service.                                                                                                                                                                                               |
+| styles       | This folder includes any styles. We have added TailwindCSS. Feel free to swap this our for your own CSS framework or native CSS.                                                                                                                                                       |
+| node_modules | The node_modules folder contains libraries downloaded from npm                                                                                                                                                                                                                         |
+| README       | This is a brief instruction manual for your application. You should edit this file to tell others what your application does, how to set it up, and so on.                                                                                                                             |
+| .gitignore   | This file tells Git which files to ignore when committing your project to the GitHub repository                                                                                                                                                                                        |
 
-### Setup
-
-XP Tokens - To create an XP token, visit the `admin` page and choose XP from the dropdown list.
-
-Reward Tokens and Badges - To create reward tokens and badges, visit the `admin` page. You can also view any existing reward tokens and badges here. They are created using the Open Format SDK, so you can add this logic anywhere in the app, even in another app entirely. We will be integrating this functionality into our Dashboard app soon.
-
-### XP/Reward token example
-
-| Key    | Description                            | Example           |
-| ------ | -------------------------------------- | ----------------- |
-| Name   | Your generated App ID.                 | Open Format Token |
-| Symbol | The symbol of your token               | OFT               |
-| Supply | How many tokens you want in the system | 1000              |
-
-### Badge example
-
-| Key      | Description                                    | Example                                                                                                                                                   |
-| -------- | ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Name     | The name of your badge                         | Connect Badge                                                                                                                                             |
-| Symbol   | The symbol of your token                       | CONNECT                                                                                                                                                   |
-| TokenURI | A url that links to the metadata for the badge | [ipfs://bafkreib2ofqfcgpe5laipvgalzvf24aqbz7tmbktz36zkvt54wnkldzm2i](https://bafkreib2ofqfcgpe5laipvgalzvf24aqbz7tmbktz36zkvt54wnkldzm2i.ipfs.dweb.link/) |
-
-## Actions
+## Actions and Missions
 
 ### What are actions
 
-An action is simply when a user does something in your app, such as connecting their wallet, posting a comment or sending a message. For each action, they will be rewarded with a certain amount of XP tokens.
-You can set which actions you want users to be rewarded for and the amount of XP tokens they will receive for each action.
-Once a user completes an action, the reward mechanism will handle the processing of the on-chain rewards via the Open Format SDK.
-You can view completed actions via the Open Format subgraph.
+An action is simply when a user does something in your app, such as connecting their wallet, posting a comment or sending a message. For each action, they will be sent a certain amount of XP tokens. You can set which actions you want users to receive XP tokens for and the amount of XP tokens they will receive for each action. Once a user completes an action, the token mechanism will handle the processing of the on-chain token exchange via the Open Format SDK. You can view completed actions via the Open Format subgraph.
 
 ### Setup
 
 1. Edit the action config in `actions.json`
-2. instantiate the reward system `const rewardSystem = new RewardSystem(sdk)`
-3. Add an action trigger pass the web3 wallet address of the reward receiver and the id of the action set in `actions.json`
+2. instantiate the token system `const tokenSystem = new tokenSystem(sdk)`
+3. Add an action trigger and pass the web3 wallet address of the token receiver and the id of the action set in `actions.json`
 
 ```jsx
 async function handleConnect() {
   if (address) {
-    await rewardSystem.handleCompletedAction(address, "connect");
+    await tokenSystem.handleCompletedAction(address, "connect");
   }
 }
 ```
@@ -98,22 +112,29 @@ async function handleConnect() {
     "id": "connect",
     "amount": 10,
     "description": "Connect your wallet",
-    "address": "0x27498c5aa1ea3f09963a9abf9882a4690d99c4fd"
+    "address": "0x17ee65c8c6059cd84973b1e5865b71d0ebc5ff4f"
   }
 ]
 ```
 
-The `actions.json` file configures which actions should be rewarded and how many XP tokens should be awarded for each action. The file specifies an `id` for each action, which should be used as a reference in the `handleCompletedAction` function. The `amount` field specifies the number of XP tokens that should be awarded for completing the action, and the `description` field provides a brief description of the action. The `address` field specifies the address of the XP token that’s being rewarded.
+| Key           | Description                                                                                                            |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `id`          | Specifies the unique identifier for each action, which is used as a reference in the `handleCompletedAction` function. |
+| `amount`      | Specifies the number of XP tokens that should be awarded for completing the action.                                    |
+| `description` | Provides a brief description of the action.                                                                            |
+| `address`     | Specifies the address of the XP token that's being sent.                                                               |
+
+The `actions.json` file configures which actions should be triggered and how many XP tokens should be sent for each action.
 
 ### View completed actions
 
-You can view completed mission on-chain using our subgraph. You can see an example [here](https://api.thegraph.com/subgraphs/name/open-format/mumbai/graphql?query=%7B%0A++actions%28first%3A+2%2C+where%3A+%7Bapp%3A+%220xfa6439e79bd79d245bded41d1bd16f2166347884%22%7D%29+%7B%0A++++amount%0A++++type_id%0A++++token+%7B%0A++++++id%0A++++%7D%0A++++user+%7B%0A++++++id%0A++++%7D%0A++%7D%0A%7D)
+You can view completed actions on-chain using our subgraph. You can see an example [here](https://api.thegraph.com/subgraphs/name/open-format/mumbai/graphql?query=%7B%0A++actions%28first%3A+2%2C+where%3A+%7Bapp%3A+%220xfa6439e79bd79d245bded41d1bd16f2166347884%22%7D%29+%7B%0A++++amount%0A++++type_id%0A++++token+%7B%0A++++++id%0A++++%7D%0A++++user+%7B%0A++++++id%0A++++%7D%0A++%7D%0A%7D).
 
 ## Missions
 
 ### What are missions
 
-Missions are sets of actions that users must complete in order to earn rewards. Once a user has completed all the required actions for a mission, they can receive reward tokens and/or badges. The requirements for each mission are defined in the `missions.json` file, which specifies the actions that need to be completed and how many times each action needs to be completed. Missions are automatically triggered when a set of required actions have been completed. Completed missions can be viewed via the Open Format subgraph.
+Missions are sets of actions that users must complete in order to receive tokens. Once a user has completed all the required actions for a mission, they will receive tokens and/or badges. The requirements for each mission are defined in the `missions.json` file, which specifies the actions that need to be completed and how many times each action needs to be completed. Missions are automatically triggered when a set of required actions have been completed. Completed missions can be viewed via the Open Format subgraph.
 
 ### Setup
 
@@ -138,26 +159,24 @@ Missions are sets of actions that users must complete in order to earn rewards. 
       }
     ],
     "requirements": [
-      {
-        "actionId": "connect",
-        "count": 3
-      },
-      {
-        "actionId": "share",
-        "count": 1
-      }
+      { "actionId": "connect", "count": 3 },
+      { "actionId": "share", "count": 1 }
     ]
   }
 ]
 ```
 
-This JSON object describes a mission that requires the completion of certain actions. The **`id`**and **`description`**keys provide a name and description for the mission, respectively. The **`tokens`**key contains an array of objects that specify the tokens to be awarded for completing the mission, including the address of the token and the amount to be awarded. Finally, the **`requirements`**key contains an array of objects that specify the actions that must be taken to complete the mission and the number of times they must be completed. the `**actionId**` relates to the actions set in the `**actions.json**`
+| Key          | Description                                                                                                                                                                                                          |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id           | name of the ID. Used as a reference in tokenSystem                                                                                                                                                                   |
+| description  | Description of the mission                                                                                                                                                                                           |
+| tokens       | An array of objects that specify the tokens to be awarded for completing the mission, including the address of the token and the amount to be awarded. the `uri` is the link to the metadata if the token is a badge |
+| requirements | An an array of objects that specify the actions that must be taken to complete the mission and the number of times they must be completed. the actionId relates to the actions set in the actions.json               |
 
 ### View completed missions
 
-You can view completed mission on-chain using our subgraph. You can see an example [here](https://api.thegraph.com/subgraphs/name/open-format/mumbai/graphql?query=%7B%0A++missions%28first%3A+2%2C+where%3A+%7Bapp%3A+%220xfa6439e79bd79d245bded41d1bd16f2166347884%22%7D%29+%7B%0A++++amount%0A++++type_id%0A++++token+%7B%0A++++++id%0A++++%7D%0A++++user+%7B%0A++++++id%0A++++%7D%0A++%7D%0A%7D)
+You can view completed mission on-chain using our subgraph. You can see an example [here](https://api.thegraph.com/subgraphs/name/open-format/mumbai/graphql?query=%7B%0A++missions%28first%3A+2%2C+where%3A+%7Bapp%3A+%220xfa6439e79bd79d245bded41d1bd16f2166347884%22%7D%29+%7B%0A++++amount%0A++++type_id%0A++++token+%7B%0A++++++id%0A++++%7D%0A++++user+%7B%0A++++++id%0A++++%7D%0A++%7D%0A%7D).
 
-## Architecture Diagram
+## Architecture
 
-This diagram illustrates how this template (interface) interacts with the Open Format ecosystem.
-![architecture](https://user-images.githubusercontent.com/7047410/232025623-812b8301-9d78-40d8-91a0-44fb60943066.png)
+![architecture](https://user-images.githubusercontent.com/7047410/233409803-a4ee7ea4-7517-4900-a1e7-50bee04fc20f.png)
