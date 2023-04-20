@@ -52,7 +52,7 @@ export default function Home() {
   return (
     <>
       {/* Render the overlay when loggingIn is true */}
-      {loggingIn && <div style={overlayStyle}></div>}
+      {loggingIn && <div></div>}
       <Head>
         <title>Hello World Starter</title>
         <meta

@@ -19,7 +19,14 @@ const SignOutButton: React.FC = () => {
     }
   };
 
-  return <button onClick={handleSignOut}>Sign out</button>;
+  return (
+    <button
+      className="bg-gray-100 w-28 p-2 rounded-lg mx-auto hover:bg-gray-200 cursor-pointer transition-all duration-3000 "
+      onClick={handleSignOut}
+    >
+      Sign out
+    </button>
+  );
 };
 
 export default SignOutButton;

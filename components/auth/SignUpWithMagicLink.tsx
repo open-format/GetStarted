@@ -56,13 +56,9 @@ export const SignUpWithMagicLink: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
-      <div className="relative py-3 sm:max-w-xl sm:mx-auto">
-        <div className="relative px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-3xl sm:p-10">
-          <h3 className="text-2xl font-medium leading-6 text-gray-900 mb-6">
-            Magic Link
-          </h3>
-
+    <div className="w-full flex flex-col justify-center ">
+      <div className="relative py-3 sm:mx-auto">
+        <div className="relative px-4 py-10 bg-white mx-8 md:mx-0 sm:p-10">
           {message && (
             <p
               className={`mt-4 text-center ${
@@ -88,7 +84,7 @@ export const SignUpWithMagicLink: React.FC = () => {
 
             <button
               type="submit"
-              className={`w-full mt-6 bg-blue-600 text-white p-2 rounded ${
+              className={`w-full mt-6 bg-gray-100 text-gray-900 font-bold opacity-80 p-2 hover:bg-gray-200 transition-all duration-3000 rounded-lg ${
                 loading ? "opacity-50 cursor-not-allowed" : ""
               }`}
               disabled={loading}
