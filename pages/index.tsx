@@ -1,14 +1,14 @@
 import RewardSystem from "@/utils/RewardSystem";
-import { useOpenFormat, useWallet } from "@openformat/react";
+import { useOpenFormat } from "@openformat/react";
 import Head from "next/head";
-import React from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Inter } from "next/font/google";
-import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import styles from "@/styles/Home.module.css";
-import { Wallet } from "ethers";
 import Link from "next/link";
 import { useLoggedInAddress } from "@/contexts/LoggedInAddressContext";
+import { supabase } from "@/utils/supabaseClient";
 
 // Load the Inter font with specified subset
 const inter = Inter({ subsets: ["latin"] });
@@ -18,6 +18,39 @@ export default function Home() {
   // Use the useWallet and useOpenFormat hooks
   const { loggedInAddress } = useLoggedInAddress();
   const { sdk } = useOpenFormat();
+  const [loggingIn, setLoggingIn] = useState(false);
+
+  const router = useRouter();
+  // Use the useEffect hook to listen for authentication state changes
+  useEffect(() => {
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        if (event === "SIGNED_IN" || event === "USER_UPDATED") {
+          setLoggingIn(true); // Set loggingIn to true
+
+          // Show the "Logging in" loading toast
+          const loadingToastId = toast.loading("Logging in...");
+
+          // Wait for 3 seconds
+          await new Promise((resolve) => setTimeout(resolve, 3000));
+
+          // Replace the current route with /login and execute getServerSideProps
+          await router.replace("/login");
+
+          // Dismiss the loading toast and show the "Logged in" success toast
+          toast.dismiss(loadingToastId);
+          toast.success("Logged in");
+
+          setLoggingIn(false); // Set loggingIn back to false
+        }
+      }
+    );
+
+    // Clean up the listener when the component is unmounted
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, [router]);
 
   const rewardSystem = new RewardSystem(sdk);
 
@@ -54,8 +87,20 @@ export default function Home() {
     }
   }
 
+  const overlayStyle = {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
+    zIndex: 1000,
+  };
+
   return (
     <>
+      {/* Render the overlay when loggingIn is true */}
+      {loggingIn && <div style={overlayStyle}></div>}
       <Head>
         <title>Create OpenFormat Dapp</title>
         <meta
@@ -132,63 +177,3 @@ export default function Home() {
     </>
   );
 }
-
-export const getServerSideProps = async (ctx) => {
-  // Create authenticated Supabase Client
-  const supabase = createServerSupabaseClient(ctx);
-  // Check if we have a session
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  if (!session) return { props: {} };
-
-  // Check if the user already exists in the "profiles" table
-  const { data: existingUsers, error: userError } = await supabase
-    .from("profiles")
-    .select("*")
-    .eq("id", session.user.id);
-
-  if (!existingUsers || existingUsers.length === 0) {
-    // The user does not exist in the "profiles" table, create a new wallet and get the private key
-    const wallet = Wallet.createRandom();
-    const privateKey = wallet.privateKey;
-
-    // Get the wallet address and set the wallet address
-    const walletAddress = wallet.address;
-
-    // Insert the private key into the profiles table
-    const { data: userData, error: insertError } = await supabase
-      .from("profiles")
-      .insert([
-        {
-          id: session.user.id,
-          email: session.user.email,
-          private_key: privateKey,
-          wallet_address: walletAddress,
-        },
-      ]);
-
-    if (insertError) {
-      console.error("Error inserting user into profiles table:", insertError);
-    }
-  }
-
-  const { data: userProfile, error } = await supabase
-    .from("profiles")
-    .select("id, wallet_address")
-    .eq("id", session.user.id)
-    .single();
-
-  if (error) {
-    console.error("Error fetching user profile data:", error);
-  }
-
-  return {
-    props: {
-      initialSession: session,
-      user: session.user,
-      userProfile: userProfile,
-    },
-  };
-};
