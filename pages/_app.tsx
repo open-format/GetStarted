@@ -1,14 +1,22 @@
 import "@/styles/globals.css";
-import type { AppProps } from "next/app";
-import Header from "../components/Header";
 import { Chains, OpenFormatProvider } from "@openformat/react";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider, Session } from "@supabase/auth-helpers-react";
-import { useState } from "react";
 import { LoggedInAddressProvider } from "../contexts/LoggedInAddressContext";
 import { Toaster } from "react-hot-toast";
+import type { AppProps } from "next/app";
 import { Roboto } from "next/font/google";
+import { useEffect, useState } from "react";
+import { Header } from "../components";
 import { checkEnvVariables } from "../env-config";
+
+// This is due to Wagmi and SSR. We hope to fix this within the Open Format SDK soon.
+// https://github.com/wagmi-dev/wagmi/issues/542#issuecomment-1144178142
+export function useIsMounted() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  return mounted;
+}
 
 // Load the Roboto font with specified weight and subset
 const roboto = Roboto({
@@ -25,6 +33,8 @@ export default function App({
 }>) {
   const [supabaseClient] = useState(() => createBrowserSupabaseClient());
   checkEnvVariables(); // Check for missing or empty environment variables
+  const isMounted = useIsMounted();
+  if (!isMounted) return;
   return (
     // Apply the Roboto font to the main container
     <main className={roboto.className}>
