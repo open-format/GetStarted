@@ -2,7 +2,6 @@ import React from "react";
 import Head from "next/head";
 import CreateContract from "../components/admin/CreateContract";
 import Contracts from "../components/admin/Contracts";
-import { useWallet } from "@openformat/react";
 import styles from "../styles/Admin.module.css";
 import { useLoggedInAddress } from "@/contexts/LoggedInAddressContext";
 
