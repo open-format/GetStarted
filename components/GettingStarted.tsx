@@ -4,20 +4,13 @@
 
 import { getActionsByUserAndRequirements } from "@/queries";
 import RewardSystem from "@/utils/RewardSystem";
-import {
-  CheckCircleIcon,
-  ChevronRightIcon,
-} from "@heroicons/react/24/solid";
-import {
-  ConnectButton,
-  fromWei,
-  useRawRequest,
-  useWallet,
-} from "@openformat/react";
+import { CheckCircleIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import { fromWei, useRawRequest, useWallet } from "@openformat/react";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Button } from "../components";
+import Login from "./auth/Login";
 
 export default function GettingStarted({
   rewardSystem,
@@ -55,9 +48,7 @@ export default function GettingStarted({
               } else if (token.activityType === "MISSION") {
                 message += `${token.id} mission `;
               }
-              message += `and received ${fromWei(token.amount)} ${
-                token.type
-              }`;
+              message += `and received ${fromWei(token.amount)} ${token.type}`;
 
               setLoading(false);
               return message;
@@ -78,7 +69,7 @@ export default function GettingStarted({
       description: "Connect your web3 wallet. We recommend Metamask.",
       href: false,
       completed: isConnected,
-      component: <ConnectButton />,
+      component: <Login />,
     },
     {
       title: "Create your XP token",
@@ -161,9 +152,7 @@ export default function GettingStarted({
                 </div>
               ) : (
                 <div className="mt-1 flex items-center gap-x-1.5 z-10">
-                  {!task.disabled && (
-                    <a href={task.href}>{task.component}</a>
-                  )}
+                  {!task.disabled && <a href={task.href}>{task.component}</a>}
                 </div>
               )}
             </div>

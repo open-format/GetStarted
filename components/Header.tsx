@@ -1,21 +1,14 @@
-import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import Login from "./auth/Login";
 import { useRouter } from "next/router";
-import SignOutButton from "./auth/SignOutButton";
 import { HeaderProps } from "@/types";
-import { useLoggedInAddress } from "@/contexts/LoggedInAddressContext";
-import { ConnectButton, useWallet } from "@openformat/react";
+import Login from "./auth/Login";
 
 // Header component to display the site navigation bar
 const Header: React.FC<HeaderProps> = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { loggedInAddress } = useLoggedInAddress();
   const router = useRouter();
   const currentPage = router.pathname;
-  const user = useUser();
-  const [isSignOutVisible, setIsSignOutVisible] = useState(false);
 
   const genericHamburgerLine =
     "h-1 w-6 my-0.5 rounded-full transition-all duration-300 bg-gray-900 dark:bg-gray-100";
@@ -28,25 +21,9 @@ const Header: React.FC<HeaderProps> = () => {
     { path: "/login", label: "Login" },
   ];
 
-  const toggleSignOutVisibility = () => {
-    setIsSignOutVisible(!isSignOutVisible);
-  };
-
-  const maskedAddress =
-    loggedInAddress?.substring(0, 5) + "..." + loggedInAddress?.substring(36);
-
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
-
-  const { address } = useWallet();
-  const { setLoggedInAddress } = useLoggedInAddress();
-
-  useEffect(() => {
-    if (!user) {
-      setLoggedInAddress(address ?? null);
-    }
-  }, [address, setLoggedInAddress]);
 
   return (
     <div>
@@ -79,27 +56,8 @@ const Header: React.FC<HeaderProps> = () => {
               </div>
             </div>
 
-            <div className="group flex ml-auto">
-              {!user && <ConnectButton />}
-              {user && (
-                <div
-                  className={`bg-gray-100 px-4 py-2 rounded-lg cursor-pointer group ${
-                    isSignOutVisible ? "hover:bg-gray-200 px-0 py-0" : ""
-                  }`}
-                  onClick={toggleSignOutVisibility}
-                >
-                  <div className={`${isSignOutVisible ? "hidden" : "block"}`}>
-                    {maskedAddress}
-                  </div>
-                  <div
-                    className={`${
-                      isSignOutVisible ? "block mx-auto" : "hidden"
-                    }`}
-                  >
-                    <SignOutButton />
-                  </div>
-                </div>
-              )}
+            <div className="flex ml-auto">
+              <Login />
             </div>
             <div className="flex -mr-2 md:hidden">
               <button
