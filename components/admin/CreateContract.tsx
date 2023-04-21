@@ -3,7 +3,6 @@ import { toWei } from "@openformat/sdk";
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { ethers } from "ethers";
-import styles from "../../styles/Contracts.module.css";
 import { gql } from "graphql-request";
 import { AppData } from "@/types";
 
@@ -94,13 +93,16 @@ const CreateContract: React.FC = () => {
 
   // Render form
   return (
-    <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
-      <div className={styles.field}>
-        <label className={styles.label} htmlFor="tokenType">
+    <form className="m-4" onSubmit={handleSubmit(onSubmit)}>
+      <div className="flex flex-col">
+        <label
+          className="text-sm font-semibold text-gray-700"
+          htmlFor="tokenType"
+        >
           Token Type:
         </label>
         <select
-          className={styles.input}
+          className="mt-1 p-2 border border-gray-300 rounded-md"
           id="tokenType"
           onChange={(e) => setTokenType(e.target.value)}
           value={tokenType}
@@ -110,47 +112,50 @@ const CreateContract: React.FC = () => {
         </select>
       </div>
 
-      <div className={styles.field}>
-        <label className={styles.label} htmlFor="name">
+      <div className="flex flex-col">
+        <label className="text-sm font-semibold text-gray-700" htmlFor="name">
           Name:
         </label>
         <input
-          className={styles.input}
+          className="mt-1 p-2 border border-gray-300 rounded-md"
           id="name"
           type="text"
           {...register("name", { required: "Name is required" })}
         />
         {errors.name && (
-          <p className={styles.error}>
+          <p className="mt-1 text-xs text-red-500">
             {(errors.name.message as string) || ""}
           </p>
         )}
       </div>
 
-      <div className={styles.field}>
-        <label className={styles.label} htmlFor="symbol">
+      <div className="flex flex-col">
+        <label className="text-sm font-semibold text-gray-700" htmlFor="symbol">
           Symbol:
         </label>
         <input
-          className={styles.input}
+          className="mt-1 p-2 border border-gray-300 rounded-md"
           id="symbol"
           type="text"
           {...register("symbol", { required: "Symbol is required" })}
         />
         {errors.symbol && (
-          <p className={styles.error}>
+          <p className="mt-1 text-xs text-red-500">
             {(errors.symbol.message as string) || ""}
           </p>
         )}
       </div>
 
       {tokenType === "ERC721" && (
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="tokenURI">
+        <div className="flex flex-col">
+          <label
+            className="text-sm font-semibold text-gray-700"
+            htmlFor="tokenURI"
+          >
             TokenURI:
           </label>
           <input
-            className={styles.input}
+            className="mt-1 p-2 border border-gray-300 rounded-md"
             id="tokenURI"
             type="text"
             {...register("tokenURI", {
@@ -159,7 +164,7 @@ const CreateContract: React.FC = () => {
             })}
           />
           {errors.supply && (
-            <p className={styles.error}>
+            <p className="mt-1 text-xs text-red-500">
               {(errors.supply.message as string) || ""}
             </p>
           )}
@@ -167,12 +172,15 @@ const CreateContract: React.FC = () => {
       )}
 
       {tokenType === "ERC20" && (
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="supply">
+        <div className="flex flex-col">
+          <label
+            className="text-sm font-semibold text-gray-700"
+            htmlFor="supply"
+          >
             Supply:
           </label>
           <input
-            className={styles.input}
+            className="mt-1 p-2 border border-gray-300 rounded-md"
             id="supply"
             type="number"
             {...register("supply", {
@@ -181,28 +189,24 @@ const CreateContract: React.FC = () => {
             })}
           />
           {errors.supply && (
-            <p className={styles.error}>
+            <p className="mt-1 text-xs text-red-500">
               {(errors.supply.message as string) || ""}
             </p>
           )}
         </div>
       )}
 
-      <div className={`${styles.tooltip} `}>
+      <div className="relative group">
         <button
-          className={`${styles.button} ${
-            !isOwner ? styles.buttonDisabled : ""
+          className={`w-full py-2 px-4 text-sm font-semibold text-white bg-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 ${
+            !isOwner ? "opacity-50 cursor-not-allowed" : ""
           }`}
           type="submit"
           disabled={!isOwner} // Disable button if the user is not the owner
         >
-          Create Contract
+          {!isOwner && "Only the app owner can create contracts"}
+          {isOwner && "Create Contract"}
         </button>
-        {!isOwner && (
-          <span className={styles.tooltiptext}>
-            Only the app owner can create contracts
-          </span>
-        )}
       </div>
     </form>
   );
