@@ -1,4 +1,4 @@
-import { RewardType } from "@openformat/sdk";
+import { RewardType } from "@openformat/react";
 
 // Action interface represents an action performed by a user
 interface Action {

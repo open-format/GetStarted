@@ -1,6 +1,6 @@
-import { OpenFormatSDK, Chains } from "@openformat/sdk";
-import type { NextApiRequest, NextApiResponse } from "next";
 import { Data } from "@/types";
+import { Chains, OpenFormatSDK } from "@openformat/sdk";
+import type { NextApiRequest, NextApiResponse } from "next";
 
 // Initialize the OpenFormatSDK with necessary configurations
 const sdk = new OpenFormatSDK({
@@ -29,14 +29,20 @@ export default async function handler(
     } catch (error) {
       // Handle errors in triggering the reward
       if (error instanceof Error) {
-        res.status(500).json({ success: false, message: error.message });
+        res
+          .status(500)
+          .json({ success: false, message: error.message });
       } else {
-        res.status(500).json({ success: false, message: String(error) });
+        res
+          .status(500)
+          .json({ success: false, message: String(error) });
       }
     }
   } else {
     // If the request method is not POST, return a "Method Not Allowed" error
     res.setHeader("Allow", "POST");
-    res.status(405).json({ success: false, message: "Method Not Allowed" });
+    res
+      .status(405)
+      .json({ success: false, message: "Method Not Allowed" });
   }
 }
