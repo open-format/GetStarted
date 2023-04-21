@@ -1,6 +1,24 @@
 # What is Hello world?
 
-This starter is an introduction into a new decentralised world and what we believe to be the starting point for 90% of all future applications. It's a front-end application that's built using NextJS and the Open Format SDK.
+This starter is an introduction into a new decentralised world and what we believe to be the starting point for 90% of all future applications. It features a fundamental file structure boilerplate, which comprises of an admin area, authentication, and a tokenised system with XP, Badges, and "Reward Tokens", all integrated into a front-end application built using NextJS and the Open Format SDK.
+
+## Mechanics Overview
+
+To keep this as simple as possible we’re very opinionated with the rules while still retaining as much flexibility as possible to account for most scenarios out of the box.
+
+| Mechanism    | Earn          | Utility                    |
+| ------------ | ------------- | -------------------------- |
+| $RewardToken | From Missions | Governance, Digital assets |
+| XP           | From Actions  | Progress/Loyalty           |
+| NFT Badge    | From Missions | Trophy, Access             |
+
+### Leaderboard
+
+The leaderboard lists the users in descending order by their XP. This leaderboard can be overall, or dimensioned by a time based frequency such days, weeks, months.
+
+### Profile
+
+The profile shows completed actions, completed missions, and gained XP of the signed-in user.
 
 ## Getting started
 
