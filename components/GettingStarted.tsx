@@ -117,7 +117,7 @@ export default function GettingStarted({
     {
       title: "Connect your wallet",
       description: "Connect your web3 wallet. We recommend Metamask.",
-      href: false,
+      href: undefined,
       completed: isConnected,
       component: <ConnectButton />,
     },
@@ -138,14 +138,14 @@ export default function GettingStarted({
       title: "Update your actions",
       description:
         "Copy the ID of your XP Token and add it to the connect action in actions.json",
-      href: false,
+      href: undefined,
       disabled: !isConnected,
     },
     {
       title: "Trigger your first action 🚀",
       description:
         "Once you've updated your action, you can trigger your first action!",
-      href: false,
+      href: undefined,
       completed: isConnected && firstActionComplete,
       disabled: !isConnected,
       component: (
