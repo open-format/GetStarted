@@ -120,6 +120,8 @@ export default function GettingStarted({
 
   const firstActionComplete = Boolean(data?.actions?.length);
 
+  const xpTokenId = TokenData?.contracts?.[0]?.id || "";
+
   // Define the tasks that the user needs to complete
   const tasks = [
     {
@@ -144,8 +146,25 @@ export default function GettingStarted({
     },
     {
       title: "Update your actions",
-      description:
-        "Copy the ID of your XP Token and add it to the connect action in actions.json. Your token ID:",
+      description: "",
+      descriptionElement: (
+        <div className="text-xs leading-5 text-gray-500">
+          {xpTokenId
+            ? "Copy the ID of your XP Token and add it to the connect action in actions.json. Your XP token ID:"
+            : "Copy the ID of your XP Token and add it to the connect action in actions.json once it's available."}
+          {xpTokenId && (
+            <span
+              className="ml-1 text-gray-600 font-bold cursor-pointer"
+              onClick={() => {
+                navigator.clipboard.writeText(xpTokenId);
+                toast.success("Token ID copied to clipboard!");
+              }}
+            >
+              {xpTokenId}
+            </span>
+          )}
+        </div>
+      ),
       href: undefined,
       disabled: !isConnected,
     },
@@ -181,7 +200,7 @@ export default function GettingStarted({
   return (
     <ul
       role="list"
-      className="divide-y divide-gray-100 overflow-hidden bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl"
+      className="divide-y divide-gray-100 overflow-hidden bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl "
     >
       {tasks.map((task) => (
         <li
@@ -198,13 +217,18 @@ export default function GettingStarted({
             <div className="min-w-0 flex-auto">
               <p className="text-sm font-semibold leading-6 text-gray-900">
                 <a href={task.href}>
-                  <span className="absolute inset-x-0 -top-px bottom-0" />
+                  {task.title !== "Update your actions" ||
+                  !xpTokenId ? (
+                    <span className="absolute inset-x-0 -top-px bottom-0" />
+                  ) : null}
                   {task.title}
                 </a>
               </p>
-              <p className="mt-1 flex text-xs leading-5 text-gray-500">
-                {task.description}
-              </p>
+              {task.descriptionElement || (
+                <p className="mt-1 flex text-xs leading-5 text-gray-500">
+                  {task.description}
+                </p>
+              )}
             </div>
           </div>
           <div className="flex items-center gap-x-4">
