@@ -3,20 +3,26 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { HeaderProps } from "@/types";
 import Login from "./auth/Login";
+import { useWallet } from "@openformat/react";
 
 // Header component to display the site navigation bar
 const Header: React.FC<HeaderProps> = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const router = useRouter();
   const currentPage = router.pathname;
+  const { isConnected } = useWallet();
 
   const genericHamburgerLine =
     "h-1 w-6 my-0.5 rounded-full transition-all duration-300 bg-gray-900 dark:bg-gray-100";
 
   const links = [
     { path: "/", label: "Home" },
-    { path: "/profile", label: "Profile" },
-    { path: "/admin", label: "Admin" },
+    ...(isConnected
+      ? [
+          { path: "/profile", label: "Profile" },
+          { path: "/admin", label: "Admin" },
+        ]
+      : []),
     { path: "/leaderboard", label: "Leaderboard" },
   ];
 
