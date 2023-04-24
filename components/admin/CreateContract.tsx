@@ -109,6 +109,7 @@ const CreateContract: React.FC = () => {
         >
           <option value="ERC721">Badge</option>
           <option value="ERC20">Token</option>
+          <option value="XP">XP</option>
         </select>
       </div>
 
@@ -171,7 +172,7 @@ const CreateContract: React.FC = () => {
         </div>
       )}
 
-      {tokenType === "ERC20" && (
+      {(tokenType === "ERC20" || tokenType === "XP") && (
         <div className="flex flex-col">
           <label
             className="text-sm font-semibold text-gray-700"
