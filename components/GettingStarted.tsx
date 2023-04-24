@@ -62,20 +62,28 @@ export default function GettingStarted({
   // of an XP token for the app.
   async function handleCreateXPToken() {
     if (address) {
-      await toast.promise(
-        sdk.Reward.createRewardToken({
-          name: "XP",
-          symbol: "XP",
-          supply: toWei("0"),
-        }),
-        {
-          loading: "Creating XP Token",
-          success: "XP token created",
-          error: "Error creating XP Token, please try again",
-        }
-      );
+      await toast
+        .promise(
+          sdk.Reward.createRewardToken({
+            name: "XP",
+            symbol: "XP",
+            supply: toWei("0"),
+          }),
+          {
+            loading: "Creating XP Token",
+            success: "XP token created",
+            error: "Error creating XP Token, please try again",
+          }
+        )
+        .then(() => {
+          setTimeout(() => {
+            refetch();
+            location.reload();
+          }, 3000);
+        });
     }
   }
+
   // handleConnect is an async function that handles the connection process
   // and rewards the user with tokens upon successful connection.
   async function handleConnect() {
@@ -137,7 +145,7 @@ export default function GettingStarted({
     {
       title: "Update your actions",
       description:
-        "Copy the ID of your XP Token and add it to the connect action in actions.json",
+        "Copy the ID of your XP Token and add it to the connect action in actions.json. Your token ID:",
       href: undefined,
       disabled: !isConnected,
     },
