@@ -1,10 +1,14 @@
-import { useOpenFormat, useRawRequest, useWallet } from "@openformat/react";
+import { AppData } from "@/types";
+import {
+  useOpenFormat,
+  useRawRequest,
+  useWallet,
+} from "@openformat/react";
 import { toWei } from "@openformat/sdk";
-import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
 import { ethers } from "ethers";
 import { gql } from "graphql-request";
-import { AppData } from "@/types";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 
 // CreateContract component
 const CreateContract: React.FC = () => {
@@ -43,7 +47,7 @@ const CreateContract: React.FC = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [tokenType, setTokenType] = useState("ERC721");
+  const [tokenType, setTokenType] = useState("BADGE");
 
   // Access OpenFormat SDK
   const { sdk } = useOpenFormat();
@@ -84,7 +88,7 @@ const CreateContract: React.FC = () => {
 
   // Handle form submission
   const onSubmit = (formData: any) => {
-    if (tokenType === "ERC721") {
+    if (tokenType === "BADGE") {
       createERC721(formData);
     } else {
       createERC20(formData);
@@ -107,14 +111,16 @@ const CreateContract: React.FC = () => {
           onChange={(e) => setTokenType(e.target.value)}
           value={tokenType}
         >
-          <option value="ERC721">Badge</option>
-          <option value="ERC20">Token</option>
-          <option value="XP">XP</option>
+          <option value="BADGE">Badge</option>
+          <option value="REWARD">Token</option>
         </select>
       </div>
 
       <div className="flex flex-col">
-        <label className="text-sm font-semibold text-gray-700" htmlFor="name">
+        <label
+          className="text-sm font-semibold text-gray-700"
+          htmlFor="name"
+        >
           Name:
         </label>
         <input
@@ -131,7 +137,10 @@ const CreateContract: React.FC = () => {
       </div>
 
       <div className="flex flex-col">
-        <label className="text-sm font-semibold text-gray-700" htmlFor="symbol">
+        <label
+          className="text-sm font-semibold text-gray-700"
+          htmlFor="symbol"
+        >
           Symbol:
         </label>
         <input
@@ -147,7 +156,7 @@ const CreateContract: React.FC = () => {
         )}
       </div>
 
-      {tokenType === "ERC721" && (
+      {tokenType === "BADGE" && (
         <div className="flex flex-col">
           <label
             className="text-sm font-semibold text-gray-700"
@@ -172,7 +181,7 @@ const CreateContract: React.FC = () => {
         </div>
       )}
 
-      {(tokenType === "ERC20" || tokenType === "XP") && (
+      {tokenType === "REWARD" && (
         <div className="flex flex-col">
           <label
             className="text-sm font-semibold text-gray-700"
