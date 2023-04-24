@@ -2,7 +2,7 @@ import {
   getActionsByUserAndRequirements,
   getMissionsByUserAndRequirements,
 } from "@/queries";
-import { RewardParams } from "@/types";
+import { RewardParams, Mission, Action } from "@/types";
 import { OpenFormatSDK } from "@openformat/sdk";
 import axios from "axios";
 
@@ -22,7 +22,7 @@ export default class TokenService {
     );
 
     const actionIds = response.actions.map(
-      (action) => action.type_id
+      (action: Action) => action.type_id
     );
     return actionIds;
   }
@@ -37,7 +37,7 @@ export default class TokenService {
     );
 
     const missionIds = response.missions.map(
-      (mission) => mission.type_id
+      (mission: Mission) => mission.type_id
     );
     return missionIds;
   }
