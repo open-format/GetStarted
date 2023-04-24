@@ -1,6 +1,6 @@
-import { useRawRequest, fromWei } from "@openformat/react";
-import { gql } from "graphql-request";
 import { ResponseData, Variables } from "@/types";
+import { fromWei, useRawRequest } from "@openformat/react";
+import { gql } from "graphql-request";
 import { toast } from "react-hot-toast";
 
 // Contracts component
@@ -73,9 +73,7 @@ function Contracts() {
                           className="focus:outline-none"
                           onClick={() => copyContractId(contract.id)}
                         >
-                          {`${contract.id.slice(0, 4)}...${contract.id.slice(
-                            -4
-                          )}`}
+                          {contract.id}
                         </button>
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-xs sm:text-sm text-gray-500">
