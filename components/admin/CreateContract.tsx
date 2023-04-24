@@ -9,6 +9,7 @@ import { ethers } from "ethers";
 import { gql } from "graphql-request";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 
 // CreateContract component
 const CreateContract: React.FC = () => {
@@ -64,10 +65,12 @@ const CreateContract: React.FC = () => {
       tokenURI: formData.tokenURI,
     };
 
-    const NFT = await sdk.Reward.createBadge(params);
-    // You can perform further operations, e.g., transfer, etc.
+    await toast.promise(sdk.Reward.createBadge(params), {
+      loading: "Creating Badge",
+      success: "Badge created",
+      error: "Error creating Badge, please try again",
+    });
   };
-
   // Function to create an ERC20 token
   const createERC20 = async (formData: {
     name: string;
@@ -80,10 +83,18 @@ const CreateContract: React.FC = () => {
       supply: toWei(formData.supply.toString()), // Convert supply to Wei
     };
 
-    const token = await sdk.Reward.createRewardToken(params);
-    const maxUint256 = ethers.constants.MaxUint256;
-    token.approve({ spender: token.appId, amount: maxUint256 });
-    // You can perform further operations, e.g., transfer, etc.
+    await toast.promise(
+      sdk.Reward.createRewardToken(params).then((token) => {
+        const maxUint256 = ethers.constants.MaxUint256;
+        token.approve({ spender: token.appId, amount: maxUint256 });
+      }),
+      {
+        loading: "Creating Token",
+        success:
+          "Token created (Please confirm spending cap in your wallet)",
+        error: "Error creating Token, please try again",
+      }
+    );
   };
 
   // Handle form submission
