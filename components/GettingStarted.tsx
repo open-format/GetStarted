@@ -1,13 +1,10 @@
-// This component is just to get your started
-// feel free to tweak, modify, or even delete it entirely before moving
+// This component is just to get you started.
+// Feel free to tweak, modify, or even delete it entirely before moving
 // forward with building your awesome application.
 
 import { getActionsByUserAndRequirements } from "@/queries";
 import RewardSystem from "@/utils/RewardSystem";
-import {
-  CheckCircleIcon,
-  ChevronRightIcon,
-} from "@heroicons/react/24/solid";
+import { CheckCircleIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import {
   ConnectButton,
   fromWei,
@@ -19,6 +16,8 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Button } from "../components";
 
+// The GettingStarted component displays a list of tasks for users to complete.
+// It accepts a rewardSystem prop, an instance of the RewardSystem utility class.
 export default function GettingStarted({
   rewardSystem,
 }: {
@@ -27,6 +26,7 @@ export default function GettingStarted({
   const { isConnected, address } = useWallet();
   const [isLoading, setLoading] = useState<boolean>(false);
 
+  // Fetch the data related to the user's actions and requirements
   const { data, refetch } = useRawRequest<any, any>({
     query: getActionsByUserAndRequirements,
     variables: {
@@ -35,10 +35,13 @@ export default function GettingStarted({
     },
   });
 
+  // Refetch the data whenever isConnected, isLoading or refetch change
   useEffect(() => {
     refetch();
   }, [isConnected, isLoading, refetch]);
 
+  // handleConnect is an async function that handles the connection process
+  // and rewards the user with tokens upon successful connection.
   async function handleConnect() {
     setLoading(true);
 
@@ -55,9 +58,7 @@ export default function GettingStarted({
               } else if (token.activityType === "MISSION") {
                 message += `${token.id} mission `;
               }
-              message += `and received ${fromWei(token.amount)} ${
-                token.type
-              }`;
+              message += `and received ${fromWei(token.amount)} ${token.type}`;
 
               setLoading(false);
               return message;
@@ -72,6 +73,7 @@ export default function GettingStarted({
 
   const firstActionComplete = Boolean(data?.actions?.length);
 
+  // Define the tasks that the user needs to complete
   const tasks = [
     {
       title: "Connect your wallet",
@@ -161,9 +163,7 @@ export default function GettingStarted({
                 </div>
               ) : (
                 <div className="mt-1 flex items-center gap-x-1.5 z-10">
-                  {!task.disabled && (
-                    <a href={task.href}>{task.component}</a>
-                  )}
+                  {!task.disabled && <a href={task.href}>{task.component}</a>}
                 </div>
               )}
             </div>

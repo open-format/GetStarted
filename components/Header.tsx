@@ -12,11 +12,14 @@ const Header: React.FC<HeaderProps> = () => {
   const currentPage = router.pathname;
   const { isConnected } = useWallet();
 
+  // Define the generic CSS classes for the hamburger menu lines
   const genericHamburgerLine =
     "h-1 w-6 my-0.5 rounded-full transition-all duration-300 bg-gray-900 dark:bg-gray-100";
 
+  // Define the navigation links
   const links = [
     { path: "/", label: "Home" },
+    // Only show Profile and Admin links if connected
     ...(isConnected
       ? [
           { path: "/profile", label: "Profile" },
@@ -26,6 +29,7 @@ const Header: React.FC<HeaderProps> = () => {
     { path: "/leaderboard", label: "Leaderboard" },
   ];
 
+  // Toggle the mobile menu state between open and closed
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
