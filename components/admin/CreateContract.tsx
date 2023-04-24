@@ -10,6 +10,7 @@ import { gql } from "graphql-request";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
+import Button from "../Button";
 
 // CreateContract component
 const CreateContract: React.FC = () => {
@@ -218,16 +219,10 @@ const CreateContract: React.FC = () => {
       )}
 
       <div className="relative group">
-        <button
-          className={`w-full py-2 px-4 text-sm font-semibold text-white bg-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 ${
-            !isOwner ? "opacity-50 cursor-not-allowed" : ""
-          }`}
-          type="submit"
-          disabled={!isOwner} // Disable button if the user is not the owner
-        >
+        <Button disabled={!isOwner} onClick={handleSubmit(onSubmit)}>
           {!isOwner && "Only the app owner can create contracts"}
           {isOwner && "Create Contract"}
-        </button>
+        </Button>
       </div>
     </form>
   );

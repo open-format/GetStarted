@@ -3,6 +3,7 @@ import Head from "next/head";
 import CreateContract from "../components/admin/CreateContract";
 import Contracts from "../components/admin/Contracts";
 import { useWallet } from "@openformat/react";
+import { Button } from "@/components";
 
 // Admin page component
 const Admin: React.FC = () => {
@@ -29,12 +30,12 @@ const Admin: React.FC = () => {
             Create and view Tokens and Badges in your application.
           </p>
         </div>
-        <button
-          className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded my-4"
+        <Button
+          disabled={false}
           onClick={() => setShowContracts(!showContracts)}
         >
           Create Contracts
-        </button>
+        </Button>
       </div>
       {/* Check if the user's wallet is connected */}
       {address ? (
@@ -61,7 +62,9 @@ const Admin: React.FC = () => {
       ) : (
         // If the wallet is not connected, prompt the user to connect their wallet
         <div className="flex justify-center items-center min-h-screen">
-          <p className="text-xl text-gray-700">Please connect your wallet</p>
+          <p className="text-xl text-gray-700">
+            Please connect your wallet
+          </p>
         </div>
       )}
     </div>
