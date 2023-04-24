@@ -2,12 +2,20 @@
 // Feel free to tweak, modify, or even delete it entirely before moving
 // forward with building your awesome application.
 
-import { getActionsByUserAndRequirements } from "@/queries";
+import {
+  getActionsByUserAndRequirements,
+  getTokenByName,
+} from "@/queries";
 import RewardSystem from "@/utils/RewardSystem";
-import { CheckCircleIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import {
+  CheckCircleIcon,
+  ChevronRightIcon,
+} from "@heroicons/react/24/solid";
 import {
   ConnectButton,
   fromWei,
+  toWei,
+  useOpenFormat,
   useRawRequest,
   useWallet,
 } from "@openformat/react";
@@ -25,6 +33,7 @@ export default function GettingStarted({
 }) {
   const { isConnected, address } = useWallet();
   const [isLoading, setLoading] = useState<boolean>(false);
+  const { sdk } = useOpenFormat();
 
   // Fetch the data related to the user's actions and requirements
   const { data, refetch } = useRawRequest<any, any>({
@@ -35,11 +44,38 @@ export default function GettingStarted({
     },
   });
 
+  const { data: TokenData, isLoading: loadingTokenData } =
+    useRawRequest<any, any>({
+      query: getTokenByName,
+      variables: {
+        app: process.env.NEXT_PUBLIC_APP_ID,
+        name: "XP",
+      },
+    });
+
   // Refetch the data whenever isConnected, isLoading or refetch change
   useEffect(() => {
     refetch();
   }, [isConnected, isLoading, refetch]);
 
+  // handleCreateXPToken is an async function that handles the creation of a new token
+  // of an XP token for the app.
+  async function handleCreateXPToken() {
+    if (address) {
+      await toast.promise(
+        sdk.Reward.createRewardToken({
+          name: "XP",
+          symbol: "XP",
+          supply: toWei("0"),
+        }),
+        {
+          loading: "Creating XP Token",
+          success: "XP token created",
+          error: "Error creating XP Token, please try again",
+        }
+      );
+    }
+  }
   // handleConnect is an async function that handles the connection process
   // and rewards the user with tokens upon successful connection.
   async function handleConnect() {
@@ -58,7 +94,9 @@ export default function GettingStarted({
               } else if (token.activityType === "MISSION") {
                 message += `${token.id} mission `;
               }
-              message += `and received ${fromWei(token.amount)} ${token.type}`;
+              message += `and received ${fromWei(token.amount)} ${
+                token.type
+              }`;
 
               setLoading(false);
               return message;
@@ -84,23 +122,30 @@ export default function GettingStarted({
     },
     {
       title: "Create your XP token",
-      description: "Visit the admin page to create your XP token.",
-      href: "/admin",
+      description:
+        "Click to create your XP Token. You will see your created token on the admin page.",
+      completed:
+        isConnected && TokenData && TokenData.contracts.length,
       disabled: !isConnected,
-      component: <ChevronRightIcon className="h-5 w-5" />,
+      component: (
+        <Button onClick={handleCreateXPToken} disabled={!isConnected}>
+          Create XP Token
+        </Button>
+      ),
     },
     {
       title: "Update your actions",
       description:
-        "After creating your XP Token, you can add the address  to the connect action in actions.json that already exists.",
+        "Copy the ID of your XP Token and add it to the connect action in actions.json",
       href: false,
       disabled: !isConnected,
     },
     {
       title: "Trigger your first action 🚀",
-      description: "",
+      description:
+        "Once you've updated your action, you can trigger your first action!",
       href: false,
-      completed: firstActionComplete,
+      completed: isConnected && firstActionComplete,
       disabled: !isConnected,
       component: (
         <Button onClick={handleConnect} disabled={!isConnected}>
@@ -119,7 +164,7 @@ export default function GettingStarted({
       title: "View Docs",
       description:
         "Discover more features of this template and learn about the next steps.",
-      href: "https://github.com/open-format/dapp-template",
+      href: "https://github.com/open-format/hello-world",
       component: <ChevronRightIcon className="h-5 w-5" />,
     },
   ];
@@ -163,7 +208,9 @@ export default function GettingStarted({
                 </div>
               ) : (
                 <div className="mt-1 flex items-center gap-x-1.5 z-10">
-                  {!task.disabled && <a href={task.href}>{task.component}</a>}
+                  {!task.disabled && (
+                    <a href={task.href}>{task.component}</a>
+                  )}
                 </div>
               )}
             </div>
