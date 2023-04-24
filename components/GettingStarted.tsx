@@ -102,16 +102,16 @@ export default function GettingStarted({
               } else if (token.activityType === "MISSION") {
                 message += `${token.id} mission `;
               }
-              message += `and received ${fromWei(token.amount)} ${
-                token.type
-              }`;
+              message += `and received ${token.amount} ${token.type}`;
 
               setLoading(false);
               return message;
             }
             return "Action completed";
           },
-          error: "An error occurred",
+          error: (err) => {
+            return err.message || "An error occurred";
+          },
         },
         { duration: 5000 }
       );
