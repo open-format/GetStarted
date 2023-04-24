@@ -27,9 +27,9 @@ import { Button } from "../components";
 // The GettingStarted component displays a list of tasks for users to complete.
 // It accepts a rewardSystem prop, an instance of the RewardSystem utility class.
 export default function GettingStarted({
-  rewardSystem,
+  tokenSystem,
 }: {
-  rewardSystem: RewardSystem;
+  tokenSystem: TokenSystem;
 }) {
   const { isConnected, address } = useWallet();
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -83,9 +83,9 @@ export default function GettingStarted({
 
     if (address) {
       await toast.promise(
-        rewardSystem.handleCompletedAction(address, "connect"),
+        tokenSystem.handleCompletedAction(address, "connect"),
         {
-          loading: "Rewarding tokens...",
+          loading: "sending tokens...",
           success: (data) => {
             for (const token of data.rewarded) {
               let message = `You completed the `;

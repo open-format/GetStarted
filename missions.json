@@ -1,21 +1,25 @@
 [
   {
-    "id": "connect_mission_10",
+    "id": "connect_and_share",
     "description": "Connect twice times and share once",
     "tokens": [
       {
-        "address": "0x17ee65c8c6059cd84973b1e5865b71d0ebc5ff4f",
+        "address": "INSERT_REWARD_TOKEN_ADDRESS",
         "amount": 20
       },
       {
-        "address": "0x495d3216e88c88166cfcfbb9c494faca5c4a7553",
+        "address": "INSERT_BADGE_TOKEN_ADDRESS",
         "uri": "ipfs://"
       }
     ],
     "requirements": [
       {
         "actionId": "connect",
-        "count": 10
+        "count": 2
+      },
+      {
+        "actionId": "share",
+        "count": 1
       }
     ]
   }

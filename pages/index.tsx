@@ -1,5 +1,5 @@
 import { GettingStarted } from "@/components";
-import RewardSystem from "@/utils/RewardSystem";
+import TokenSystem from "@/utils/TokenSystem";
 import { useOpenFormat } from "@openformat/react";
 import Head from "next/head";
 import React from "react";
@@ -9,8 +9,8 @@ export default function Home() {
   // Use the useWallet and useOpenFormat hooks
   const { sdk } = useOpenFormat();
 
-  // Initialize the RewardSystem with the OpenFormat SDK
-  const rewardSystem = new RewardSystem(sdk);
+  // Initialize the TokenSystem with the OpenFormat SDK
+  const tokenSystem = new TokenSystem(sdk);
 
   return (
     <>
@@ -27,7 +27,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="container flex justify-center items-center mx-auto">
-        <GettingStarted rewardSystem={rewardSystem} />
+        <GettingStarted tokenSystem={tokenSystem} />
       </main>
     </>
   );
