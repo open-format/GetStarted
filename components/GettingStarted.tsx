@@ -6,7 +6,7 @@ import {
   getActionsByUserAndRequirements,
   getTokenByName,
 } from "@/queries";
-import RewardSystem from "@/utils/RewardSystem";
+import TokenSystem from "@/utils/TokenSystem";
 import {
   CheckCircleIcon,
   ChevronRightIcon,
@@ -101,6 +101,7 @@ export default function GettingStarted({
               setLoading(false);
               return message;
             }
+            return "Action completed";
           },
           error: "An error occurred",
         },
