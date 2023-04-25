@@ -50,11 +50,38 @@ const Profile: React.FC = () => {
     <>
       {/* Set the page title and meta description */}
       <Head>
-        <title>User Profile - OPENFORMAT Hello World Template</title>
+        <title>User Profile - OpenFormat Hello World Template</title>
         <meta
           name="description"
           content="View user profile details, including tokens earned, badges earned, actions completed, and missions completed."
         />
+        <meta
+          property="og:url"
+          content="https://github.com/open-format/hello-world"
+        />
+        <meta
+          property="og:title"
+          content="OpenFormat Hello World Template - User Profile"
+        />
+        <meta
+          property="og:description"
+          content="View user profile details, including tokens earned, badges earned, actions completed, and missions completed in this OpenFormat Hello World Template."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/openformat.png" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:creator" content="@openformat_tech" />
+        <meta
+          name="twitter:title"
+          content="OpenFormat Hello World Template - User Profile"
+        />
+        <meta
+          name="twitter:description"
+          content="View user profile details, including tokens earned, badges earned, actions completed, and missions completed in this OpenFormat Hello World Template."
+        />
+        {/* Image needs to be updated to direct link */}
+        <meta name="twitter:image" content="/openformat.png" />
       </Head>
       {/* Main content */}
       <main className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">

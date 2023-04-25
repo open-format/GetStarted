@@ -15,11 +15,33 @@ const Admin: React.FC = () => {
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      {/* Set the page title to "Admin" */}
       <Head>
-        <title>Admin</title>
+        <title>Admin - OpenFormat Hello World Template</title>
+
+        <meta
+          property="og:url"
+          content="https://github.com/open-format/hello-world"
+        />
+        <meta property="og:title" content="Open Format Template" />
+        <meta
+          property="og:description"
+          content="An open-source template built using Next.js and the Open Format SDK. Check out the repository on GitHub for more information and to contribute."
+        />
+        <meta property="og:type" content="website" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:creator" content="@openformat_tech" />
+        <meta
+          name="twitter:title"
+          content="OpenFormat Hello World Template"
+        />
+        <meta
+          name="twitter:description"
+          content="An open-source template built using Next.js and the Open Format SDK. Check out the repository on GitHub for more information and to contribute."
+        />
+        {/* Image needs to be updated to direct link */}
+        <meta name="twitter:image" content="/openformat.png" />
       </Head>
-      {/* Display the "ADMIN" heading */}
 
       <div className="sm:flex sm:items-center m-4">
         <div className="sm:flex-auto">

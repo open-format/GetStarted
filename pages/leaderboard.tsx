@@ -28,11 +28,38 @@ export default function Leaderboard() {
     <>
       {/* Set the page title and meta description */}
       <Head>
-        <title>Leaderboard - OPENFORMAT Hello World Template</title>
+        <title>Leaderboard - OpenFormat Hello World Template</title>
         <meta
           name="description"
           content="Explore the top users and their performance in Actions and Missions on the leaderboard."
         />
+        <meta
+          property="og:url"
+          content="https://github.com/open-format/hello-world"
+        />
+        <meta
+          property="og:title"
+          content="OpenFormat Hello World Template - Leaderboard"
+        />
+        <meta
+          property="og:description"
+          content="Explore the top users and their performance in Actions and Missions on the leaderboard in this OpenFormat Hello World Template."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/openformat.png" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:creator" content="@openformat_tech" />
+        <meta
+          name="twitter:title"
+          content="OpenFormat Hello World Template - Leaderboard"
+        />
+        <meta
+          name="twitter:description"
+          content="Explore the top users and their performance in Actions and Missions on the leaderboard in this OpenFormat Hello World Template."
+        />
+        {/* Image needs to be updated to direct link */}
+        <meta name="twitter:image" content="/openformat.png" />
       </Head>
       {/* Main content */}
       <main className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
