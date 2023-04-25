@@ -23,6 +23,7 @@ export default class TokenSystem {
   constructor(sdk: OpenFormatSDK) {
     this.tokenService = new TokenService(sdk);
     this.actions = actions;
+    //@TO-DO need to fix this type error
     this.missions = missions;
   }
 
@@ -46,10 +47,13 @@ export default class TokenSystem {
       this.calculateCompletedMissions(completedActions);
 
     return {
+      id: "",
+      name: "",
       address,
       xp,
       completedActions,
       completedMissions,
+      rewarded: [],
     };
   }
 
@@ -124,6 +128,8 @@ export default class TokenSystem {
     await this.tokenService.trigger(data);
 
     return {
+      id: "",
+      name: "",
       address,
       xp,
       rewarded: data.tokens,

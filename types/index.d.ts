@@ -28,9 +28,11 @@ interface Mission {
 
 // User interface represents a user with rewards, address, XP, and completed actions/missions
 interface User {
-  rewarded: Token[];
+  id: string;
+  name: string;
   address: string;
   xp: number;
+  rewarded: Token[];
   completedActions: string[];
   completedMissions: string[];
 }
@@ -101,9 +103,12 @@ interface User {
 // Action interface represents an action performed by a user
 interface Action {
   id: string;
-  user: User;
-  type_id: string;
-  amount?: number;
+  amount: number;
+  description: string;
+  address: string;
+  xp?: number; // Make this optional
+  user?: string; // Make this optional
+  type_id?: string; // Make this optional
 }
 
 // QueryResult interface represents a query result with a list of actions and missions
@@ -123,9 +128,26 @@ interface MissionsLeaderboardProps {
 // Mission interface represents a mission with its user and type ID
 interface Mission {
   id: string;
-  user: User;
-  type_id: string;
+  description: string;
+  tokens: MissionToken[]; // Use the new MissionToken type here
+  requirements: {
+    actionId: string;
+    count: number;
+  }[];
+  // Add any other optional or required properties for Mission
 }
+
+type MissionToken =
+  | {
+      address: string;
+      amount: number;
+      uri?: undefined;
+    }
+  | {
+      address: string;
+      uri: string;
+      amount?: undefined;
+    };
 
 // LeaderboardEntry interface represents a leaderboard entry
 interface LeaderboardEntry {
@@ -157,8 +179,10 @@ interface AuthProps {}
 
 // Action interface represents an action with its type ID and amount
 interface Action {
-  type_id: string;
+  id: string;
   amount: number;
+  description: string;
+  address: string;
 }
 
 // Mission interface represents a mission with its type ID
