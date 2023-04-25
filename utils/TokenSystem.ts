@@ -10,6 +10,7 @@ import {
   ActivityType,
   OpenFormatSDK,
   RewardType,
+  toWei,
 } from "@openformat/react";
 
 import actions from "../actions.json";
@@ -82,7 +83,7 @@ export default class TokenSystem {
     data.tokens.push({
       id: action.id,
       address: action.address,
-      amount: action.amount,
+      amount: toWei(action.amount.toString()),
       type: RewardType.XP,
       activityType: ActivityType.ACTION,
     });
@@ -109,7 +110,7 @@ export default class TokenSystem {
             data.tokens.push({
               id: mission.id,
               address: token.address,
-              amount: token.amount,
+              amount: toWei(token.amount.toString()),
               type: RewardType.REWARD_CURRENCY,
               activityType: ActivityType.MISSION,
             });
