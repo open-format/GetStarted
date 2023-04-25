@@ -24,6 +24,7 @@ export default class TokenSystem {
     this.tokenService = new TokenService(sdk);
     this.actions = actions;
     //@TO-DO need to fix this type error
+    //@ts-ignore
     this.missions = missions;
   }
 
