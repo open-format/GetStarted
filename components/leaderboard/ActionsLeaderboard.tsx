@@ -12,12 +12,10 @@ function processActionsLeaderboard(data: QueryResult) {
   data.actions.forEach((action) => {
     // Check if action.user is defined before proceeding
     if (action.user) {
-      //@ts-ignore
       const key = action.user.id;
 
       if (!leaderboard[key]) {
         leaderboard[key] = {
-          //@ts-ignore
           user_id: action.user.id,
           totalAmount: 0,
         };
