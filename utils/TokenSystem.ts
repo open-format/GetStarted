@@ -126,6 +126,7 @@ export default class TokenSystem {
     return {
       address,
       xp,
+      rewarded: data.tokens,
       completedActions,
       completedMissions: Array.from(previousMissionsSet),
     };

@@ -2,7 +2,6 @@ import { useState } from "react";
 import TimeRangeDropdown from "../components/leaderboard/TimeRangeDropdown";
 import ActionsLeaderboard from "../components/leaderboard/ActionsLeaderboard";
 import MissionsLeaderboard from "../components/leaderboard/MissionsLeaderboard";
-import styles from "../styles/Leaderboard.module.css";
 import { getTimeRange } from "../utils/getTimeRange";
 
 // Define the Leaderboard component
@@ -21,14 +20,17 @@ export default function Leaderboard() {
   }
 
   return (
-    <div className={styles.leaderboard}>
-      <div className={styles.description}>
-        <p>
-          <code className={styles.code}>LEADERBOARD</code>
-        </p>
-      </div>
-      <main className={styles.main}>
-        <div className={styles.container}>
+    <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div className="sm:flex sm:items-center m-4">
+        <div className="sm:flex-auto">
+          <h1 className="text-base font-semibold leading-6 text-gray-900">
+            Leaderboard
+          </h1>
+          <p className="mt-2 text-sm text-gray-700">
+            Explore the top users and their performance in Actions and Missions.
+          </p>
+        </div>
+        <div className="mt-4 sm:flex-none">
           <TimeRangeDropdown
             onChange={(value) => {
               const timeRange = getTimeRange(value);
@@ -37,27 +39,34 @@ export default function Leaderboard() {
               setSelectedTimeRange(value);
             }}
           />
-          <br />
-          <div className={styles.leaderboard__container}>
-            <div className={styles.leaderboard__column}>
-              <ActionsLeaderboard
-                appId={process.env.NEXT_PUBLIC_APP_ID || ""}
-                createdAtGte={createdAtGte}
-                createdAtLte={createdAtLte}
-                formatUserId={formatUserId}
-              />
-            </div>
-            <div className={styles.leaderboard__column}>
-              <MissionsLeaderboard
-                appId={process.env.NEXT_PUBLIC_APP_ID || ""}
-                createdAtGte={createdAtGte}
-                createdAtLte={createdAtLte}
-                formatUserId={formatUserId}
-              />
+        </div>
+      </div>
+      <div className="m-4 flow-root">
+        <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+              <div className="sm:flex">
+                <div className="sm:w-1/2 sm:pr-4">
+                  <ActionsLeaderboard
+                    appId={process.env.NEXT_PUBLIC_APP_ID || ""}
+                    createdAtGte={createdAtGte}
+                    createdAtLte={createdAtLte}
+                    formatUserId={formatUserId}
+                  />
+                </div>
+                <div className="sm:w-1/2 sm:pl-4">
+                  <MissionsLeaderboard
+                    appId={process.env.NEXT_PUBLIC_APP_ID || ""}
+                    createdAtGte={createdAtGte}
+                    createdAtLte={createdAtLte}
+                    formatUserId={formatUserId}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }
