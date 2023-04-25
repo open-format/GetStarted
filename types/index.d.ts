@@ -94,15 +94,10 @@ interface ActionsLeaderboardProps {
   formatUserId: (id: string) => string;
 }
 
-// User interface represents user details with ID and name
-interface User {
-  id: string;
-  name: string;
-}
-
 // Action interface represents an action performed by a user
 interface Action {
   id: string;
+  user: User;
   amount: number;
   description: string;
   address: string;
@@ -128,6 +123,8 @@ interface MissionsLeaderboardProps {
 // Mission interface represents a mission with its user and type ID
 interface Mission {
   id: string;
+  user: User;
+  type_id: string;
   description: string;
   tokens: MissionToken[]; // Use the new MissionToken type here
   requirements: {
@@ -183,11 +180,6 @@ interface Action {
   amount: number;
   description: string;
   address: string;
-}
-
-// Mission interface represents a mission with its type ID
-interface Mission {
-  type_id: string;
 }
 
 // ResponseData interface represents response data for user profile actions and missions
