@@ -34,9 +34,11 @@ const Profile: React.FC = () => {
     const actionTypes: Record<string, number> = {};
     let totalTokens = 0;
     actions.forEach((action) => {
-      actionTypes[action.type_id] =
-        (actionTypes[action.type_id] || 0) + 1;
-      totalTokens += Number(action.amount);
+      if (action.type_id) {
+        actionTypes[action.type_id] =
+          (actionTypes[action.type_id] || 0) + 1;
+        totalTokens += Number(action.amount);
+      }
     });
     return { actionTypes, totalTokens };
   };
