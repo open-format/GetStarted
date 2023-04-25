@@ -34,33 +34,41 @@ const Profile: React.FC = () => {
     const actionTypes: Record<string, number> = {};
     let totalTokens = 0;
     actions.forEach((action) => {
-      actionTypes[action.type_id] = (actionTypes[action.type_id] || 0) + 1;
+      actionTypes[action.type_id] =
+        (actionTypes[action.type_id] || 0) + 1;
       totalTokens += Number(action.amount);
     });
     return { actionTypes, totalTokens };
   };
 
   // Calculate the number of completed missions
-  const { actionTypes, totalTokens } = calculateActionCountsAndTokens(actions);
+  const { actionTypes, totalTokens } =
+    calculateActionCountsAndTokens(actions);
   const missionsCompleted = missions.length;
 
   return (
     <>
-      {/* Set the page title */}
+      {/* Set the page title and meta description */}
       <Head>
-        <title>Profile</title>
+        <title>User Profile - OPENFORMAT Hello World Template</title>
+        <meta
+          name="description"
+          content="View user profile details, including tokens earned, badges earned, actions completed, and missions completed."
+        />
       </Head>
       {/* Main content */}
-      <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="sm:flex sm:items-center m-4">
+      <main className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <header className="sm:flex sm:items-center m-4">
           <div className="sm:flex-auto">
             <h1 className="text-base font-semibold leading-6 text-gray-900">
               Profile
             </h1>
-            <a className="text-gray-500">{address?.toLocaleLowerCase()}</a>
+            <a className="text-gray-500">
+              {address?.toLocaleLowerCase()}
+            </a>
           </div>
-        </div>
-        <div className="m-4 sm:flex sm:flex-wrap sm:-mx-6 lg:-mx-8">
+        </header>
+        <section className="m-4 sm:flex sm:flex-wrap sm:-mx-6 lg:-mx-8">
           {address ? (
             <>
               <div className="overflow-hidden mt-4 sm:mt-0  sm:w-1/2 sm:px-6 lg:px-8">
@@ -105,11 +113,13 @@ const Profile: React.FC = () => {
                     Missions Completed
                   </h3>
                   <ul className="mt-2 text-sm text-gray-600">
-                    {missions.map((mission: Mission, index: number) => (
-                      <li key={index} className="py-2">
-                        {mission.type_id}
-                      </li>
-                    ))}
+                    {missions.map(
+                      (mission: Mission, index: number) => (
+                        <li key={index} className="py-2">
+                          {mission.type_id}
+                        </li>
+                      )
+                    )}
                   </ul>
                 </div>
               </div>
@@ -119,8 +129,8 @@ const Profile: React.FC = () => {
               <p>Please connect your wallet</p>
             </div>
           )}
-        </div>
-      </div>
+        </section>
+      </main>
     </>
   );
 };

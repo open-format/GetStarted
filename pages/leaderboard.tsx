@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Head from "next/head";
 import TimeRangeDropdown from "../components/leaderboard/TimeRangeDropdown";
 import ActionsLeaderboard from "../components/leaderboard/ActionsLeaderboard";
 import MissionsLeaderboard from "../components/leaderboard/MissionsLeaderboard";
@@ -11,8 +12,12 @@ export default function Leaderboard() {
   // set default timerange
   const defaultTimeRange = getTimeRange("week");
   // Add state for createdAt_gte and createdAt_lte
-  const [createdAtGte, setCreatedAtGte] = useState(defaultTimeRange.gte);
-  const [createdAtLte, setCreatedAtLte] = useState(defaultTimeRange.lte);
+  const [createdAtGte, setCreatedAtGte] = useState(
+    defaultTimeRange.gte
+  );
+  const [createdAtLte, setCreatedAtLte] = useState(
+    defaultTimeRange.lte
+  );
 
   // Define a function to format user IDs for display
   function formatUserId(id: string) {
@@ -20,53 +25,65 @@ export default function Leaderboard() {
   }
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <div className="sm:flex sm:items-center m-4">
-        <div className="sm:flex-auto">
-          <h1 className="text-base font-semibold leading-6 text-gray-900">
-            Leaderboard
-          </h1>
-          <p className="mt-2 text-sm text-gray-700">
-            Explore the top users and their performance in Actions and Missions.
-          </p>
-        </div>
-        <div className="mt-4 sm:flex-none">
-          <TimeRangeDropdown
-            onChange={(value) => {
-              const timeRange = getTimeRange(value);
-              setCreatedAtGte(timeRange.gte);
-              setCreatedAtLte(timeRange.lte);
-              setSelectedTimeRange(value);
-            }}
-          />
-        </div>
-      </div>
-      <div className="m-4 flow-root">
-        <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-              <div className="sm:flex">
-                <div className="sm:w-1/2 sm:pr-4">
-                  <ActionsLeaderboard
-                    appId={process.env.NEXT_PUBLIC_APP_ID || ""}
-                    createdAtGte={createdAtGte}
-                    createdAtLte={createdAtLte}
-                    formatUserId={formatUserId}
-                  />
-                </div>
-                <div className="sm:w-1/2 sm:pl-4">
-                  <MissionsLeaderboard
-                    appId={process.env.NEXT_PUBLIC_APP_ID || ""}
-                    createdAtGte={createdAtGte}
-                    createdAtLte={createdAtLte}
-                    formatUserId={formatUserId}
-                  />
+    <>
+      {/* Set the page title and meta description */}
+      <Head>
+        <title>Leaderboard - OPENFORMAT Hello World Template</title>
+        <meta
+          name="description"
+          content="Explore the top users and their performance in Actions and Missions on the leaderboard."
+        />
+      </Head>
+      {/* Main content */}
+      <main className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <header className="sm:flex sm:items-center m-4">
+          <div className="sm:flex-auto">
+            <h1 className="text-base font-semibold leading-6 text-gray-900">
+              Leaderboard
+            </h1>
+            <p className="mt-2 text-sm text-gray-700">
+              Explore the top users and their performance in Actions
+              and Missions.
+            </p>
+          </div>
+          <div className="mt-4 sm:flex-none">
+            <TimeRangeDropdown
+              onChange={(value) => {
+                const timeRange = getTimeRange(value);
+                setCreatedAtGte(timeRange.gte);
+                setCreatedAtLte(timeRange.lte);
+                setSelectedTimeRange(value);
+              }}
+            />
+          </div>
+        </header>
+        <section className="m-4 flow-root">
+          <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+              <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                <div className="sm:flex">
+                  <div className="sm:w-1/2 sm:pr-4">
+                    <ActionsLeaderboard
+                      appId={process.env.NEXT_PUBLIC_APP_ID || ""}
+                      createdAtGte={createdAtGte}
+                      createdAtLte={createdAtLte}
+                      formatUserId={formatUserId}
+                    />
+                  </div>
+                  <div className="sm:w-1/2 sm:pl-4">
+                    <MissionsLeaderboard
+                      appId={process.env.NEXT_PUBLIC_APP_ID || ""}
+                      createdAtGte={createdAtGte}
+                      createdAtLte={createdAtLte}
+                      formatUserId={formatUserId}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+        </section>
+      </main>
+    </>
   );
 }
