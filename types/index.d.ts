@@ -1,4 +1,5 @@
 import { RewardType } from "@openformat/react";
+import { BigNumber } from "ethers";
 
 // MissionRequirement interface represents requirements for a mission
 interface MissionRequirement {
@@ -49,7 +50,7 @@ type ActionType = {
 // Token type represents token details
 type Token = {
   id: string;
-  amount: number;
+  amount: BigNumber | number;
   address: string;
   type: RewardType;
   activityType: string;
@@ -59,7 +60,7 @@ type Token = {
 // TriggerToken type represents trigger token details
 type TriggerToken = {
   address: string;
-  amount?: number;
+  amount: number;
   uri?: string;
 };
 
