@@ -4,6 +4,7 @@ import {
   Mission,
   MissionRequirement,
   RewardParams,
+  TriggerToken,
   User,
 } from "@/types";
 import {
@@ -23,8 +24,6 @@ export default class TokenSystem {
   constructor(sdk: OpenFormatSDK) {
     this.tokenService = new TokenService(sdk);
     this.actions = actions;
-    //@TO-DO need to fix this type error
-    //@ts-ignore
     this.missions = missions;
   }
 
@@ -99,7 +98,7 @@ export default class TokenSystem {
         // Trigger reward for the completed mission
         const mission = this.getMissionById(missionId);
 
-        mission.tokens.map((token) => {
+        mission.tokens?.map((token: TriggerToken) => {
           //if URI = It's a badge
           if (token.uri) {
             data.tokens.push({
@@ -114,7 +113,7 @@ export default class TokenSystem {
             data.tokens.push({
               id: mission.id,
               address: token.address,
-              amount: token.amount,
+              amount: token.amount ?? 0,
               type: RewardType.REWARD_CURRENCY,
               activityType: ActivityType.MISSION,
             });
@@ -145,7 +144,7 @@ export default class TokenSystem {
     for (const actionId of completedActions) {
       const action = this.actions.find((a) => a.id === actionId);
       if (action) {
-        xp += action.xp;
+        xp += action.xp ?? 0;;
       }
     }
 
