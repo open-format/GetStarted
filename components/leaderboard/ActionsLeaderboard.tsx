@@ -23,9 +23,7 @@ function processActionsLeaderboard(data: QueryResult) {
       }
 
       // Update the total amount for the user by adding the current action amount (converted to an integer)
-      leaderboard[key].totalAmount += Math.floor(
-        fromWei(action.amount ?? 0)
-      ); // Convert the action.amount to an integer
+      leaderboard[key].totalAmount += Math.floor(action.amount ?? 0); // Convert the action.amount to an integer
     }
   });
 
@@ -73,7 +71,7 @@ export default function ActionsLeaderboard({
     header: "Total Amount",
     formatUserId,
     valueKey: "totalAmount",
-    formatValue: (value: number) => value, // Convert the value back to its original unit
+    formatValue: (value: number) => Number(fromWei(value.toString())), // Convert the value back to its original unit and to a number
   };
 
   // Render the LeaderboardTable component with the sorted leaderboard data and formatting options
