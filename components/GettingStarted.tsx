@@ -102,7 +102,9 @@ export default function GettingStarted({
               } else if (token.activityType === "MISSION") {
                 message += `${token.id} mission `;
               }
-              message += `and received ${token.amount} ${token.type}`;
+              message += `and received ${fromWei(token.amount)} ${
+                token.type
+              }`;
 
               setLoading(false);
               return message;
@@ -250,6 +252,9 @@ export default function GettingStarted({
           </div>
         </li>
       ))}
+      <Button onClick={handleConnect} disabled={!isConnected}>
+        Trigger Action
+      </Button>
     </ul>
   );
 }

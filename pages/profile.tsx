@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import { useRawRequest, useWallet } from "@openformat/react";
+import { useRawRequest, useWallet, fromWei } from "@openformat/react";
 import { gql } from "graphql-request";
 import { ProfileResponseData, Mission, Action } from "@/types";
 
@@ -47,6 +47,8 @@ const Profile: React.FC = () => {
   const { actionTypes, totalTokens } =
     calculateActionCountsAndTokens(actions);
   const missionsCompleted = missions.length;
+
+  const weitotaltokens = fromWei(totalTokens.toString());
 
   return (
     <>
@@ -106,7 +108,7 @@ const Profile: React.FC = () => {
                     Tokens Earned
                   </h3>
                   <p className="mt-2 text-sm text-gray-600">
-                    {totalTokens} xp tokens
+                    {weitotaltokens} xp tokens
                   </p>
                 </div>
               </div>
