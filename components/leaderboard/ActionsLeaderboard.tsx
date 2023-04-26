@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useRawRequest } from "@openformat/react";
 import LeaderboardTable from "./LeaderboardTable";
 import { getActionsForLeaderboard } from "../../queries/action";
+import { fromWei } from "@openformat/react";
 
 // Process the actions leaderboard data and create a leaderboard object
 function processActionsLeaderboard(data: QueryResult) {
@@ -22,7 +23,9 @@ function processActionsLeaderboard(data: QueryResult) {
       }
 
       // Update the total amount for the user by adding the current action amount (converted to an integer)
-      leaderboard[key].totalAmount += Math.floor(action.amount ?? 0); // Convert the action.amount to an integer
+      leaderboard[key].totalAmount += Math.floor(
+        fromWei(action.amount ?? 0)
+      ); // Convert the action.amount to an integer
     }
   });
 
@@ -70,8 +73,9 @@ export default function ActionsLeaderboard({
     header: "Total Amount",
     formatUserId,
     valueKey: "totalAmount",
-    formatValue: (value: number) => value,
+    formatValue: (value: number) => value, // Convert the value back to its original unit
   };
+
   // Render the LeaderboardTable component with the sorted leaderboard data and formatting options
   return (
     <LeaderboardTable
