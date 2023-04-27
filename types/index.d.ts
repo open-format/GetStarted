@@ -1,13 +1,5 @@
 import { RewardType } from "@openformat/react";
-
-// Action interface represents an action performed by a user
-interface Action {
-  id: string;
-  amount: number;
-  description: string;
-  address: string;
-  xp: number;
-}
+import { BigNumber } from "ethers";
 
 // MissionRequirement interface represents requirements for a mission
 interface MissionRequirement {
@@ -19,18 +11,23 @@ interface MissionRequirement {
 interface Mission {
   id: string;
   description: string;
-  amount: number;
-  tokens: TriggerToken[];
-  badge: string;
-  badge_URI: string;
   requirements: MissionRequirement[];
+  amount?: number;
+  tokens?: TriggerToken[];
+  badge?: string;
+  badge_URI?: string;
+  user?: User;
+  type_id?: string;
 }
+
 
 // User interface represents a user with rewards, address, XP, and completed actions/missions
 interface User {
-  rewarded: Token[];
+  id: string;
+  name: string;
   address: string;
   xp: number;
+  rewarded: Token[];
   completedActions: string[];
   completedMissions: string[];
 }
@@ -53,7 +50,7 @@ type ActionType = {
 // Token type represents token details
 type Token = {
   id: string;
-  amount: number;
+  amount: BigNumber | number;
   address: string;
   type: RewardType;
   activityType: string;
@@ -92,18 +89,16 @@ interface ActionsLeaderboardProps {
   formatUserId: (id: string) => string;
 }
 
-// User interface represents user details with ID and name
-interface User {
-  id: string;
-  name: string;
-}
-
 // Action interface represents an action performed by a user
 interface Action {
   id: string;
   user: User;
-  type_id: string;
-  amount?: number;
+  amount: number;
+  description: string;
+  address: string;
+  xp?: number; 
+  user?: string; 
+  type_id?: string; 
 }
 
 // QueryResult interface represents a query result with a list of actions and missions
@@ -120,12 +115,7 @@ interface MissionsLeaderboardProps {
   formatUserId: (id: string) => string;
 }
 
-// Mission interface represents a mission with its user and type ID
-interface Mission {
-  id: string;
-  user: User;
-  type_id: string;
-}
+
 
 // LeaderboardEntry interface represents a leaderboard entry
 interface LeaderboardEntry {
@@ -155,16 +145,6 @@ interface HeaderProps {}
 // AuthProps interface represents properties for the Auth component
 interface AuthProps {}
 
-// Action interface represents an action with its type ID and amount
-interface Action {
-  type_id: string;
-  amount: number;
-}
-
-// Mission interface represents a mission with its type ID
-interface Mission {
-  type_id: string;
-}
 
 // ResponseData interface represents response data for user profile actions and missions
 interface ProfileResponseData {
@@ -213,3 +193,5 @@ interface AppData {
     };
   };
 }
+
+

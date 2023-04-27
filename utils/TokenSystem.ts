@@ -4,13 +4,13 @@ import {
   Mission,
   MissionRequirement,
   RewardParams,
-  User,
+  User
 } from "@/types";
 import {
   ActivityType,
   OpenFormatSDK,
   RewardType,
-  toWei,
+  toWei
 } from "@openformat/react";
 
 import actions from "../actions.json";
@@ -24,6 +24,8 @@ export default class TokenSystem {
   constructor(sdk: OpenFormatSDK) {
     this.tokenService = new TokenService(sdk);
     this.actions = actions;
+    //@TO-DO need to fix this type error
+    //@ts-ignore
     this.missions = missions;
   }
 
@@ -47,10 +49,13 @@ export default class TokenSystem {
       this.calculateCompletedMissions(completedActions);
 
     return {
+      id: "",
+      name: "",
       address,
       xp,
       completedActions,
       completedMissions,
+      rewarded: [],
     };
   }
 
@@ -95,7 +100,7 @@ export default class TokenSystem {
         // Trigger reward for the completed mission
         const mission = this.getMissionById(missionId);
 
-        mission.tokens.map((token) => {
+        mission.tokens?.map((token) => {
           //if URI = It's a badge
           if (token.uri) {
             data.tokens.push({
@@ -125,6 +130,8 @@ export default class TokenSystem {
     await this.tokenService.trigger(data);
 
     return {
+      id: "",
+      name: "",
       address,
       xp,
       rewarded: data.tokens,
@@ -139,7 +146,7 @@ export default class TokenSystem {
     for (const actionId of completedActions) {
       const action = this.actions.find((a) => a.id === actionId);
       if (action) {
-        xp += action.xp;
+        xp += action.xp ?? 0;
       }
     }
 
