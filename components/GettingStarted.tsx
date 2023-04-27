@@ -259,9 +259,6 @@ export default function GettingStarted({
           </div>
         </li>
       ))}
-      <Button onClick={handleConnect} disabled={!isConnected}>
-          Trigger Action
-        </Button>
     </ul>
   );
 }
