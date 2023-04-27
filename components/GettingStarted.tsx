@@ -1,23 +1,24 @@
 // This component is just to get you started.
 // Feel free to tweak, modify, or even delete it entirely before moving
 // forward with building your awesome application.
-
 import {
   getActionsByUserAndRequirements,
-  getTokenByName,
+  getTokenByName
 } from "@/queries";
+import { User } from "@/types";
 import TokenSystem from "@/utils/TokenSystem";
 import {
   CheckCircleIcon,
-  ChevronRightIcon,
+  ChevronRightIcon
 } from "@heroicons/react/24/solid";
 import {
   ConnectButton,
   fromWei,
+  RewardType,
   toWei,
   useOpenFormat,
   useRawRequest,
-  useWallet,
+  useWallet
 } from "@openformat/react";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
@@ -89,34 +90,39 @@ export default function GettingStarted({
   async function handleConnect() {
     setLoading(true);
 
-    if (address) {
-      await toast.promise(
-        tokenSystem.handleCompletedAction(address, "connect"),
-        {
-          loading: "sending tokens...",
-          success: (data) => {
-            for (const token of data.rewarded) {
-              let message = `You completed the `;
-              if (token.activityType === "ACTION") {
-                message += `${token.id} action `;
-              } else if (token.activityType === "MISSION") {
-                message += `${token.id} mission `;
-              }
-              message += `and received ${fromWei(token.amount)} ${
-                token.type
-              }`;
+    const loadingToast = toast.loading("sending tokens...");
 
-              setLoading(false);
-              return message;
-            }
-            return "Action completed";
-          },
-          error: (err) => {
-            return err.message || "An error occurred";
-          },
-        },
-        { duration: 5000 }
-      );
+    if (address) {
+      const data: User = await tokenSystem
+        .handleCompletedAction(address, "connect")
+        .catch(() =>
+          toast.error("Sending tokens failed. Please try again.")
+        );
+      toast.dismiss(loadingToast);
+
+      for (const token of data.rewarded) {
+        let message = `You completed the `;
+        if (token.activityType === "ACTION") {
+          message += `${token.id} action and received ${fromWei(
+            token.amount.toString()
+          )} ${token.type}`;
+        } else if (token.activityType === "MISSION") {
+          if (token.type === RewardType.BADGE) {
+            message += `${
+              token.id
+            } mission and received ${token.amount.toString()} ${
+              token.type
+            }`;
+          } else {
+            message += `${token.id} mission and received ${fromWei(
+              token.amount.toString()
+            )} ${token.type}`;
+          }
+        }
+
+        setLoading(false);
+        toast.success(message, { duration: 5000 });
+      }
     }
   }
 
@@ -175,7 +181,7 @@ export default function GettingStarted({
       description:
         "Once you've updated your action, you can trigger your first action!",
       href: undefined,
-      completed: isConnected && firstActionComplete,
+      completed: !isConnected && firstActionComplete,
       disabled: !isConnected,
       component: (
         <Button onClick={handleConnect} disabled={!isConnected}>
