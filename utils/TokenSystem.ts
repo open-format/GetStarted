@@ -4,14 +4,13 @@ import {
   Mission,
   MissionRequirement,
   RewardParams,
-  User,
+  User
 } from "@/types";
 import {
   ActivityType,
   OpenFormatSDK,
   RewardType,
-  
-  toWei,
+  toWei
 } from "@openformat/react";
 
 import actions from "../actions.json";
