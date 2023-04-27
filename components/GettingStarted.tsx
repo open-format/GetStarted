@@ -262,9 +262,6 @@ export default function GettingStarted({
           </div>
         </li>
       ))}
-      <Button onClick={handleConnect} disabled={!loggedInAddress}>
-        Trigger Action
-      </Button>
     </ul>
   );
 }
