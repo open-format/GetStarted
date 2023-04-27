@@ -94,10 +94,11 @@ export default function GettingStarted({
 
     if (address) {
       const data: User = await tokenSystem
-        .handleCompletedAction(address, "connect")
-        .catch(() =>
-          toast.error("Sending tokens failed. Please try again.")
-        );
+      .handleCompletedAction(address, "connect")
+      .catch((error: string) => {
+        toast.error("Sending tokens failed. Please try again.");
+        throw new Error(error);
+      });
       toast.dismiss(loadingToast);
 
       for (const token of data.rewarded) {
@@ -258,6 +259,9 @@ export default function GettingStarted({
           </div>
         </li>
       ))}
+      <Button onClick={handleConnect} disabled={!isConnected}>
+          Trigger Action
+        </Button>
     </ul>
   );
 }

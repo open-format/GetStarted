@@ -10,6 +10,7 @@ function processMissionsLeaderboard(data: QueryResult) {
 
   // Loop through the missions and update the leaderboard object
   data.missions.forEach((mission) => {
+    if (mission.user && mission.user.id) {
     const key = mission.user.id;
 
     if (!leaderboard[key]) {
@@ -22,7 +23,7 @@ function processMissionsLeaderboard(data: QueryResult) {
     // Add the mission type_id to the uniqueTypes Set and increment the completedMissions count
     leaderboard[key].uniqueTypes.add(mission.type_id);
     leaderboard[key].completedMissions++;
-  });
+  }});
 
   // Convert uniqueTypes Set to its size (count of unique type_ids)
   Object.values(leaderboard).forEach((entry) => {
