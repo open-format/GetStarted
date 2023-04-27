@@ -181,7 +181,7 @@ export default function GettingStarted({
       description:
         "Once you've updated your action, you can trigger your first action!",
       href: undefined,
-      completed: !isConnected && firstActionComplete,
+      completed: isConnected && firstActionComplete,
       disabled: !isConnected,
       component: (
         <Button onClick={handleConnect} disabled={!isConnected}>
@@ -258,9 +258,6 @@ export default function GettingStarted({
           </div>
         </li>
       ))}
-      <Button onClick={handleConnect} disabled={!isConnected}>
-        Trigger Action
-      </Button>
     </ul>
   );
 }
