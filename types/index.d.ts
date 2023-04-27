@@ -20,7 +20,6 @@ interface Mission {
   type_id?: string;
 }
 
-
 // User interface represents a user with rewards, address, XP, and completed actions/missions
 interface User {
   id: string;
@@ -96,9 +95,9 @@ interface Action {
   amount: number;
   description: string;
   address: string;
-  xp?: number; 
-  user?: string; 
-  type_id?: string; 
+  xp?: number;
+  user?: string;
+  type_id?: string;
 }
 
 // QueryResult interface represents a query result with a list of actions and missions
@@ -114,8 +113,6 @@ interface MissionsLeaderboardProps {
   createdAtLte: string;
   formatUserId: (id: string) => string;
 }
-
-
 
 // LeaderboardEntry interface represents a leaderboard entry
 interface LeaderboardEntry {
@@ -144,7 +141,6 @@ interface HeaderProps {}
 
 // AuthProps interface represents properties for the Auth component
 interface AuthProps {}
-
 
 // ResponseData interface represents response data for user profile actions and missions
 interface ProfileResponseData {
@@ -215,4 +211,3 @@ interface Web2AuthProps {
   address: string | null | undefined;
   user: LoginUser | null;
 }
-

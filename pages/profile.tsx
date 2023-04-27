@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import { useRawRequest, useWallet, fromWei } from "@openformat/react";
+import { useRawRequest, fromWei } from "@openformat/react";
 import { gql } from "graphql-request";
 import { ProfileResponseData, Mission, Action } from "@/types";
 import { useLoggedInAddress } from "@/contexts/LoggedInAddressContext";

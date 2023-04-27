@@ -3,13 +3,13 @@
 // forward with building your awesome application.
 import {
   getActionsByUserAndRequirements,
-  getTokenByName
+  getTokenByName,
 } from "@/queries";
 import { User } from "@/types";
 import TokenSystem from "@/utils/TokenSystem";
 import {
   CheckCircleIcon,
-  ChevronRightIcon
+  ChevronRightIcon,
 } from "@heroicons/react/24/solid";
 import {
   ConnectButton,
@@ -18,13 +18,14 @@ import {
   toWei,
   useOpenFormat,
   useRawRequest,
-  useWallet
+  useWallet,
 } from "@openformat/react";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Button } from "../components";
 import Login from "./auth/Login";
+import { useLoggedInAddress } from "@/contexts/LoggedInAddressContext";
 
 // The GettingStarted component displays a list of tasks for users to complete.
 // It accepts a rewardSystem prop, an instance of the RewardSystem utility class.
@@ -36,12 +37,13 @@ export default function GettingStarted({
   const { isConnected, address } = useWallet();
   const [isLoading, setLoading] = useState<boolean>(false);
   const { sdk } = useOpenFormat();
+  const { loggedInAddress } = useLoggedInAddress();
 
   // Fetch the data related to the user's actions and requirements
   const { data, refetch } = useRawRequest<any, any>({
     query: getActionsByUserAndRequirements,
     variables: {
-      user: address?.toLocaleLowerCase(),
+      user: loggedInAddress?.toLocaleLowerCase(),
       app: process.env.NEXT_PUBLIC_APP_ID,
     },
   });
@@ -63,7 +65,7 @@ export default function GettingStarted({
   // handleCreateXPToken is an async function that handles the creation of a new token
   // of an XP token for the app.
   async function handleCreateXPToken() {
-    if (address) {
+    if (loggedInAddress) {
       await toast
         .promise(
           sdk.Reward.createRewardToken({
@@ -93,13 +95,13 @@ export default function GettingStarted({
 
     const loadingToast = toast.loading("sending tokens...");
 
-    if (address) {
+    if (loggedInAddress) {
       const data: User = await tokenSystem
-      .handleCompletedAction(address, "connect")
-      .catch((error: string) => {
-        toast.error("Sending tokens failed. Please try again.");
-        throw new Error(error);
-      });
+        .handleCompletedAction(loggedInAddress, "connect")
+        .catch((error: string) => {
+          toast.error("Sending tokens failed. Please try again.");
+          throw new Error(error);
+        });
       toast.dismiss(loadingToast);
 
       for (const token of data.rewarded) {
@@ -251,13 +253,18 @@ export default function GettingStarted({
                 </div>
               ) : (
                 <div className="mt-1 flex items-center gap-x-1.5 z-10">
-                  {!task.disabled && <a href={task.href}>{task.component}</a>}
+                  {!task.disabled && (
+                    <a href={task.href}>{task.component}</a>
+                  )}
                 </div>
               )}
             </div>
           </div>
         </li>
       ))}
+      <Button onClick={handleConnect} disabled={!loggedInAddress}>
+        Trigger Action
+      </Button>
     </ul>
   );
 }

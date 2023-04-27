@@ -1,4 +1,7 @@
-import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+} from "next";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { Wallet } from "ethers";
 
@@ -39,7 +42,10 @@ export const withUserCreation = async (
       ]);
 
     if (insertError) {
-      console.error("Error inserting user into profiles table:", insertError);
+      console.error(
+        "Error inserting user into profiles table:",
+        insertError
+      );
     }
   }
 
@@ -56,7 +62,9 @@ export const withUserCreation = async (
   let loggedInAddress = null;
   if (userProfile?.wallet_address) {
     loggedInAddress = userProfile.wallet_address.toLowerCase();
+    //@ts-ignore
   } else if (session.user.wallet_address) {
+    //@ts-ignore
     loggedInAddress = session.user.wallet_address.toLowerCase();
   }
 

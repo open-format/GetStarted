@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useLoggedInAddress } from "@/contexts/LoggedInAddressContext";
 import { supabase } from "@/utils/supabaseClient";
+import { AuthChangeEvent, Session } from "@supabase/supabase-js";
 
 // Home page component
 export default function Home() {
@@ -19,7 +20,7 @@ export default function Home() {
   // Use the useEffect hook to listen for authentication state changes
   useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
+      async (event: AuthChangeEvent, session: Session | null) => {
         if (event === "SIGNED_IN" || event === "USER_UPDATED") {
           setLoggingIn(true); // Set loggingIn to true
 
@@ -60,7 +61,10 @@ export default function Home() {
           name="description"
           content="This starter is an introduction into a new decentralized world and what we believe to be the starting point for 90% of all future applications. It's a front-end application that's built using Next.js and the Open Format SDK."
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1"
+        />
         <link rel="icon" href="/favicon.ico" />
 
         <meta

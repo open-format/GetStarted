@@ -3,18 +3,21 @@ import { useWallet } from "@openformat/react";
 import { supabase } from "@/utils/supabaseClient";
 import { useLoggedInAddress } from "@/contexts/LoggedInAddressContext";
 import { AuthChangeEvent } from "@supabase/supabase-js";
-import { useUser } from "@supabase/auth-helpers-react";
+import { useUser, Session } from "@supabase/auth-helpers-react";
 import SignOutButton from "./SignOutButton";
 import { ConnectButton } from "@openformat/react";
 
 const Login: React.FC = () => {
   const [isSignOutVisible, setIsSignOutVisible] = useState(false);
   const { address } = useWallet();
-  const { setLoggedInAddress, loggedInAddress } = useLoggedInAddress();
+  const { setLoggedInAddress, loggedInAddress } =
+    useLoggedInAddress();
   const user = useUser();
 
   const maskedAddress =
-    loggedInAddress?.substring(0, 5) + "..." + loggedInAddress?.substring(36);
+    loggedInAddress?.substring(0, 5) +
+    "..." +
+    loggedInAddress?.substring(36);
 
   const toggleSignOutVisibility = () => {
     setIsSignOutVisible(!isSignOutVisible);
