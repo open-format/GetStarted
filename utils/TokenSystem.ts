@@ -1,26 +1,32 @@
+import TokenService from "@/services/TokenService";
 import {
   Action,
   Mission,
   MissionRequirement,
   RewardParams,
-  User,
+  User
 } from "@/types";
-import RewardService from "@/utils/services/RewardService";
-import { ActivityType, OpenFormatSDK, RewardType } from "@openformat/sdk";
-import actionsData from "../actions.json";
-import missionsData from "../missions.json";
+import {
+  ActivityType,
+  OpenFormatSDK,
+  RewardType,
+  toWei
+} from "@openformat/react";
 
-// RewardSystem class to handle user rewards and manage actions and missions
-export default class RewardSystem {
-  private rewardService: RewardService;
+import actions from "../actions.json";
+import missions from "../missions.json";
+
+export default class TokenSystem {
+  private tokenService: TokenService;
   private actions: Action[];
   private missions: Mission[];
 
-  // Constructor takes an OpenFormatSDK instance as an argument
   constructor(sdk: OpenFormatSDK) {
-    this.rewardService = new RewardService(sdk);
-    this.actions = actionsData as Action[];
-    this.missions = missionsData as Mission[];
+    this.tokenService = new TokenService(sdk);
+    this.actions = actions;
+    //@TO-DO need to fix this type error
+    //@ts-ignore
+    this.missions = missions;
   }
 
   /**
@@ -34,15 +40,13 @@ export default class RewardSystem {
    * // Get the user's information
    * const user = await getUser('0x1234abcd...');
    */
-
-  // getUser method retrieves user information based on the given address
   async getUser(address: string): Promise<User> {
-    const completedActions = await this.rewardService.getUserCompletedActions(
-      address
-    );
+    const completedActions =
+      await this.tokenService.getUserCompletedActions(address);
 
     const xp = this.calculateUserXP(completedActions);
-    const completedMissions = this.calculateCompletedMissions(completedActions);
+    const completedMissions =
+      this.calculateCompletedMissions(completedActions);
 
     return {
       id: "",
@@ -55,25 +59,23 @@ export default class RewardSystem {
     };
   }
 
-  // handleCompletedAction method triggers rewards for completed actions and missions
   async handleCompletedAction(
     address: string,
     actionId: string
   ): Promise<User> {
     // Get completed actions from the subgraph
-    const completedActions = await this.rewardService.getUserCompletedActions(
-      address
-    );
+    const completedActions =
+      await this.tokenService.getUserCompletedActions(address);
 
-    const previousMissions = await this.rewardService.getUserCompletedMissions(
-      address
-    );
+    const previousMissions =
+      await this.tokenService.getUserCompletedMissions(address);
 
     completedActions.push(actionId);
 
     const xp = this.calculateUserXP(completedActions);
 
-    const completedMissions = this.calculateCompletedMissions(completedActions);
+    const completedMissions =
+      this.calculateCompletedMissions(completedActions);
 
     const action = this.getActionById(actionId);
 
@@ -86,7 +88,7 @@ export default class RewardSystem {
     data.tokens.push({
       id: action.id,
       address: action.address,
-      amount: action.amount,
+      amount: toWei(action.amount.toString()),
       type: RewardType.XP,
       activityType: ActivityType.ACTION,
     });
@@ -98,7 +100,7 @@ export default class RewardSystem {
         // Trigger reward for the completed mission
         const mission = this.getMissionById(missionId);
 
-        mission.tokens.map((token) => {
+        mission.tokens?.map((token) => {
           //if URI = It's a badge
           if (token.uri) {
             data.tokens.push({
@@ -113,7 +115,7 @@ export default class RewardSystem {
             data.tokens.push({
               id: mission.id,
               address: token.address,
-              amount: token.amount,
+              amount: toWei(token.amount.toString()),
               type: RewardType.REWARD_CURRENCY,
               activityType: ActivityType.MISSION,
             });
@@ -125,41 +127,43 @@ export default class RewardSystem {
       }
     }
 
-    await this.rewardService.trigger(data);
+    await this.tokenService.trigger(data);
 
     return {
-      id: "", // Add a unique identifier for the user
-      name: "", // Add the user's name
-      rewarded: data.tokens,
+      id: "",
+      name: "",
       address,
       xp,
+      rewarded: data.tokens,
       completedActions,
       completedMissions: Array.from(previousMissionsSet),
     };
   }
 
-  // calculateUserXP method calculates the user's XP based on completed actions
   private calculateUserXP(completedActions: string[]): number {
     let xp = 0;
 
     for (const actionId of completedActions) {
       const action = this.actions.find((a) => a.id === actionId);
       if (action) {
-        xp += action.xp;
+        xp += action.xp ?? 0;
       }
     }
 
     return xp;
   }
 
-  // calculateCompletedMissions method calculates the missions completed by the user
-  private calculateCompletedMissions(completedActions: string[]): string[] {
+  private calculateCompletedMissions(
+    completedActions: string[]
+  ): string[] {
     const completedMissions: string[] = [];
 
     for (const mission of this.missions) {
       const actionCounts = this.getActionCounts(completedActions);
 
-      if (this.isMissionCompleted(actionCounts, mission.requirements)) {
+      if (
+        this.isMissionCompleted(actionCounts, mission.requirements)
+      ) {
         completedMissions.push(mission.id);
       }
     }
@@ -167,24 +171,30 @@ export default class RewardSystem {
     return completedMissions;
   }
 
-  // getActionCounts method counts the occurrences of each action in the completedActions array
-  private getActionCounts(completedActions: string[]): Map<string, number> {
+  private getActionCounts(
+    completedActions: string[]
+  ): Map<string, number> {
     const actionCounts = new Map<string, number>();
 
     for (const actionId of completedActions) {
-      actionCounts.set(actionId, (actionCounts.get(actionId) || 0) + 1);
+      actionCounts.set(
+        actionId,
+        (actionCounts.get(actionId) || 0) + 1
+      );
     }
 
     return actionCounts;
   }
 
-  // isMissionCompleted method checks if a mission is completed based on actionCounts and mission requirements
   private isMissionCompleted(
     actionCounts: Map<string, number>,
     requirements: MissionRequirement[]
   ): boolean {
     for (const requirement of requirements) {
-      if ((actionCounts.get(requirement.actionId) || 0) < requirement.count) {
+      if (
+        (actionCounts.get(requirement.actionId) || 0) <
+        requirement.count
+      ) {
         return false;
       }
     }
@@ -192,7 +202,6 @@ export default class RewardSystem {
     return true;
   }
 
-  // getActionById method retrieves an action by its ID
   getActionById(id: string): Action {
     const action = this.actions.find((action) => action.id === id);
     if (!action) {
@@ -201,7 +210,6 @@ export default class RewardSystem {
     return action;
   }
 
-  // getMissionById method retrieves a mission by its ID
   getMissionById(id: string): Mission {
     const mission = this.missions.find((action) => action.id === id);
     if (!mission) {

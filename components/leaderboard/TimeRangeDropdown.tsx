@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { TimeRangeDropdownProps } from "@/types";
-import styles from "../../styles/Dropdown.module.css";
 
 // TimeRangeDropdown component to allow users to select a time range for the leaderboard
 export default function TimeRangeDropdown({
@@ -22,7 +21,6 @@ export default function TimeRangeDropdown({
     <>
       <label htmlFor="timeRange">Select time range: </label>
       <select
-        className={styles.input}
         id="timeRange"
         onChange={handleDropdownChange}
         value={selectedTimeRange}

@@ -3,24 +3,34 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { HeaderProps } from "@/types";
 import Login from "./auth/Login";
+import { useWallet } from "@openformat/react";
 
 // Header component to display the site navigation bar
 const Header: React.FC<HeaderProps> = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const router = useRouter();
   const currentPage = router.pathname;
+  const { isConnected } = useWallet();
 
+  // Define the generic CSS classes for the hamburger menu lines
   const genericHamburgerLine =
     "h-1 w-6 my-0.5 rounded-full transition-all duration-300 bg-gray-900 dark:bg-gray-100";
 
+  // Define the navigation links
   const links = [
     { path: "/", label: "Home" },
-    { path: "/profile", label: "Profile" },
-    { path: "/admin", label: "Admin" },
+    // Only show Profile and Admin links if connected
+    ...(isConnected
+      ? [
+          { path: "/profile", label: "Profile" },
+          { path: "/admin", label: "Admin" },
+        ]
+      : []),
     { path: "/leaderboard", label: "Leaderboard" },
     { path: "/login", label: "Login" },
   ];
 
+  // Toggle the mobile menu state between open and closed
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -35,7 +45,7 @@ const Header: React.FC<HeaderProps> = () => {
                 className="text-gray-900 ml-4 md:ml-0 dark:text-gray-100  hover:text-gray-900 hover:opacity-80 px-3 py-2 rounded-md text-sm font-medium"
                 href="/"
               >
-                Wrap Dapp
+                Hello World
               </Link>
               <div className="hidden md:block">
                 <div className="flex items-baseline ml-10 space-x-4">

@@ -1,7 +1,7 @@
-import { useRawRequest, fromWei } from "@openformat/react";
-import { gql } from "graphql-request";
-import styles from "../../styles/Contracts.module.css";
 import { ResponseData, Variables } from "@/types";
+import { fromWei, useRawRequest } from "@openformat/react";
+import { gql } from "graphql-request";
+import { toast } from "react-hot-toast";
 
 // Contracts component
 function Contracts() {
@@ -34,38 +34,72 @@ function Contracts() {
     type: contract.type === "NFT" ? "Badge" : contract.type,
   }));
 
-  // Render contracts in a table
+  const copyContractId = (contractId: string) => {
+    navigator.clipboard.writeText(contractId);
+    toast.success("Copied!");
+  };
+
   return (
-    <div className={styles.container}>
-      <h2>Available tokens and</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Created At</th>
-            <th>Type</th>
-            <th>Name</th>
-            <th>Supply</th>
-          </tr>
-        </thead>
-        <tbody>
-          {contracts.map((contract) => (
-            <tr className={styles.item} key={contract.id}>
-              <td className={styles.item}>{contract.id}</td>
-              <td className={styles.item}>
-                {new Date(contract.createdAt * 1000).toLocaleDateString()}
-              </td>
-              <td className={styles.item}>{contract.type}</td>
-              <td className={styles.item}>{contract.metadata.name}</td>
-              <td className={styles.item}>
-                {contract.type === "Badge"
-                  ? contract.metadata.totalSupply
-                  : fromWei(contract.metadata.totalSupply)}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="px-4 sm:px-6 lg:px-8">
+      <div className="mt-8 flow-root">
+        <div className="overflow-x-auto">
+          <div className="align-middle inline-block min-w-full">
+            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+              <table className="min-w-full divide-y divide-gray-300">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="py-3.5 pl-4 pr-3 text-left text-xs sm:text-sm font-semibold text-gray-900 sm:pl-6">
+                      ID
+                    </th>
+                    <th className="px-3 py-3.5 text-left text-xs sm:text-sm font-semibold text-gray-900">
+                      Created At
+                    </th>
+                    <th className="px-3 py-3.5 text-left text-xs sm:text-sm font-semibold text-gray-900">
+                      Type
+                    </th>
+                    <th className="px-3 py-3.5 text-left text-xs sm:text-sm font-semibold text-gray-900">
+                      Name
+                    </th>
+                    <th className="px-3 py-3.5 text-left text-xs sm:text-sm font-semibold text-gray-900">
+                      Supply
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200 bg-white">
+                  {contracts.map((contract) => (
+                    <tr key={contract.id}>
+                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-xs sm:text-sm font-medium text-gray-900 sm:pl-6">
+                        <button
+                          className="focus:outline-none"
+                          onClick={() => copyContractId(contract.id)}
+                        >
+                          {contract.id}
+                        </button>
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-4 text-xs sm:text-sm text-gray-500">
+                        {new Date(
+                          contract.createdAt * 1000
+                        ).toLocaleDateString()}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-4 text-xs sm:text-sm text-gray-500">
+                        {contract.type}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-4 text-xs sm:text-sm text-gray-500">
+                        {contract.metadata.name}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-4 text-xs sm:text-sm text-gray-500">
+                        {contract.type === "Badge"
+                          ? contract.metadata.totalSupply
+                          : fromWei(contract.metadata.totalSupply)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

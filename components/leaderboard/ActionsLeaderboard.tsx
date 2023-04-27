@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useRawRequest } from "@openformat/react";
 import LeaderboardTable from "./LeaderboardTable";
 import { getActionsForLeaderboard } from "../../queries/action";
+import { fromWei } from "@openformat/react";
 
 // Process the actions leaderboard data and create a leaderboard object
 function processActionsLeaderboard(data: QueryResult) {
@@ -10,17 +11,20 @@ function processActionsLeaderboard(data: QueryResult) {
 
   // Loop through the actions and update the leaderboard object
   data.actions.forEach((action) => {
-    const key = action.user.id;
+    // Check if action.user is defined before proceeding
+    if (action.user) {
+      const key = action.user.id;
 
-    if (!leaderboard[key]) {
-      leaderboard[key] = {
-        user_id: action.user.id,
-        totalAmount: 0,
-      };
+      if (!leaderboard[key]) {
+        leaderboard[key] = {
+          user_id: action.user.id,
+          totalAmount: 0,
+        };
+      }
+
+      // Update the total amount for the user by adding the current action amount (converted to an integer)
+      leaderboard[key].totalAmount += Math.floor(action.amount ?? 0); // Convert the action.amount to an integer
     }
-
-    // Update the total amount for the user by adding the current action amount (converted to an integer)
-    leaderboard[key].totalAmount += Math.floor(action.amount ?? 0); // Convert the action.amount to an integer
   });
 
   // Return an array of the leaderboard values
@@ -35,17 +39,15 @@ export default function ActionsLeaderboard({
   formatUserId,
 }: ActionsLeaderboardProps) {
   // Fetch the raw actions data using the provided query and variables
-  const { data: actionsData, refetch: refetchActionsData } = useRawRequest<
-    QueryResult,
-    any
-  >({
-    query: getActionsForLeaderboard,
-    variables: {
-      appId,
-      createdAt_gte: createdAtGte,
-      createdAt_lte: createdAtLte,
-    },
-  });
+  const { data: actionsData, refetch: refetchActionsData } =
+    useRawRequest<QueryResult, any>({
+      query: getActionsForLeaderboard,
+      variables: {
+        appId,
+        createdAt_gte: createdAtGte,
+        createdAt_lte: createdAtLte,
+      },
+    });
 
   // Refetch the actions data whenever the date range changes
   useEffect(() => {
@@ -59,7 +61,9 @@ export default function ActionsLeaderboard({
 
   // Sort the leaderboard data by total amount in descending order
   const sortedActionsLeaderboardData = actionsLeaderboardData
-    ? actionsLeaderboardData.sort((a, b) => b.totalAmount - a.totalAmount)
+    ? actionsLeaderboardData.sort(
+        (a, b) => b.totalAmount - a.totalAmount
+      )
     : null;
 
   // Define the format for the actions data to be displayed in the table
@@ -67,8 +71,9 @@ export default function ActionsLeaderboard({
     header: "Total Amount",
     formatUserId,
     valueKey: "totalAmount",
-    formatValue: (value: number) => value,
+    formatValue: (value: number) => Number(fromWei(value.toString())), // Convert the value back to its original unit and to a number
   };
+
   // Render the LeaderboardTable component with the sorted leaderboard data and formatting options
   return (
     <LeaderboardTable

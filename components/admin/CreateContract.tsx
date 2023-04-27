@@ -1,15 +1,16 @@
+import { AppData } from "@/types";
 import {
   useOpenFormat,
   useRawRequest,
   useWallet,
-  toWei,
 } from "@openformat/react";
-import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { toWei } from "@openformat/sdk";
 import { ethers } from "ethers";
-import styles from "../../styles/Contracts.module.css";
 import { gql } from "graphql-request";
-import { AppData } from "@/types";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
+import Button from "../Button";
 
 // CreateContract component
 const CreateContract: React.FC = () => {
@@ -48,7 +49,7 @@ const CreateContract: React.FC = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [tokenType, setTokenType] = useState("ERC721");
+  const [tokenType, setTokenType] = useState("BADGE");
 
   // Access OpenFormat SDK
   const { sdk } = useOpenFormat();
@@ -65,10 +66,12 @@ const CreateContract: React.FC = () => {
       tokenURI: formData.tokenURI,
     };
 
-    const NFT = await sdk.Reward.createBadge(params);
-    // You can perform further operations, e.g., transfer, etc.
+    await toast.promise(sdk.Reward.createBadge(params), {
+      loading: "Creating Badge",
+      success: "Badge created",
+      error: "Error creating Badge, please try again",
+    });
   };
-
   // Function to create an ERC20 token
   const createERC20 = async (formData: {
     name: string;
@@ -81,15 +84,23 @@ const CreateContract: React.FC = () => {
       supply: toWei(formData.supply.toString()), // Convert supply to Wei
     };
 
-    const token = await sdk.Reward.createRewardToken(params);
-    const maxUint256 = ethers.constants.MaxUint256;
-    token.approve({ spender: token.appId, amount: maxUint256 });
-    // You can perform further operations, e.g., transfer, etc.
+    await toast.promise(
+      sdk.Reward.createRewardToken(params).then((token) => {
+        const maxUint256 = ethers.constants.MaxUint256;
+        token.approve({ spender: token.appId, amount: maxUint256 });
+      }),
+      {
+        loading: "Creating Token",
+        success:
+          "Token created (Please confirm spending cap in your wallet)",
+        error: "Error creating Token, please try again",
+      }
+    );
   };
 
   // Handle form submission
   const onSubmit = (formData: any) => {
-    if (tokenType === "ERC721") {
+    if (tokenType === "BADGE") {
       createERC721(formData);
     } else {
       createERC20(formData);
@@ -98,63 +109,75 @@ const CreateContract: React.FC = () => {
 
   // Render form
   return (
-    <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
-      <div className={styles.field}>
-        <label className={styles.label} htmlFor="tokenType">
+    <form className="m-4" onSubmit={handleSubmit(onSubmit)}>
+      <div className="flex flex-col">
+        <label
+          className="text-sm font-semibold text-gray-700"
+          htmlFor="tokenType"
+        >
           Token Type:
         </label>
         <select
-          className={styles.input}
+          className="mt-1 p-2 border border-gray-300 rounded-md"
           id="tokenType"
           onChange={(e) => setTokenType(e.target.value)}
           value={tokenType}
         >
-          <option value="ERC721">Badge</option>
-          <option value="ERC20">Token</option>
+          <option value="BADGE">Badge</option>
+          <option value="REWARD">Token</option>
         </select>
       </div>
 
-      <div className={styles.field}>
-        <label className={styles.label} htmlFor="name">
+      <div className="flex flex-col">
+        <label
+          className="text-sm font-semibold text-gray-700"
+          htmlFor="name"
+        >
           Name:
         </label>
         <input
-          className={styles.input}
+          className="mt-1 p-2 border border-gray-300 rounded-md"
           id="name"
           type="text"
           {...register("name", { required: "Name is required" })}
         />
         {errors.name && (
-          <p className={styles.error}>
+          <p className="mt-1 text-xs text-red-500">
             {(errors.name.message as string) || ""}
           </p>
         )}
       </div>
 
-      <div className={styles.field}>
-        <label className={styles.label} htmlFor="symbol">
+      <div className="flex flex-col">
+        <label
+          className="text-sm font-semibold text-gray-700"
+          htmlFor="symbol"
+        >
           Symbol:
         </label>
         <input
-          className={styles.input}
+          className="mt-1 p-2 border border-gray-300 rounded-md"
           id="symbol"
           type="text"
           {...register("symbol", { required: "Symbol is required" })}
         />
         {errors.symbol && (
-          <p className={styles.error}>
+          <p className="mt-1 text-xs text-red-500">
             {(errors.symbol.message as string) || ""}
           </p>
         )}
       </div>
 
-      {tokenType === "ERC721" && (
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="tokenURI">
+      {tokenType === "BADGE" && (
+        <div className="flex flex-col">
+          <label
+            className="text-sm font-semibold text-gray-700"
+            htmlFor="tokenURI"
+          >
             TokenURI:
           </label>
           <input
-            className={styles.input}
+            className="mt-1 p-2 border border-gray-300 rounded-md"
             id="tokenURI"
             type="text"
             {...register("tokenURI", {
@@ -163,20 +186,23 @@ const CreateContract: React.FC = () => {
             })}
           />
           {errors.supply && (
-            <p className={styles.error}>
+            <p className="mt-1 text-xs text-red-500">
               {(errors.supply.message as string) || ""}
             </p>
           )}
         </div>
       )}
 
-      {tokenType === "ERC20" && (
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="supply">
+      {tokenType === "REWARD" && (
+        <div className="flex flex-col">
+          <label
+            className="text-sm font-semibold text-gray-700"
+            htmlFor="supply"
+          >
             Supply:
           </label>
           <input
-            className={styles.input}
+            className="mt-1 p-2 border border-gray-300 rounded-md"
             id="supply"
             type="number"
             {...register("supply", {
@@ -185,28 +211,18 @@ const CreateContract: React.FC = () => {
             })}
           />
           {errors.supply && (
-            <p className={styles.error}>
+            <p className="mt-1 text-xs text-red-500">
               {(errors.supply.message as string) || ""}
             </p>
           )}
         </div>
       )}
 
-      <div className={`${styles.tooltip} `}>
-        <button
-          className={`${styles.button} ${
-            !isOwner ? styles.buttonDisabled : ""
-          }`}
-          type="submit"
-          disabled={!isOwner} // Disable button if the user is not the owner
-        >
-          Create Contract
-        </button>
-        {!isOwner && (
-          <span className={styles.tooltiptext}>
-            Only the app owner can create contracts
-          </span>
-        )}
+      <div className="relative group">
+        <Button disabled={!isOwner} onClick={handleSubmit(onSubmit)}>
+          {!isOwner && "Only the app owner can create contracts"}
+          {isOwner && "Create Contract"}
+        </Button>
       </div>
     </form>
   );

@@ -1,12 +1,20 @@
 {
-  "name": "dapp-template",
+  "name": "hello-world-starter",
   "version": "0.1.0",
+  "description": "A decentralized application template built using the Open Format SDK",
+  "author": "Open Format",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "format": "prettier --write .",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@openformat/react": "^0.3.0-dev-49b851b",
@@ -33,8 +41,12 @@
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
+    "@types/jest": "^27.4.0",
     "autoprefixer": "^10.4.14",
+    "jest": "^27.5.1",
     "postcss": "^8.4.23",
-    "tailwindcss": "^3.3.1"
+    "prettier": "^2.6.3",
+    "tailwindcss": "^3.3.1",
+    "ts-jest": "^27.1.3"
   }
 }
