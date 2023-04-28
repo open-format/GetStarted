@@ -58,12 +58,10 @@ const CreateContract: React.FC = () => {
   const createERC721 = async (formData: {
     name: string;
     symbol: string;
-    tokenURI: string;
   }) => {
     const params = {
       name: formData.name,
       symbol: formData.symbol,
-      tokenURI: formData.tokenURI,
     };
 
     await toast.promise(sdk.Reward.createBadge(params), {
@@ -170,21 +168,6 @@ const CreateContract: React.FC = () => {
 
       {tokenType === "BADGE" && (
         <div className="flex flex-col">
-          <label
-            className="text-sm font-semibold text-gray-700"
-            htmlFor="tokenURI"
-          >
-            TokenURI:
-          </label>
-          <input
-            className="mt-1 p-2 border border-gray-300 rounded-md"
-            id="tokenURI"
-            type="text"
-            {...register("tokenURI", {
-              required: "tokenURI is required",
-              min: 1,
-            })}
-          />
           {errors.supply && (
             <p className="mt-1 text-xs text-red-500">
               {(errors.supply.message as string) || ""}
