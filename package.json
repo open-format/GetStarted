@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.17",
-    "@openformat/react": "^0.3.0-dev-49b851b",
+    "@openformat/react": "^0.3.0-dev-c58301f",
     "@types/node": "18.15.11",
     "@types/react": "18.0.32",
     "@types/react-dom": "18.0.11",
