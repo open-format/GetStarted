@@ -151,7 +151,10 @@ export default function GettingStarted({
         isConnected && TokenData && TokenData.contracts.length,
       disabled: !isConnected,
       component: (
-        <Button onClick={handleCreateXPToken} disabled={!isConnected}>
+        <Button
+          onClick={handleCreateXPToken}
+          disabled={!loggedInAddress}
+        >
           Create XP Token
         </Button>
       ),
