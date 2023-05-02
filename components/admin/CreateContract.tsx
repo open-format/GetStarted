@@ -166,16 +166,6 @@ const CreateContract: React.FC = () => {
         )}
       </div>
 
-      {tokenType === "BADGE" && (
-        <div className="flex flex-col">
-          {errors.supply && (
-            <p className="mt-1 text-xs text-red-500">
-              {(errors.supply.message as string) || ""}
-            </p>
-          )}
-        </div>
-      )}
-
       {tokenType === "REWARD" && (
         <div className="flex flex-col">
           <label
