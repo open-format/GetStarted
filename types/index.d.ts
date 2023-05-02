@@ -211,3 +211,7 @@ interface Web2AuthProps {
   address: string | null | undefined;
   user: LoginUser | null;
 }
+
+interface PrivateKeyProps {
+  session: any;
+}

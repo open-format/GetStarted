@@ -6,17 +6,18 @@ import { useLoggedInAddress } from "../contexts/LoggedInAddressContext";
 import { GetServerSideProps, NextPage } from "next";
 import { withUserCreation } from "@/lib/withUserCreation";
 import SignOutButton from "../components/auth/SignOutButton";
-import { useUser } from "@supabase/auth-helpers-react";
+import { useUser, useSession } from "@supabase/auth-helpers-react";
 import { LockClosedIcon } from "@heroicons/react/24/solid";
 import { Web3AuthProps, Web2AuthProps, LoginProps } from "@/types";
+import PrivateKey from "@/components/auth/PrivateKey";
 
 const Web3Auth: React.FC<Web3AuthProps> = ({ user }) => (
   <>
     <h2 className="text-center m-4">Web3 Auth</h2>
     <p className="text-xs text-center leading-5 text-gray-500 p-4">
-      The web3 connect wallet login enables you to authenticate via your
-      blockchain-based digital wallet, providing decentralized and secure
-      access.
+      The web3 connect wallet login enables you to authenticate via
+      your blockchain-based digital wallet, providing decentralized
+      and secure access.
     </p>
     <div className="md:absolute bottom-28 left-0 right-0 flex justify-center">
       {!user && <ConnectButton />}
@@ -30,8 +31,8 @@ const Web2Auth: React.FC<Web2AuthProps> = ({ address, user }) => (
       Web2 Auth
     </h2>
     <p className="text-xs text-center leading-5 text-gray-500 p-4">
-      The traditional web2 login allows you to access the authenticate using a
-      magiclink.
+      The traditional web2 login allows you to access the authenticate
+      using a magiclink.
     </p>
     <div className="relative left-0 right-0 flex justify-center">
       {!address && !user && <SignUpWithMagicLink />}
@@ -46,6 +47,7 @@ const Login: NextPage<LoginProps> = (props) => {
   const { setLoggedInAddress } = useLoggedInAddress();
   const { address } = useWallet();
   const user = useUser();
+  const session = useSession();
 
   useEffect(() => {
     if (user) {
@@ -79,11 +81,13 @@ const Login: NextPage<LoginProps> = (props) => {
                   </span>
                 </div>
               )}
-              <div className="mx-auto w-full relative h-full">
+              <div className="mx-auto w-full relative h-full text-center">
                 {address && (
                   <div className="absolute w-full h-full rounded-lg backdrop-blur "></div>
                 )}
                 <Web2Auth address={address ?? null} user={user} />
+
+                {session && <PrivateKey session={session} />}
               </div>
             </div>
           </div>
