@@ -20,7 +20,7 @@ interface Mission {
   mission_id?: string;
 }
 
-// User interface represents a user with rewards, address, XP, and completed actions/missions
+// User interface represents a user with rewards, address, Action Tokens (XP), and completed actions/missions
 interface User {
   id: string;
   name: string;
