@@ -17,9 +17,8 @@ interface Mission {
   badge?: string;
   badge_URI?: string;
   user?: User;
-  type_id?: string;
+  mission_id?: string;
 }
-
 
 // User interface represents a user with rewards, address, XP, and completed actions/missions
 interface User {
@@ -96,9 +95,9 @@ interface Action {
   amount: number;
   description: string;
   address: string;
-  xp?: number; 
-  user?: string; 
-  type_id?: string; 
+  xp?: number;
+  user?: string;
+  action_id?: string;
 }
 
 // QueryResult interface represents a query result with a list of actions and missions
@@ -115,12 +114,11 @@ interface MissionsLeaderboardProps {
   formatUserId: (id: string) => string;
 }
 
-
-
 // LeaderboardEntry interface represents a leaderboard entry
 interface LeaderboardEntry {
   user_id: string;
-  type_id: string;
+  action_id: string;
+  mission_id: string;
   [key: string]: any;
 }
 
@@ -144,7 +142,6 @@ interface HeaderProps {}
 
 // AuthProps interface represents properties for the Auth component
 interface AuthProps {}
-
 
 // ResponseData interface represents response data for user profile actions and missions
 interface ProfileResponseData {
@@ -193,5 +190,3 @@ interface AppData {
     };
   };
 }
-
-
