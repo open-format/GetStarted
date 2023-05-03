@@ -2,10 +2,13 @@ import { gql } from "graphql-request";
 
 // Define the getActionsByUserAndRequirements query
 export const getActionsByUserAndRequirements = gql`
-  query getActionByUserAndRequirements($user: String!, $app: String!) {
+  query getActionByUserAndRequirements(
+    $user: String!
+    $app: String!
+  ) {
     actions(where: { user: $user, app: $app }) {
       id
-      type_id
+      action_id
     }
   }
 `;
@@ -26,7 +29,7 @@ export const getActionsForLeaderboard = gql`
     ) {
       id
       amount
-      type_id
+      action_id
       user {
         id
       }
@@ -38,7 +41,7 @@ export const getActionsForLeaderboard = gql`
 export const getActionsForProfile = gql`
   query MyQuery($userId: String!, $appId: String!) {
     actions(where: { user: $userId, app: $appId }) {
-      type_id
+      action_id
       amount
     }
   }

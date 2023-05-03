@@ -2,10 +2,13 @@ import { gql } from "graphql-request";
 
 // GraphQL query to get missions by a specific user and app
 export const getMissionsByUserAndRequirements = gql`
-  query getMissionsByUserAndRequirements($user: String!, $app: String!) {
+  query getMissionsByUserAndRequirements(
+    $user: String!
+    $app: String!
+  ) {
     missions(where: { user: $user, app: $app }) {
       id
-      type_id
+      mission_id
     }
   }
 `;
@@ -25,7 +28,7 @@ export const getMissionsForLeaderboard = gql`
       }
     ) {
       id
-      type_id
+      mission_id
       user {
         id
       }
