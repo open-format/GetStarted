@@ -2,6 +2,8 @@
 
 This starter is an introduction into a new decentralised world and what we believe to be the starting point for 90% of all future applications. It features a fundamental file structure boilerplate, which comprises of an admin area, authentication, and a tokenised system with Action Tokens, Badges, and Reward Tokens, all integrated into a front-end application built using NextJS and the Open Format SDK.
 
+https://user-images.githubusercontent.com/7047410/236463694-5b44e650-1cae-40eb-90a4-8cd1e44dd0b5.mp4
+
 ## Mechanics Overview
 
 To keep this as simple as possible we’re very opinionated with the rules while still retaining as much flexibility as possible to account for most scenarios out of the box.
