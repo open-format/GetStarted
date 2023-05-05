@@ -198,3 +198,52 @@ You can view completed mission on-chain using our subgraph. You can see an examp
 ## Architecture
 
 ![architecture](https://user-images.githubusercontent.com/7047410/233409803-a4ee7ea4-7517-4900-a1e7-50bee04fc20f.png)
+
+## Web2 Auth Integration Guide
+
+This guide will walk you through the process of signing up for Supabase, creating an organization and project, configuring your project's environment variables, creating and configuring a table, adding row-level security, and testing the login functionality.
+
+### Sign up for Supabase
+
+1. Visit the Supabase website at https://supabase.io.
+2. Sign up using your preferred method.
+3. After signing up, create an organization and a project within the organization.
+
+### Configure Environment Variables
+
+In your newly created project, navigate to the "API" section. Locate the "URL" and "anon public" key. You will use these values to set up your environment variables. Use the example.env.local file in the template and update your variables with the appropriate values.
+
+### Create and Configure Table
+
+1. In your project's dashboard, navigate to the "Table editor" tab.
+2. Click on the "New table" button to create a new table.
+3. Define your table schema, including column names, data types, and constraints.
+
+![image](https://user-images.githubusercontent.com/98533777/235881970-aee8fc2c-5be9-433a-ac7b-1448497b1869.png)
+
+4. The table should include the following columns: id, email, private_key, and wallet_address.
+5. The id column needs to have a foreign key relation to the authentication user table auth.users.id.
+
+![image](https://user-images.githubusercontent.com/98533777/235881935-6337eb9f-49ce-42c0-887a-d2d3cec3a52e.png)
+
+6. Click "Create" to save your new table.
+
+### Add Row Level Security
+
+1. In your table, click on the "RLS policies" button in the top right.
+2. Add 2 policies that enable authenticated users to add a row and select their own data. There should be some templates that will guide you through this.
+
+![image](https://user-images.githubusercontent.com/98533777/235881880-3ac0e0be-9438-4ef7-b0a9-98871c16a308.png)
+
+### Testing & Troubleshooting
+
+ - Ensure that your application is configured to use the Supabase client and the environment variables you defined earlier.
+ - Test your application's login functionality, ensuring that users can log in and access data appropriately.
+
+If you encounter issues during this process, try the following steps to identify the problem:
+
+ - Verify that your table is set up correctly, with the appropriate columns, data types, and constraints.
+ - Double-check that your .env file contains the correct values.
+ - Disable row-level security and test again, check if a user is created in the table. If so, you need to update your policies.
+ - You can consult the Supabase documentation (https://supabase.io/docs) for further guidance on specific issues.
+
