@@ -16,11 +16,11 @@ const Profile: React.FC = () => {
       query: gql`
         query MyQuery($userId: String!, $appId: String!) {
           actions(where: { user: $userId, app: $appId }) {
-            type_id
+            action_id
             amount
           }
           missions(where: { user: $userId, app: $appId }) {
-            type_id
+            mission_id
           }
         }
       `,
@@ -35,9 +35,9 @@ const Profile: React.FC = () => {
     const actionTypes: Record<string, number> = {};
     let totalTokens = 0;
     actions.forEach((action) => {
-      if (action.type_id) {
-        actionTypes[action.type_id] =
-          (actionTypes[action.type_id] || 0) + 1;
+      if (action.action_id) {
+        actionTypes[action.action_id] =
+          (actionTypes[action.action_id] || 0) + 1;
         totalTokens += Number(action.amount);
       }
     });
@@ -130,9 +130,9 @@ const Profile: React.FC = () => {
                   </h3>
                   <ul className="mt-2 text-sm text-gray-600">
                     {Object.entries(actionTypes).map(
-                      ([type_id, count]: [string, number]) => (
-                        <li key={type_id} className="py-2">
-                          {type_id}, Completed: {count}
+                      ([action_id, count]: [string, number]) => (
+                        <li key={action_id} className="py-2">
+                          {action_id}, Completed: {count}
                         </li>
                       )
                     )}
@@ -148,7 +148,7 @@ const Profile: React.FC = () => {
                     {missions.map(
                       (mission: Mission, index: number) => (
                         <li key={index} className="py-2">
-                          {mission.type_id}
+                          {mission.mission_id}
                         </li>
                       )
                     )}

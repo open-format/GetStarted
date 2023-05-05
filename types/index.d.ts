@@ -17,7 +17,7 @@ interface Mission {
   badge?: string;
   badge_URI?: string;
   user?: User;
-  type_id?: string;
+  mission_id?: string;
 }
 
 // User interface represents a user with rewards, address, XP, and completed actions/missions
@@ -97,7 +97,7 @@ interface Action {
   address: string;
   xp?: number;
   user?: string;
-  type_id?: string;
+  action_id?: string;
 }
 
 // QueryResult interface represents a query result with a list of actions and missions
@@ -117,7 +117,8 @@ interface MissionsLeaderboardProps {
 // LeaderboardEntry interface represents a leaderboard entry
 interface LeaderboardEntry {
   user_id: string;
-  type_id: string;
+  action_id: string;
+  mission_id: string;
   [key: string]: any;
 }
 

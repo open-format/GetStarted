@@ -11,19 +11,20 @@ function processMissionsLeaderboard(data: QueryResult) {
   // Loop through the missions and update the leaderboard object
   data.missions.forEach((mission) => {
     if (mission.user && mission.user.id) {
-    const key = mission.user.id;
+      const key = mission.user.id;
 
-    if (!leaderboard[key]) {
-      leaderboard[key] = {
-        user_id: mission.user.id,
-        completedMissions: 0,
-        uniqueTypes: new Set(),
-      };
+      if (!leaderboard[key]) {
+        leaderboard[key] = {
+          user_id: mission.user.id,
+          completedMissions: 0,
+          uniqueTypes: new Set(),
+        };
+      }
+      // Add the mission mission_id to the uniqueTypes Set and increment the completedMissions count
+      leaderboard[key].uniqueTypes.add(mission.mission_id);
+      leaderboard[key].completedMissions++;
     }
-    // Add the mission type_id to the uniqueTypes Set and increment the completedMissions count
-    leaderboard[key].uniqueTypes.add(mission.type_id);
-    leaderboard[key].completedMissions++;
-  }});
+  });
 
   // Convert uniqueTypes Set to its size (count of unique type_ids)
   Object.values(leaderboard).forEach((entry) => {
@@ -42,17 +43,15 @@ export default function MissionsLeaderboard({
   formatUserId,
 }: MissionsLeaderboardProps) {
   // Fetch the raw missions data using the provided query and variables
-  const { data: missionsData, refetch: refetchMissionsData } = useRawRequest<
-    QueryResult,
-    any
-  >({
-    query: getMissionsForLeaderboard,
-    variables: {
-      appId,
-      createdAt_gte: createdAtGte,
-      createdAt_lte: createdAtLte,
-    },
-  });
+  const { data: missionsData, refetch: refetchMissionsData } =
+    useRawRequest<QueryResult, any>({
+      query: getMissionsForLeaderboard,
+      variables: {
+        appId,
+        createdAt_gte: createdAtGte,
+        createdAt_lte: createdAtLte,
+      },
+    });
   // Refetch the missions data whenever the date range changes
   useEffect(() => {
     refetchMissionsData();

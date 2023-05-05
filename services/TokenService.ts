@@ -22,7 +22,7 @@ export default class TokenService {
     );
 
     const actionIds = response.actions.map(
-      (action: Action) => action.type_id
+      (action: Action) => action.action_id
     );
     return actionIds;
   }
@@ -37,7 +37,7 @@ export default class TokenService {
     );
 
     const missionIds = response.missions.map(
-      (mission: Mission) => mission.type_id
+      (mission: Mission) => mission.mission_id
     );
     return missionIds;
   }

@@ -17,12 +17,12 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
-    "@openformat/react": "^0.3.0-dev-49b851b",
     "@supabase/auth-helpers-nextjs": "^0.6.0",
     "@supabase/auth-helpers-react": "^0.3.1",
     "@supabase/supabase-js": "^2.18.0",
     "@types/cookie": "^0.5.1",
     "@heroicons/react": "^2.0.17",
+    "@openformat/react": "^1.0.2",
     "@types/node": "18.15.11",
     "@types/react": "18.0.32",
     "@types/react-dom": "18.0.11",
