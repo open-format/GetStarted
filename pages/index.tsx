@@ -2,18 +2,59 @@ import { GettingStarted } from "@/components";
 import TokenSystem from "@/utils/TokenSystem";
 import { useOpenFormat } from "@openformat/react";
 import Head from "next/head";
-import React from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useLoggedInAddress } from "@/contexts/LoggedInAddressContext";
+import { supabase } from "@/utils/supabaseClient";
+import { AuthChangeEvent, Session } from "@supabase/supabase-js";
 
 // Home page component
 export default function Home() {
   // Use the useWallet and useOpenFormat hooks
+  const { loggedInAddress } = useLoggedInAddress();
   const { sdk } = useOpenFormat();
+  const [loggingIn, setLoggingIn] = useState(false);
+
+  const router = useRouter();
+  // Use the useEffect hook to listen for authentication state changes
+  useEffect(() => {
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      async (event: AuthChangeEvent, session: Session | null) => {
+        if (event === "SIGNED_IN" || event === "USER_UPDATED") {
+          setLoggingIn(true); // Set loggingIn to true
+
+          // Show the "Logging in" loading toast
+          const loadingToastId = toast.loading("Logging in...");
+
+          // Wait for 3 seconds
+          await new Promise((resolve) => setTimeout(resolve, 3000));
+
+          // Replace the current route with /login and execute getServerSideProps
+          await router.replace("/login");
+
+          // Dismiss the loading toast and show the "Logged in" success toast
+          toast.dismiss(loadingToastId);
+          toast.success("Logged in");
+
+          setLoggingIn(false); // Set loggingIn back to false
+        }
+      }
+    );
+
+    // Clean up the listener when the component is unmounted
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, [router]);
 
   // Initialize the TokenSystem with the OpenFormat SDK
   const tokenSystem = new TokenSystem(sdk);
 
   return (
     <>
+      {/* Render the overlay when loggingIn is true */}
+      {loggingIn && <div></div>}
       <Head>
         <title>Hello World Starter - OpenFormat Template</title>
         <meta

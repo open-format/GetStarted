@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import Head from "next/head";
 import CreateContract from "../components/admin/CreateContract";
 import Contracts from "../components/admin/Contracts";
-import { useWallet } from "@openformat/react";
+import { useLoggedInAddress } from "@/contexts/LoggedInAddressContext";
 import { Button } from "@/components";
 
 // Admin page component
 const Admin: React.FC = () => {
   // Use the useWallet hook to get the user's wallet address
-  const { address } = useWallet();
+  const { loggedInAddress } = useLoggedInAddress();
 
   // Create a state to toggle the visibility of the Contracts component
   const [showContracts, setShowContracts] = useState(false);
@@ -60,7 +60,7 @@ const Admin: React.FC = () => {
         </Button>
       </div>
       {/* Check if the user's wallet is connected */}
-      {address ? (
+      {loggedInAddress ? (
         // If the wallet is connected, display the CreateContract and Contracts components
         <div className="mx-auto sm:px-6 lg:px-8">
           {showContracts && (

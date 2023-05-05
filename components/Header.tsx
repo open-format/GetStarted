@@ -4,13 +4,15 @@ import { useRouter } from "next/router";
 import { HeaderProps } from "@/types";
 import Login from "./auth/Login";
 import { useWallet } from "@openformat/react";
+import { useLoggedInAddress } from "@/contexts/LoggedInAddressContext";
 
 // Header component to display the site navigation bar
 const Header: React.FC<HeaderProps> = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const router = useRouter();
   const currentPage = router.pathname;
-  const { isConnected } = useWallet();
+
+  const loggedInAddress = useLoggedInAddress();
 
   // Define the generic CSS classes for the hamburger menu lines
   const genericHamburgerLine =
@@ -19,14 +21,15 @@ const Header: React.FC<HeaderProps> = () => {
   // Define the navigation links
   const links = [
     { path: "/", label: "Home" },
-    // Only show Profile and Admin links if connected
-    ...(isConnected
+    // Only show Profile and Admin links if logged in
+    ...(loggedInAddress
       ? [
           { path: "/profile", label: "Profile" },
           { path: "/admin", label: "Admin" },
         ]
       : []),
     { path: "/leaderboard", label: "Leaderboard" },
+    { path: "/login", label: "Login" },
   ];
 
   // Toggle the mobile menu state between open and closed

@@ -1,13 +1,14 @@
 import React from "react";
 import Head from "next/head";
-import { useRawRequest, useWallet, fromWei } from "@openformat/react";
+import { useRawRequest, fromWei } from "@openformat/react";
 import { gql } from "graphql-request";
 import { ProfileResponseData, Mission, Action } from "@/types";
+import { useLoggedInAddress } from "@/contexts/LoggedInAddressContext";
 
 // Profile component
 const Profile: React.FC = () => {
   // Use the useWallet hook to get the wallet address
-  const { address = null } = useWallet();
+  const { loggedInAddress } = useLoggedInAddress();
 
   // Use the useRawRequest hook to fetch actions and missions data for the user
   const { actions = [], missions = [] }: ProfileResponseData =
@@ -24,7 +25,7 @@ const Profile: React.FC = () => {
         }
       `,
       variables: {
-        userId: address?.toLocaleLowerCase(),
+        userId: loggedInAddress?.toLocaleLowerCase(),
         appId: process.env.NEXT_PUBLIC_APP_ID,
       },
     }).data || {};
@@ -95,12 +96,12 @@ const Profile: React.FC = () => {
               Profile
             </h1>
             <a className="text-gray-500">
-              {address?.toLocaleLowerCase()}
+              {loggedInAddress?.toLocaleLowerCase()}
             </a>
           </div>
         </header>
         <section className="m-4 sm:flex sm:flex-wrap sm:-mx-6 lg:-mx-8">
-          {address ? (
+          {loggedInAddress ? (
             <>
               <div className="overflow-hidden mt-4 sm:mt-0  sm:w-1/2 sm:px-6 lg:px-8">
                 <div className="p-4 bg-gray-100 mb-2 rounded-lg ">

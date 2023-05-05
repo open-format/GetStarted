@@ -190,3 +190,29 @@ interface AppData {
     };
   };
 }
+
+// User type definition
+interface LoginUser {
+  id: string;
+  email?: string;
+}
+
+// Login interface represents the shape of data for a login action
+interface LoginProps {
+  loggedInAddress: string | null;
+}
+
+// Web3AuthProps interface represents the shape of data for a Web3Auth action
+interface Web3AuthProps {
+  user: LoginUser | null;
+}
+
+// Web2AuthProps interface represents the shape of data for a Web2Auth action
+interface Web2AuthProps {
+  address: string | null | undefined;
+  user: LoginUser | null;
+}
+
+interface PrivateKeyProps {
+  session: any;
+}
