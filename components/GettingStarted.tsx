@@ -3,13 +3,13 @@
 // forward with building your awesome application.
 import {
   getActionsByUserAndRequirements,
-  getTokenByName
+  getTokenByName,
 } from "@/queries";
 import { User } from "@/types";
 import TokenSystem from "@/utils/TokenSystem";
 import {
   CheckCircleIcon,
-  ChevronRightIcon
+  ChevronRightIcon,
 } from "@heroicons/react/24/solid";
 import {
   ConnectButton,
@@ -18,7 +18,7 @@ import {
   toWei,
   useOpenFormat,
   useRawRequest,
-  useWallet
+  useWallet,
 } from "@openformat/react";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
@@ -50,7 +50,7 @@ export default function GettingStarted({
       query: getTokenByName,
       variables: {
         app: process.env.NEXT_PUBLIC_APP_ID,
-        name: "XP",
+        name: "Action Token",
       },
     });
 
@@ -61,19 +61,19 @@ export default function GettingStarted({
 
   // handleCreateXPToken is an async function that handles the creation of a new token
   // of an XP token for the app.
-  async function handleCreateXPToken() {
+  async function handleCreateActionToken() {
     if (address) {
       await toast
         .promise(
           sdk.Reward.createRewardToken({
-            name: "XP",
-            symbol: "XP",
+            name: "Action Token",
+            symbol: "ACTION",
             supply: toWei("0"),
           }),
           {
-            loading: "Creating XP Token",
-            success: "XP token created",
-            error: "Error creating XP Token, please try again",
+            loading: "Creating Action Token",
+            success: "Action Token created",
+            error: "Error creating Action Token, please try again",
           }
         )
         .then(() => {
@@ -94,11 +94,11 @@ export default function GettingStarted({
 
     if (address) {
       const data: User = await tokenSystem
-      .handleCompletedAction(address, "connect")
-      .catch((error: string) => {
-        toast.error("Sending tokens failed. Please try again.");
-        throw new Error(error);
-      });
+        .handleCompletedAction(address, "connect")
+        .catch((error: string) => {
+          toast.error("Sending tokens failed. Please try again.");
+          throw new Error(error);
+        });
       toast.dismiss(loadingToast);
 
       for (const token of data.rewarded) {
@@ -129,7 +129,26 @@ export default function GettingStarted({
 
   const firstActionComplete = Boolean(data?.actions?.length);
 
-  const xpTokenId = TokenData?.contracts?.[0]?.id || "";
+  const actionTokenId = TokenData?.contracts?.[0]?.id || "";
+
+  function ActionID({ actionTokenId }: { actionTokenId: string }) {
+    function handleCopyToClipboard() {
+      navigator.clipboard.writeText(actionTokenId);
+      toast.success("Token ID copied to clipboard!");
+    }
+    return (
+      <p>
+        Add your Action Token ID{" "}
+        <span
+          className="text-gray-600 font-bold cursor-pointer"
+          onClick={handleCopyToClipboard}
+        >
+          ({actionTokenId})
+        </span>{" "}
+        to the connect action in your configuration file.
+      </p>
+    );
+  }
 
   // Define the tasks that the user needs to complete
   const tasks = [
@@ -141,15 +160,18 @@ export default function GettingStarted({
       component: <ConnectButton />,
     },
     {
-      title: "Create your XP token",
+      title: "Create your Action Token",
       description:
-        "Click to create your XP Token. You will see your created token on the admin page.",
+        "Click to create your Action Token. You will see your created token on the admin page.",
       completed:
         isConnected && TokenData && TokenData.contracts.length,
       disabled: !isConnected,
       component: (
-        <Button onClick={handleCreateXPToken} disabled={!isConnected}>
-          Create XP Token
+        <Button
+          onClick={handleCreateActionToken}
+          disabled={!isConnected}
+        >
+          Create Action Token
         </Button>
       ),
     },
@@ -158,19 +180,10 @@ export default function GettingStarted({
       description: "",
       descriptionElement: (
         <div className="text-xs leading-5 text-gray-500">
-          {xpTokenId
-            ? "Copy the ID of your XP Token and add it to the connect action in actions.json. Your XP token ID:"
-            : "Copy the ID of your XP Token and add it to the connect action in actions.json once it's available."}
-          {xpTokenId && (
-            <span
-              className="ml-1 text-gray-600 font-bold cursor-pointer"
-              onClick={() => {
-                navigator.clipboard.writeText(xpTokenId);
-                toast.success("Token ID copied to clipboard!");
-              }}
-            >
-              {xpTokenId}
-            </span>
+          {actionTokenId ? (
+            <ActionID actionTokenId={actionTokenId} />
+          ) : (
+            "Add the Action Token ID to the connect action in your configuration file once it's available."
           )}
         </div>
       ),
@@ -180,7 +193,7 @@ export default function GettingStarted({
     {
       title: "Trigger your first action 🚀",
       description:
-        "Once you've updated your action, you can trigger your first action!",
+        "Once you've updated your configuration file, you can trigger your first action!",
       href: undefined,
       completed: isConnected && firstActionComplete,
       disabled: !isConnected,
@@ -191,8 +204,10 @@ export default function GettingStarted({
       ),
     },
     {
-      title: "View completed actions",
-      description: "View actions",
+      title:
+        "Congratulations! You have successfully triggered your first action 🎉",
+      description:
+        "Head over to your profile to see your completed actions.",
       href: "/profile",
       component: <ChevronRightIcon className="h-5 w-5" />,
       disabled: !isConnected || !firstActionComplete,
@@ -227,7 +242,7 @@ export default function GettingStarted({
               <p className="text-sm font-semibold leading-6 text-gray-900">
                 <a href={task.href}>
                   {task.title !== "Update your actions" ||
-                  !xpTokenId ? (
+                  !actionTokenId ? (
                     <span className="absolute inset-x-0 -top-px bottom-0" />
                   ) : null}
                   {task.title}

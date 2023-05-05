@@ -1,24 +1,24 @@
-# What is Hello world?
+# What is GetStarted?
 
-This starter is an introduction into a new decentralised world and what we believe to be the starting point for 90% of all future applications. It features a fundamental file structure boilerplate, which comprises of an admin area, authentication, and a tokenised system with XP, Badges, and "Reward Tokens", all integrated into a front-end application built using NextJS and the Open Format SDK.
+This starter is an introduction into a new decentralised world and what we believe to be the starting point for 90% of all future applications. It features a fundamental file structure boilerplate, which comprises of an admin area, authentication, and a tokenised system with Action Tokens, Badges, and Reward Tokens, all integrated into a front-end application built using NextJS and the Open Format SDK.
 
 ## Mechanics Overview
 
 To keep this as simple as possible we’re very opinionated with the rules while still retaining as much flexibility as possible to account for most scenarios out of the box.
 
-| Mechanism    | Earn          | Utility                    |
-| ------------ | ------------- | -------------------------- |
-| $RewardToken | From Missions | Governance, Digital assets |
-| XP           | From Actions  | Progress/Loyalty           |
-| NFT Badge    | From Missions | Trophy, Access             |
+| Mechanism     | Earn          | Utility                    |
+| ------------- | ------------- | -------------------------- |
+| Reward Tokens | From Missions | Governance, Digital assets |
+| Action Tokens | From Actions  | Progress/Loyalty           |
+| NFT Badge     | From Missions | Trophy, Access             |
 
 ### Leaderboard
 
-The leaderboard lists the users in descending order by their XP. This leaderboard can be overall, or dimensioned by a time based frequency such days, weeks, months.
+The leaderboard lists the users in descending order by their Action Tokens. This leaderboard can be overall, or dimensioned by a time based frequency such days, weeks, months.
 
 ### Profile
 
-The profile shows completed actions, completed missions, and gained XP of the signed-in user.
+The profile shows completed actions, completed missions, and gained Action Tokens of the signed-in user.
 
 ## Getting started
 
@@ -27,7 +27,7 @@ The profile shows completed actions, completed missions, and gained XP of the si
 Before we get started there a few steps we need to take first:
 
 1. Web3 wallet - We recommend [Metamask](https://metamask.io/), although a list of wallets supported by Ethereum can be found [here](https://ethereum.org/en/wallets/find-wallet/#main-content). We’ve created a [video](https://www.youtube.com/watch?v=ZS7VuGZ5VgI&list=PLtnXR6ERygvJ6qT6UYSH8Ve3RAdgYJN26&index=6&t=801s) that explains what web3 wallets are, why you need one, and how to use them.
-2. Generate an App ID at [https://apps.openformat.tech/](https://apps.openformat.tech/). As Open Format supports multiple networks, make sure you create an App ID on the same network that you use in your starter. The default network used is Polygon.
+2. Generate an App ID at [https://apps.openformat.tech/](https://apps.openformat.tech/). As Open Format supports multiple networks, make sure you create an App ID on the same network that you use in your starter. The default network used is Polygon Mumbai.
 3. You’ll need to have **Node 14.6.0** or a later version installed on your local development machine. We recommend using the latest LTS version available.
 
 ### Installation
@@ -106,7 +106,7 @@ Follow the getting started guide on the index page to connect your wallet, creat
 
 ### What are actions
 
-An action is simply when a user does something in your app, such as connecting their wallet, posting a comment or sending a message. For each action, they will be sent a certain amount of XP tokens. You can set which actions you want users to receive XP tokens for and the amount of XP tokens they will receive for each action. Once a user completes an action, the token mechanism will handle the processing of the on-chain token exchange via the Open Format SDK. You can view completed actions via the Open Format subgraph.
+An action is simply when a user does something in your app, such as connecting their wallet, posting a comment or sending a message. For each action, they will be sent a certain amount of Action Tokens. You can set which actions you want users to receive Action Tokens for and the amount they will receive for each action. Once a user completes an action, the token mechanism will handle the processing of the on-chain token exchange via the Open Format SDK. You can view completed actions via the Open Format subgraph.
 
 ### Setup
 
@@ -138,11 +138,11 @@ async function handleConnect() {
 | Key           | Description                                                                                                            |
 | ------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | `id`          | Specifies the unique identifier for each action, which is used as a reference in the `handleCompletedAction` function. |
-| `amount`      | Specifies the number of XP tokens that should be awarded for completing the action.                                    |
+| `amount`      | Specifies the number of Action Tokens that should be awarded for completing the action.                                |
 | `description` | Provides a brief description of the action.                                                                            |
-| `address`     | Specifies the address of the XP token that's being sent.                                                               |
+| `address`     | Specifies the address of the Action Token that's being sent.                                                           |
 
-The `actions.json` file configures which actions should be triggered and how many XP tokens should be sent for each action.
+The `actions.json` file configures which actions should be triggered and how many Action Tokens should be sent for each action.
 
 ### View completed actions
 

@@ -1,8 +1,8 @@
-import React from "react";
-import Head from "next/head";
-import { useRawRequest, useWallet, fromWei } from "@openformat/react";
+import { Action, Mission, ProfileResponseData } from "@/types";
+import { fromWei, useRawRequest, useWallet } from "@openformat/react";
 import { gql } from "graphql-request";
-import { ProfileResponseData, Mission, Action } from "@/types";
+import Head from "next/head";
+import React from "react";
 
 // Profile component
 const Profile: React.FC = () => {
@@ -108,7 +108,7 @@ const Profile: React.FC = () => {
                     Tokens Earned
                   </h3>
                   <p className="mt-2 text-sm text-gray-600">
-                    {weitotaltokens} xp tokens
+                    {weitotaltokens} Action Tokens
                   </p>
                 </div>
               </div>
