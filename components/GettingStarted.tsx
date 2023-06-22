@@ -8,6 +8,7 @@ import {
 import { User } from "@/types";
 import TokenSystem from "@/utils/TokenSystem";
 import {
+  ArrowTopRightOnSquareIcon,
   CheckCircleIcon,
   ChevronRightIcon,
 } from "@heroicons/react/24/solid";
@@ -21,6 +22,7 @@ import {
   useWallet,
 } from "@openformat/react";
 import clsx from "clsx";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Button } from "../components";
@@ -162,17 +164,22 @@ export default function GettingStarted({
     {
       title: "Create your Action Token",
       description:
-        "Click to create your Action Token. You will see your created token on the admin page.",
+        "Head over to our Dashboard to create your first Action token.",
       completed:
         isConnected && TokenData && TokenData.contracts.length,
       disabled: !isConnected,
       component: (
-        <Button
-          onClick={handleCreateActionToken}
-          disabled={!isConnected}
-        >
-          Create Action Token
-        </Button>
+        <Link href="http://dashboard.openformat.tech/">
+          <Button
+            onClick={handleCreateActionToken}
+            disabled={!isConnected}
+          >
+            <div className="flex items-center space-x-1">
+              <span> Dashboard</span>
+              <ArrowTopRightOnSquareIcon className="w-4 h-4" />
+            </div>
+          </Button>
+        </Link>
       ),
     },
     {
