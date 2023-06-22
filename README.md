@@ -29,7 +29,7 @@ The profile shows completed actions, completed missions, and gained Action Token
 Before we get started there a few steps we need to take first:
 
 1. Web3 wallet - We recommend [Metamask](https://metamask.io/), although a list of wallets supported by Ethereum can be found [here](https://ethereum.org/en/wallets/find-wallet/#main-content). We’ve created a [video](https://www.youtube.com/watch?v=ZS7VuGZ5VgI&list=PLtnXR6ERygvJ6qT6UYSH8Ve3RAdgYJN26&index=6&t=801s) that explains what web3 wallets are, why you need one, and how to use them.
-2. Generate an App ID at [https://apps.openformat.tech/](https://apps.openformat.tech/). As Open Format supports multiple networks, make sure you create an App ID on the same network that you use in your starter. The default network used is Polygon Mumbai.
+2. Head over to our [Dashboard](http://dashboard.openformat.tech/) to generate a Constellation ID. As Open Format supports multiple networks, make sure you create an Constellation ID on the same network that you use in your starter. The default network used is Polygon Mumbai.
 3. You’ll need to have **Node 14.6.0** or a later version installed on your local development machine. We recommend using the latest LTS version available.
 
 ### Installation
@@ -51,9 +51,9 @@ create-open-format-app <projectName>
 
 ## Setup
 
-### App ID
+### Constellation ID
 
-To interact with the Open Format ecosystem, you will need an App ID, which acts as an API Key. You can generate an App ID in your [App Dashboard](https://apps.openformat.tech/). Generating an App ID requires deploying an application to the blockchain, which requires a Web3 wallet with sufficient funds to cover the gas fees. Depending on the network, you can obtain funds from a [faucet](https://faucet.polygon.technology/).
+To interact with the Open Format ecosystem, you will need an Constellation ID, which acts as an API Key. You can generate an Constellation ID in our [Dashboard](http://dashboard.openformat.tech/). Generating an Constellation ID requires deploying an application to the blockchain, which requires a Web3 wallet with sufficient funds to cover the gas fees. Depending on the network, you can obtain funds from a [faucet](https://faucet.polygon.technology/).
 
 <img width="574" alt="appId" src="https://user-images.githubusercontent.com/7047410/233409811-bc73b1ed-10cb-4510-a7d4-a8b737a5b531.png">
 
