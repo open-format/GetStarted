@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { HeaderProps } from "@/types";
+import { useWallet } from "@openformat/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { HeaderProps } from "@/types";
+import { useState } from "react";
 import Login from "./auth/Login";
-import { useWallet } from "@openformat/react";
 
 // Header component to display the site navigation bar
 const Header: React.FC<HeaderProps> = () => {
@@ -20,12 +20,7 @@ const Header: React.FC<HeaderProps> = () => {
   const links = [
     { path: "/", label: "Home" },
     // Only show Profile and Admin links if connected
-    ...(isConnected
-      ? [
-          { path: "/profile", label: "Profile" },
-          { path: "/admin", label: "Admin" },
-        ]
-      : []),
+    ...(isConnected ? [{ path: "/profile", label: "Profile" }] : []),
     { path: "/leaderboard", label: "Leaderboard" },
   ];
 
