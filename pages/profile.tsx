@@ -1,5 +1,7 @@
 import { Action, Mission, ProfileResponseData } from "@/types";
+import { ArrowPathIcon } from "@heroicons/react/24/solid";
 import { fromWei, useRawRequest, useWallet } from "@openformat/react";
+import clsx from "clsx";
 import { gql } from "graphql-request";
 import Head from "next/head";
 import React from "react";
@@ -10,7 +12,7 @@ const Profile: React.FC = () => {
   const { address = null } = useWallet();
 
   // Use the useRawRequest hook to fetch actions and missions data for the user
-  const { actions = [], missions = [] }: ProfileResponseData =
+  const { data, refetch, isRefetching }: ProfileResponseData =
     useRawRequest({
       query: gql`
         query MyQuery($userId: String!, $appId: String!) {
@@ -27,7 +29,10 @@ const Profile: React.FC = () => {
         userId: address?.toLocaleLowerCase(),
         appId: process.env.NEXT_PUBLIC_APP_ID,
       },
-    }).data || {};
+    });
+
+  const actions = data?.actions ?? [];
+  const missions = data?.missions ?? [];
 
   // Calculate the action counts and tokens earned by the user
   const calculateActionCountsAndTokens = (actions: Action[]) => {
@@ -90,6 +95,17 @@ const Profile: React.FC = () => {
       {/* Main content */}
       <main className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <header className="sm:flex sm:items-center m-4">
+          <div
+            onClick={refetch}
+            className="bg-blue-500 rounded-lg p-2 m-2 hover:bg-blue-600 hover:cursor-pointer "
+          >
+            <ArrowPathIcon
+              className={clsx(
+                { "animate-spin": isRefetching },
+                "w-6 h-6"
+              )}
+            />
+          </div>
           <div className="sm:flex-auto">
             <h1 className="text-base font-semibold leading-6 text-gray-900">
               Profile

@@ -93,7 +93,7 @@ export default function GettingStarted({
 
     if (address) {
       const data: User = await tokenSystem
-        .handleCompletedAction(address, "connect")
+        .handleCompletedAction(address, "example")
         .catch((error: string) => {
           toast.error("Sending tokens failed. Please try again.");
           throw new Error(error);
@@ -161,13 +161,13 @@ export default function GettingStarted({
     {
       title: "Trigger your first action 🚀",
       description:
-        "Once you've updated your configuration file, you can trigger your first action!",
+        "Now you've connected, you can trigger your first action!",
       href: undefined,
-      completed: false,
+      completed: isConnected && firstActionComplete,
       disabled: !isConnected,
       component: (
         <Button onClick={handleConnect} disabled={!isConnected}>
-          Trigger Action
+          Trigger "Example" Action
         </Button>
       ),
     },
@@ -179,6 +179,19 @@ export default function GettingStarted({
       href: "/profile",
       component: <ChevronRightIcon className="h-5 w-5" />,
       disabled: !isConnected || !firstActionComplete,
+    },
+    {
+      title: "Complete your first mission 🚀",
+      description:
+        "Complete your first mission by triggering two more example actions",
+      href: undefined,
+      completed: false,
+      disabled: !isConnected,
+      component: (
+        <Button onClick={handleConnect} disabled={!isConnected}>
+          Trigger "Example" action
+        </Button>
+      ),
     },
     {
       title: "View Docs",

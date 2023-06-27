@@ -1,7 +1,7 @@
 [
   {
-    "id": "connect_three_times",
-    "description": "Connect three times",
+    "id": "example",
+    "description": "Complete the example action three times",
     "tokens": [
       {
         "address": "0xa0c02535ecdf6f0e845c0cfa9660ee5c457a9538",
@@ -14,7 +14,7 @@
     ],
     "requirements": [
       {
-        "actionId": "connect",
+        "actionId": "example",
         "count": 3
       }
     ]

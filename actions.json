@@ -1,8 +1,8 @@
 [
   {
-    "id": "connect",
+    "id": "example",
     "amount": 10,
-    "description": "Connect your wallet",
+    "description": "An example action",
     "address": "0xf2f56b4610992f5555c687bdffc5c68306296ea5"
   }
 ]
