@@ -8,7 +8,6 @@ import {
 import { User } from "@/types";
 import TokenSystem from "@/utils/TokenSystem";
 import {
-  ArrowTopRightOnSquareIcon,
   CheckCircleIcon,
   ChevronRightIcon,
 } from "@heroicons/react/24/solid";
@@ -22,7 +21,6 @@ import {
   useWallet,
 } from "@openformat/react";
 import clsx from "clsx";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Button } from "../components";
@@ -55,7 +53,6 @@ export default function GettingStarted({
         name: "Action Token",
       },
     });
-
   // Refetch the data whenever isConnected, isLoading or refetch change
   useEffect(() => {
     refetch();
@@ -162,47 +159,11 @@ export default function GettingStarted({
       component: <ConnectButton />,
     },
     {
-      title: "Create your Action Token",
-      description:
-        "Head over to our Dashboard to create your first Action token.",
-      completed:
-        isConnected && TokenData && TokenData.contracts.length,
-      disabled: !isConnected,
-      component: (
-        <Link href="http://dashboard.openformat.tech/">
-          <Button
-            onClick={handleCreateActionToken}
-            disabled={!isConnected}
-          >
-            <div className="flex items-center space-x-1">
-              <span> Dashboard</span>
-              <ArrowTopRightOnSquareIcon className="w-4 h-4" />
-            </div>
-          </Button>
-        </Link>
-      ),
-    },
-    {
-      title: "Update your actions",
-      description: "",
-      descriptionElement: (
-        <div className="text-xs leading-5 text-gray-500">
-          {actionTokenId ? (
-            <ActionID actionTokenId={actionTokenId} />
-          ) : (
-            "Add the Action Token ID to the connect action in your configuration file once it's available."
-          )}
-        </div>
-      ),
-      href: undefined,
-      disabled: !isConnected,
-    },
-    {
       title: "Trigger your first action 🚀",
       description:
         "Once you've updated your configuration file, you can trigger your first action!",
       href: undefined,
-      completed: isConnected && firstActionComplete,
+      completed: false,
       disabled: !isConnected,
       component: (
         <Button onClick={handleConnect} disabled={!isConnected}>

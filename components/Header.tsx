@@ -21,6 +21,9 @@ const Header: React.FC<HeaderProps> = () => {
     { path: "/", label: "Home" },
     // Only show Profile and Admin links if connected
     ...(isConnected ? [{ path: "/profile", label: "Profile" }] : []),
+    ...(isConnected
+      ? [{ path: "/admin", label: "Create Badges" }]
+      : []),
     { path: "/leaderboard", label: "Leaderboard" },
   ];
 

@@ -5,6 +5,7 @@ import {
   useWallet,
 } from "@openformat/react";
 import { toWei } from "@openformat/sdk";
+import axios from "axios";
 import { ethers } from "ethers";
 import { gql } from "graphql-request";
 import React, { useEffect, useState } from "react";
@@ -64,7 +65,7 @@ const CreateContract: React.FC = () => {
       symbol: formData.symbol,
     };
 
-    await toast.promise(sdk.Reward.createBadge(params), {
+    await toast.promise(axios.post("/api/createBadge", params), {
       loading: "Creating Badge",
       success: "Badge created",
       error: "Error creating Badge, please try again",
@@ -122,7 +123,6 @@ const CreateContract: React.FC = () => {
           value={tokenType}
         >
           <option value="BADGE">Badge</option>
-          <option value="REWARD">Token</option>
         </select>
       </div>
 
@@ -192,10 +192,7 @@ const CreateContract: React.FC = () => {
       )}
 
       <div className="relative group">
-        <Button disabled={!isOwner} onClick={handleSubmit(onSubmit)}>
-          {!isOwner && "Only the app owner can create contracts"}
-          {isOwner && "Create Contract"}
-        </Button>
+        <Button onClick={handleSubmit(onSubmit)}>Create Badge</Button>
       </div>
     </form>
   );

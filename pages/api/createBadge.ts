@@ -38,7 +38,7 @@ export default async function handler(
   if (req.method === "POST") {
     try {
       // Trigger the reward using OpenFormatSDK
-      await sdk.Reward.trigger(req.body);
+      await sdk.Reward.createBadge(req.body);
 
       // Return a successful response with the reward details
       return res.json({

@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import Head from "next/head";
-import CreateContract from "../components/admin/CreateContract";
-import Contracts from "../components/admin/Contracts";
+import Contracts from "@/components/admin/Contracts";
 import { useWallet } from "@openformat/react";
-import { Button } from "@/components";
+import Head from "next/head";
+import React, { useState } from "react";
+import CreateContract from "../components/admin/CreateContract";
 
 // Admin page component
 const Admin: React.FC = () => {
@@ -48,29 +47,19 @@ const Admin: React.FC = () => {
           <h1 className="text-base font-semibold leading-6 text-gray-900">
             Admin
           </h1>
-          <p className="mt-2 text-sm text-gray-700">
-            Create and view Tokens and Badges in your application.
-          </p>
         </div>
-        <Button
-          disabled={false}
-          onClick={() => setShowContracts(!showContracts)}
-        >
-          Create Contracts
-        </Button>
       </div>
       {/* Check if the user's wallet is connected */}
       {address ? (
         // If the wallet is connected, display the CreateContract and Contracts components
         <div className="mx-auto sm:px-6 lg:px-8">
-          {showContracts && (
-            <div className="mt-8">
-              <h2 className="text-lg font-semibold leading-6 text-gray-900 m-4">
-                Create Tokens and Badges
-              </h2>
-              <CreateContract />
-            </div>
-          )}
+          <div className="mt-8">
+            <h2 className="text-lg font-semibold leading-6 text-gray-900 m-4">
+              Create Badge
+            </h2>
+            <CreateContract />
+          </div>
+
           <div className="flex justify-between items-center">
             <h2 className="text-lg font-semibold leading-6 text-gray-900 m-4">
               Available Tokens and Badges

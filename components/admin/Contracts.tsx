@@ -39,6 +39,10 @@ function Contracts() {
     toast.success("Copied!");
   };
 
+  const badges = contracts?.filter(
+    (contract) => contract.type === "Badge"
+  );
+
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="mt-8 flow-root">
@@ -66,7 +70,7 @@ function Contracts() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
-                  {contracts.map((contract) => (
+                  {badges.map((contract) => (
                     <tr key={contract.id}>
                       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-xs sm:text-sm font-medium text-gray-900 sm:pl-6">
                         <button

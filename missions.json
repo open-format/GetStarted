@@ -1,25 +1,21 @@
 [
   {
-    "id": "connect_and_share",
-    "description": "Connect twice times and share once",
+    "id": "connect_three_times",
+    "description": "Connect three times",
     "tokens": [
       {
-        "address": "INSERT_REWARD_TOKEN_ADDRESS",
+        "address": "0xa0c02535ecdf6f0e845c0cfa9660ee5c457a9538",
         "amount": 20
       },
       {
-        "address": "INSERT_BADGE_TOKEN_ADDRESS",
-        "uri": "ipfs://"
+        "address": "0x6e5bb39718c2032177586f61a23548090fd18567",
+        "uri": "ipfs://bafkreib2ofqfcgpe5laipvgalzvf24aqbz7tmbktz36zkvt54wnkldzm2i"
       }
     ],
     "requirements": [
       {
         "actionId": "connect",
-        "count": 2
-      },
-      {
-        "actionId": "share",
-        "count": 1
+        "count": 3
       }
     ]
   }

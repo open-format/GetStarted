@@ -2,7 +2,7 @@ import {
   getActionsByUserAndRequirements,
   getMissionsByUserAndRequirements,
 } from "@/queries";
-import { RewardParams, Mission, Action } from "@/types";
+import { Action, Mission, RewardParams } from "@/types";
 import { OpenFormatSDK } from "@openformat/sdk";
 import axios from "axios";
 
