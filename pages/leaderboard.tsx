@@ -1,8 +1,8 @@
-import { useState } from "react";
 import Head from "next/head";
-import TimeRangeDropdown from "../components/leaderboard/TimeRangeDropdown";
+import { useState } from "react";
 import ActionsLeaderboard from "../components/leaderboard/ActionsLeaderboard";
 import MissionsLeaderboard from "../components/leaderboard/MissionsLeaderboard";
+import TimeRangeDropdown from "../components/leaderboard/TimeRangeDropdown";
 import { getTimeRange } from "../utils/getTimeRange";
 
 // Define the Leaderboard component
@@ -91,7 +91,9 @@ export default function Leaderboard() {
                 <div className="sm:flex">
                   <div className="sm:w-1/2 sm:pr-4">
                     <ActionsLeaderboard
-                      appId={process.env.NEXT_PUBLIC_APP_ID || ""}
+                      appId={
+                        process.env.NEXT_PUBLIC_CONSTELLATION_ID || ""
+                      }
                       createdAtGte={createdAtGte}
                       createdAtLte={createdAtLte}
                       formatUserId={formatUserId}
@@ -99,7 +101,9 @@ export default function Leaderboard() {
                   </div>
                   <div className="sm:w-1/2 sm:pl-4">
                     <MissionsLeaderboard
-                      appId={process.env.NEXT_PUBLIC_APP_ID || ""}
+                      appId={
+                        process.env.NEXT_PUBLIC_CONSTELLATION_ID || ""
+                      }
                       createdAtGte={createdAtGte}
                       createdAtLte={createdAtLte}
                       formatUserId={formatUserId}

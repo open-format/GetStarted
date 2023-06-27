@@ -26,7 +26,7 @@ const CreateContract: React.FC = () => {
         }
       }
     `,
-    variables: { appId: process.env.NEXT_PUBLIC_APP_ID },
+    variables: { appId: process.env.NEXT_PUBLIC_CONSTELLATION_ID },
   });
 
   const { address } = useWallet();

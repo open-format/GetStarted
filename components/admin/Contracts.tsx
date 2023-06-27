@@ -20,7 +20,7 @@ function Contracts() {
         }
       }
     `,
-    variables: { appId: process.env.NEXT_PUBLIC_APP_ID },
+    variables: { appId: process.env.NEXT_PUBLIC_CONSTELLATION_ID },
   });
 
   // Show loading message while data is being fetched

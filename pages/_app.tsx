@@ -32,7 +32,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <OpenFormatProvider
         config={{
           networks: [Chains.polygonMumbai],
-          appId: process.env.NEXT_PUBLIC_APP_ID || "",
+          appId: process.env.NEXT_PUBLIC_CONSTELLATION_ID || "",
         }}
       >
         <Header />

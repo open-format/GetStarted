@@ -25,7 +25,7 @@ const signer = new DefenderRelaySigner(credentials, provider, {
 // Initialize the OpenFormatSDK with necessary configurations
 const sdk = new OpenFormatSDK({
   network: Chains.polygonMumbai,
-  appId: process.env.NEXT_PUBLIC_APP_ID || "",
+  appId: process.env.NEXT_PUBLIC_CONSTELLATION_ID || "",
   signer: signer,
 });
 

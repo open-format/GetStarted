@@ -41,7 +41,7 @@ export default function GettingStarted({
     query: getActionsByUserAndRequirements,
     variables: {
       user: address?.toLocaleLowerCase(),
-      app: process.env.NEXT_PUBLIC_APP_ID,
+      app: process.env.NEXT_PUBLIC_CONSTELLATION_ID,
     },
   });
 
@@ -49,7 +49,7 @@ export default function GettingStarted({
     useRawRequest<any, any>({
       query: getTokenByName,
       variables: {
-        app: process.env.NEXT_PUBLIC_APP_ID,
+        app: process.env.NEXT_PUBLIC_CONSTELLATION_ID,
         name: "Action Token",
       },
     });

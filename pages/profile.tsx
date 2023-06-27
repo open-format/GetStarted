@@ -27,7 +27,7 @@ const Profile: React.FC = () => {
       `,
       variables: {
         userId: address?.toLocaleLowerCase(),
-        appId: process.env.NEXT_PUBLIC_APP_ID,
+        appId: process.env.NEXT_PUBLIC_CONSTELLATION_ID,
       },
     });
 
