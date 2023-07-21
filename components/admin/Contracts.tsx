@@ -1,27 +1,10 @@
-import { ResponseData, Variables } from "@/types";
-import { fromWei, useRawRequest } from "@openformat/react";
-import { gql } from "graphql-request";
+import { ResponseData } from "@/types";
+import { fromWei } from "@openformat/react";
 import { toast } from "react-hot-toast";
 
 // Contracts component
-function Contracts() {
+function Contracts({ data }: { data: ResponseData }) {
   // Fetch contract data using useRawRequest hook
-  const { data } = useRawRequest<ResponseData, Variables>({
-    query: gql`
-      query MyQuery($appId: String!) {
-        contracts(where: { app: $appId }) {
-          id
-          createdAt
-          type
-          metadata {
-            name
-            totalSupply
-          }
-        }
-      }
-    `,
-    variables: { appId: process.env.NEXT_PUBLIC_APP_ID },
-  });
 
   // Show loading message while data is being fetched
   if (!data) {

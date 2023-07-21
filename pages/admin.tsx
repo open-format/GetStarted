@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import { Button, RefreshButton, Tooltip } from "@/components";
+import { ResponseData, Variables } from "@/types";
+import { useRawRequest, useWallet } from "@openformat/react";
+import { gql } from "graphql-request";
 import Head from "next/head";
-import CreateContract from "../components/admin/CreateContract";
+import React, { useState } from "react";
 import Contracts from "../components/admin/Contracts";
-import { useWallet } from "@openformat/react";
-import { Button } from "@/components";
-
+import CreateContract from "../components/admin/CreateContract";
 // Admin page component
 const Admin: React.FC = () => {
   // Use the useWallet hook to get the user's wallet address
@@ -12,6 +13,26 @@ const Admin: React.FC = () => {
 
   // Create a state to toggle the visibility of the Contracts component
   const [showContracts, setShowContracts] = useState(false);
+
+  const { data, refetch, isRefetching } = useRawRequest<
+    ResponseData,
+    Variables
+  >({
+    query: gql`
+      query MyQuery($appId: String!) {
+        contracts(where: { app: $appId }) {
+          id
+          createdAt
+          type
+          metadata {
+            name
+            totalSupply
+          }
+        }
+      }
+    `,
+    variables: { appId: process.env.NEXT_PUBLIC_APP_ID },
+  });
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -71,14 +92,24 @@ const Admin: React.FC = () => {
               <CreateContract />
             </div>
           )}
-          <div className="flex justify-between items-center">
-            <h2 className="text-lg font-semibold leading-6 text-gray-900 m-4">
+
+          <div className="flex space-x-2 items-center group relative">
+            <RefreshButton
+              onClick={refetch}
+              isFetching={isRefetching}
+            />
+            <Tooltip>
+              Depending on network conditions, it may take a couple
+              minutes for the latest tokens and badges to appear on
+              chain.
+            </Tooltip>
+            <h2 className="text-lg font-semibold leading-6 text-gray-900">
               Available Tokens and Badges
             </h2>
           </div>
 
           <div className="mt-8">
-            <Contracts />
+            <Contracts data={data} />
           </div>
         </div>
       ) : (

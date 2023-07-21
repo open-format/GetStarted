@@ -5,6 +5,7 @@ import {
   getActionsByUserAndRequirements,
   getTokenByName,
 } from "@/queries";
+import { useActionStore } from "@/stores";
 import { User } from "@/types";
 import TokenSystem from "@/utils/TokenSystem";
 import {
@@ -35,6 +36,7 @@ export default function GettingStarted({
   const { isConnected, address } = useWallet();
   const [isLoading, setLoading] = useState<boolean>(false);
   const { sdk } = useOpenFormat();
+  const { actionId, setActionId } = useActionStore();
 
   // Fetch the data related to the user's actions and requirements
   const { data, refetch } = useRawRequest<any, any>({
@@ -76,11 +78,9 @@ export default function GettingStarted({
             error: "Error creating Action Token, please try again",
           }
         )
-        .then(() => {
-          setTimeout(() => {
-            refetch();
-            location.reload();
-          }, 3000);
+        .then((res) => {
+          console.log(res);
+          setActionId(res.contract.address);
         });
     }
   }
@@ -97,6 +97,7 @@ export default function GettingStarted({
         .handleCompletedAction(address, "connect")
         .catch((error: string) => {
           toast.error("Sending tokens failed. Please try again.");
+          toast.dismiss(loadingToast);
           throw new Error(error);
         });
       toast.dismiss(loadingToast);
@@ -129,7 +130,7 @@ export default function GettingStarted({
 
   const firstActionComplete = Boolean(data?.actions?.length);
 
-  const actionTokenId = TokenData?.contracts?.[0]?.id || "";
+  const actionTokenId = TokenData?.contracts?.[0]?.id || actionId;
 
   function ActionID({ actionTokenId }: { actionTokenId: string }) {
     function handleCopyToClipboard() {
@@ -164,7 +165,8 @@ export default function GettingStarted({
       description:
         "Click to create your Action Token. You will see your created token on the admin page.",
       completed:
-        isConnected && TokenData && TokenData.contracts.length,
+        isConnected &&
+        ((TokenData && TokenData.contracts.length) || actionTokenId),
       disabled: !isConnected,
       component: (
         <Button

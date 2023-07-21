@@ -1,3 +1,4 @@
+import { RefreshButton, Tooltip } from "@/components";
 import { Action, Mission, ProfileResponseData } from "@/types";
 import { fromWei, useRawRequest, useWallet } from "@openformat/react";
 import { gql } from "graphql-request";
@@ -10,24 +11,26 @@ const Profile: React.FC = () => {
   const { address = null } = useWallet();
 
   // Use the useRawRequest hook to fetch actions and missions data for the user
-  const { actions = [], missions = [] }: ProfileResponseData =
-    useRawRequest({
-      query: gql`
-        query MyQuery($userId: String!, $appId: String!) {
-          actions(where: { user: $userId, app: $appId }) {
-            action_id
-            amount
-          }
-          missions(where: { user: $userId, app: $appId }) {
-            mission_id
-          }
+  const { data, refetch, isRefetching } = useRawRequest<
+    ProfileResponseData,
+    any
+  >({
+    query: gql`
+      query MyQuery($userId: String!, $appId: String!) {
+        actions(where: { user: $userId, app: $appId }) {
+          action_id
+          amount
         }
-      `,
-      variables: {
-        userId: address?.toLocaleLowerCase(),
-        appId: process.env.NEXT_PUBLIC_APP_ID,
-      },
-    }).data || {};
+        missions(where: { user: $userId, app: $appId }) {
+          mission_id
+        }
+      }
+    `,
+    variables: {
+      userId: address?.toLocaleLowerCase(),
+      appId: process.env.NEXT_PUBLIC_APP_ID,
+    },
+  });
 
   // Calculate the action counts and tokens earned by the user
   const calculateActionCountsAndTokens = (actions: Action[]) => {
@@ -44,9 +47,10 @@ const Profile: React.FC = () => {
   };
 
   // Calculate the number of completed missions
-  const { actionTypes, totalTokens } =
-    calculateActionCountsAndTokens(actions);
-  const missionsCompleted = missions.length;
+  const { actionTypes, totalTokens } = calculateActionCountsAndTokens(
+    data?.actions ?? []
+  );
+  const missionsCompleted = data?.missions ? data.missions.length : 0;
 
   const weitotaltokens = fromWei(totalTokens.toString());
 
@@ -90,10 +94,21 @@ const Profile: React.FC = () => {
       {/* Main content */}
       <main className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <header className="sm:flex sm:items-center m-4">
-          <div className="sm:flex-auto">
-            <h1 className="text-base font-semibold leading-6 text-gray-900">
-              Profile
-            </h1>
+          <div className="sm:flex-auto group relative">
+            <div className="flex items-center space-x-2">
+              <RefreshButton
+                onClick={refetch}
+                isFetching={isRefetching}
+              />
+              <Tooltip>
+                Depending on network conditions, it may take a couple
+                minutes for the latest tokens and badges to appear on
+                chain.
+              </Tooltip>
+              <h1 className="text-base font-semibold leading-6 text-gray-900">
+                Profile
+              </h1>
+            </div>
             <a className="text-gray-500">
               {address?.toLocaleLowerCase()}
             </a>
@@ -144,13 +159,15 @@ const Profile: React.FC = () => {
                     Missions Completed
                   </h3>
                   <ul className="mt-2 text-sm text-gray-600">
-                    {missions.map(
-                      (mission: Mission, index: number) => (
-                        <li key={index} className="py-2">
-                          {mission.mission_id}
-                        </li>
-                      )
-                    )}
+                    {data?.missions &&
+                      data.missions.length &&
+                      data.missions.map(
+                        (mission: Mission, index: number) => (
+                          <li key={index} className="py-2">
+                            {mission.mission_id}
+                          </li>
+                        )
+                      )}
                   </ul>
                 </div>
               </div>
