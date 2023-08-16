@@ -13,7 +13,7 @@ export const getMissionsByUserAndRequirements = gql`
   }
 `;
 
-// GraphQL query to get missions for the leaderboard based on app ID and a specific date range
+// GraphQL query to get missions for the leaderboard based on Constellation ID and a specific date range
 export const getMissionsForLeaderboard = gql`
   query getMissionsForLeaderboard(
     $appId: String!
