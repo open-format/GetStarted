@@ -1,8 +1,9 @@
+> [!NOTE]  
+> This template is no longer maintained. Please use the new [get-started template](https://github.com/open-format/get-started).
+
 # What is GetStarted?
 
-This starter is an introduction into a new decentralised world and what we believe to be the starting point for 90% of all future applications. It features a fundamental file structure boilerplate, which comprises of an admin area, authentication, and a tokenised system with Action Tokens, Badges, and Reward Tokens, all integrated into a front-end application built using NextJS and the Open Format SDK.
-
-https://user-images.githubusercontent.com/7047410/236463694-5b44e650-1cae-40eb-90a4-8cd1e44dd0b5.mp4
+This starter is an introduction into a new decentralised world and what we believe to be the starting point for 90% of all future applications. It features a fundamental file structure boilerplate, which comprises of an admin area, authentication, and a tokenised system with Action Tokens, Badges, and Reward Tokens, all integrated into a front-end application built using NextJS and the OPENFORMAT SDK.
 
 ## Mechanics Overview
 
@@ -29,7 +30,7 @@ The profile shows completed actions, completed missions, and gained Action Token
 Before we get started there a few steps we need to take first:
 
 1. Web3 wallet - We recommend [Metamask](https://metamask.io/), although a list of wallets supported by Ethereum can be found [here](https://ethereum.org/en/wallets/find-wallet/#main-content). We’ve created a [video](https://www.youtube.com/watch?v=ZS7VuGZ5VgI&list=PLtnXR6ERygvJ6qT6UYSH8Ve3RAdgYJN26&index=6&t=801s) that explains what web3 wallets are, why you need one, and how to use them.
-2. Generate an App ID at [https://apps.openformat.tech/](https://apps.openformat.tech/). As Open Format supports multiple networks, make sure you create an App ID on the same network that you use in your starter. The default network used is Polygon Mumbai.
+2. A Star ID. See [Setup](#setup) below.
 3. You’ll need to have **Node 14.6.0** or a later version installed on your local development machine. We recommend using the latest LTS version available.
 
 ### Installation
@@ -51,9 +52,10 @@ create-open-format-app <projectName>
 
 ## Setup
 
-### App ID
+### Star ID
 
-To interact with the Open Format ecosystem, you will need an App ID, which acts as an API Key. You can generate an App ID in your [App Dashboard](https://apps.openformat.tech/). Generating an App ID requires deploying an application to the blockchain, which requires a Web3 wallet with sufficient funds to cover the gas fees. Depending on the network, you can obtain funds from a [faucet](https://faucet.polygon.technology/).
+To interact with the OPENFORMAT ecosystem, you will need a Star ID, which acts as an API Key. View our [docs](https://docs.openformat.tech/quickstart/typescript#setup) to learn how to create one. Generating a Star ID requires
+a Web3 wallet with sufficient funds to cover the gas fees. Depending on the network, you can obtain funds from a [faucet](https://faucet.polygon.technology/).
 
 <img width="574" alt="appId" src="https://user-images.githubusercontent.com/7047410/233409811-bc73b1ed-10cb-4510-a7d4-a8b737a5b531.png">
 
@@ -108,7 +110,7 @@ Follow the getting started guide on the index page to connect your wallet, creat
 
 ### What are actions
 
-An action is simply when a user does something in your app, such as connecting their wallet, posting a comment or sending a message. For each action, they will be sent a certain amount of Action Tokens. You can set which actions you want users to receive Action Tokens for and the amount they will receive for each action. Once a user completes an action, the token mechanism will handle the processing of the on-chain token exchange via the Open Format SDK. You can view completed actions via the Open Format subgraph.
+An action is simply when a user does something in your app, such as connecting their wallet, posting a comment or sending a message. For each action, they will be sent a certain amount of Action Tokens. You can set which actions you want users to receive Action Tokens for and the amount they will receive for each action. Once a user completes an action, the token mechanism will handle the processing of the on-chain token exchange via the OPENFORMAT SDK. You can view completed actions via the OPENFORMAT subgraph.
 
 ### Setup
 
@@ -154,7 +156,7 @@ You can view completed actions on-chain using our subgraph. You can see an examp
 
 ### What are missions
 
-Missions are sets of actions that users must complete in order to receive tokens. Once a user has completed all the required actions for a mission, they will receive tokens and/or badges. The requirements for each mission are defined in the `missions.json` file, which specifies the actions that need to be completed and how many times each action needs to be completed. Missions are automatically triggered when a set of required actions have been completed. Completed missions can be viewed via the Open Format subgraph.
+Missions are sets of actions that users must complete in order to receive tokens. Once a user has completed all the required actions for a mission, they will receive tokens and/or badges. The requirements for each mission are defined in the `missions.json` file, which specifies the actions that need to be completed and how many times each action needs to be completed. Missions are automatically triggered when a set of required actions have been completed. Completed missions can be viewed via the OPENFORMAT subgraph.
 
 ### Setup
 
